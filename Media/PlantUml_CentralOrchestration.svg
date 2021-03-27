@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="381px" preserveAspectRatio="none" style="width:440px;height:381px;" version="1.1" viewBox="0 0 440 381" width="440px" zoomAndPan="magnify"><defs><filter height="300%" id="f73oxsb281u3r" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[bbeea8f3997d44d906b56d098a5eb701]
+cluster Process Orchestration Layer--><polygon fill="#DDDDDD" filter="url(#f73oxsb281u3r)" points="66,6,303,6,310,28.2969,326,28.2969,326,197,66,197,66,6" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="66" x2="310" y1="28.2969" y2="28.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="231" x="70" y="20.9951">Process Orchestration Layer</text><!--MD5=[2da689ad40c60bdeec7efdb990c8f7e8]
+cluster PEA A--><polygon fill="#DDDDDD" filter="url(#f73oxsb281u3r)" points="16,270,68,270,75,292.2969,134,292.2969,134,369,16,369,16,270" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="16" x2="75" y1="292.2969" y2="292.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="46" x="20" y="284.9951">PEA A</text><!--MD5=[18d840dd833a6dad2aefb2bb99eb9ca2]
+cluster PEA B--><polygon fill="#DDDDDD" filter="url(#f73oxsb281u3r)" points="158,270,210,270,217,292.2969,276,292.2969,276,369,158,369,158,270" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="158" x2="217" y1="292.2969" y2="292.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="46" x="162" y="284.9951">PEA B</text><!--MD5=[6a80bdd026ea4da049132d1b6cb27a4d]
+cluster PEA C--><polygon fill="#DDDDDD" filter="url(#f73oxsb281u3r)" points="300,270,351,270,358,292.2969,418,292.2969,418,369,300,369,300,270" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="300" x2="358" y1="292.2969" y2="292.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="45" x="304" y="284.9951">PEA C</text><!--MD5=[5213f8ec108ec6ee9c86235ee98e5f6b]
+class AssociatedService--><rect codeLine="13" fill="#98FB98" filter="url(#f73oxsb281u3r)" height="53.9375" id="AssociatedService" style="stroke: #00FF7F; stroke-width: 1.5;" width="179" x="127.5" y="127"/><ellipse cx="142.5" cy="145.9688" fill="#ADD1B2" rx="11" ry="11" style="stroke: #00FF7F; stroke-width: 1.0;"/><path d="M144.8438,141.6406 C143.9063,141.2031 143.3125,141.0625 142.4375,141.0625 C139.8125,141.0625 137.8125,143.1406 137.8125,145.8594 L137.8125,146.9844 C137.8125,149.5625 139.9219,151.4531 142.8125,151.4531 C144.0313,151.4531 145.1875,151.1563 145.9375,150.6094 C146.5156,150.2031 146.8438,149.75 146.8438,149.3594 C146.8438,148.9063 146.4531,148.5156 145.9844,148.5156 C145.7656,148.5156 145.5625,148.5938 145.375,148.7813 C144.9219,149.2656 144.9219,149.2656 144.7344,149.3594 C144.3125,149.625 143.625,149.75 142.8594,149.75 C140.8125,149.75 139.5156,148.6563 139.5156,146.9531 L139.5156,145.8594 C139.5156,144.0781 140.7656,142.7656 142.5,142.7656 C143.0781,142.7656 143.6875,142.9219 144.1563,143.1719 C144.6406,143.4531 144.8125,143.6719 144.9063,144.0781 C144.9688,144.4844 145,144.6094 145.1406,144.7344 C145.2813,144.875 145.5156,144.9844 145.7344,144.9844 C146,144.9844 146.2656,144.8438 146.4375,144.625 C146.5469,144.4688 146.5781,144.2813 146.5781,143.8594 L146.5781,142.4375 C146.5781,142 146.5625,141.875 146.4688,141.7188 C146.3125,141.4531 146.0313,141.3125 145.7344,141.3125 C145.4375,141.3125 145.2344,141.4063 145.0156,141.7188 L144.8438,141.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="151" x="154.5" y="143.1387">«explicitly implemented»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="113" x="173.5" y="157.1074">AssociatedService</text><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="128.5" x2="305.5" y1="164.9375" y2="164.9375"/><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="128.5" x2="305.5" y1="172.9375" y2="172.9375"/><path d="M82.5,41 L82.5,66.1328 A0,0 0 0 0 82.5,66.1328 L194.491,66.1328 L211.442,126.931 L202.491,66.1328 L309.5,66.1328 A0,0 0 0 0 309.5,66.1328 L309.5,51 L299.5,41 L82.5,41 A0,0 0 0 0 82.5,41 " fill="#FBFB77" filter="url(#f73oxsb281u3r)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M299.5,41 L299.5,51 L309.5,51 L299.5,41 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="206" x="88.5" y="58.0669">central orchestrated association</text><ellipse cx="87" cy="154" fill="#98FB98" filter="url(#f73oxsb281u3r)" rx="5" ry="5" style="stroke: #00FF7F; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="46" x="64" y="170.1387">Service</text><!--MD5=[002865b8e1cf1986e08dd6357225f5e0]
+class ServiceA--><rect codeLine="24" fill="#98FB98" filter="url(#f73oxsb281u3r)" height="48" id="ServiceA" style="stroke: #00FF7F; stroke-width: 1.5;" width="86" x="32" y="305"/><ellipse cx="47" cy="321" fill="#ADD1B2" rx="11" ry="11" style="stroke: #00FF7F; stroke-width: 1.0;"/><path d="M49.3438,316.6719 C48.4063,316.2344 47.8125,316.0938 46.9375,316.0938 C44.3125,316.0938 42.3125,318.1719 42.3125,320.8906 L42.3125,322.0156 C42.3125,324.5938 44.4219,326.4844 47.3125,326.4844 C48.5313,326.4844 49.6875,326.1875 50.4375,325.6406 C51.0156,325.2344 51.3438,324.7813 51.3438,324.3906 C51.3438,323.9375 50.9531,323.5469 50.4844,323.5469 C50.2656,323.5469 50.0625,323.625 49.875,323.8125 C49.4219,324.2969 49.4219,324.2969 49.2344,324.3906 C48.8125,324.6563 48.125,324.7813 47.3594,324.7813 C45.3125,324.7813 44.0156,323.6875 44.0156,321.9844 L44.0156,320.8906 C44.0156,319.1094 45.2656,317.7969 47,317.7969 C47.5781,317.7969 48.1875,317.9531 48.6563,318.2031 C49.1406,318.4844 49.3125,318.7031 49.4063,319.1094 C49.4688,319.5156 49.5,319.6406 49.6406,319.7656 C49.7813,319.9063 50.0156,320.0156 50.2344,320.0156 C50.5,320.0156 50.7656,319.875 50.9375,319.6563 C51.0469,319.5 51.0781,319.3125 51.0781,318.8906 L51.0781,317.4688 C51.0781,317.0313 51.0625,316.9063 50.9688,316.75 C50.8125,316.4844 50.5313,316.3438 50.2344,316.3438 C49.9375,316.3438 49.7344,316.4375 49.5156,316.75 L49.3438,316.6719 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="54" x="61" y="325.1543">ServiceA</text><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="33" x2="117" y1="337" y2="337"/><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="33" x2="117" y1="345" y2="345"/><!--MD5=[a96680c9ffdc3faa83ca78a4a850a161]
+class ServiceB--><rect codeLine="29" fill="#98FB98" filter="url(#f73oxsb281u3r)" height="48" id="ServiceB" style="stroke: #00FF7F; stroke-width: 1.5;" width="86" x="174" y="305"/><ellipse cx="189" cy="321" fill="#ADD1B2" rx="11" ry="11" style="stroke: #00FF7F; stroke-width: 1.0;"/><path d="M191.3438,316.6719 C190.4063,316.2344 189.8125,316.0938 188.9375,316.0938 C186.3125,316.0938 184.3125,318.1719 184.3125,320.8906 L184.3125,322.0156 C184.3125,324.5938 186.4219,326.4844 189.3125,326.4844 C190.5313,326.4844 191.6875,326.1875 192.4375,325.6406 C193.0156,325.2344 193.3438,324.7813 193.3438,324.3906 C193.3438,323.9375 192.9531,323.5469 192.4844,323.5469 C192.2656,323.5469 192.0625,323.625 191.875,323.8125 C191.4219,324.2969 191.4219,324.2969 191.2344,324.3906 C190.8125,324.6563 190.125,324.7813 189.3594,324.7813 C187.3125,324.7813 186.0156,323.6875 186.0156,321.9844 L186.0156,320.8906 C186.0156,319.1094 187.2656,317.7969 189,317.7969 C189.5781,317.7969 190.1875,317.9531 190.6563,318.2031 C191.1406,318.4844 191.3125,318.7031 191.4063,319.1094 C191.4688,319.5156 191.5,319.6406 191.6406,319.7656 C191.7813,319.9063 192.0156,320.0156 192.2344,320.0156 C192.5,320.0156 192.7656,319.875 192.9375,319.6563 C193.0469,319.5 193.0781,319.3125 193.0781,318.8906 L193.0781,317.4688 C193.0781,317.0313 193.0625,316.9063 192.9688,316.75 C192.8125,316.4844 192.5313,316.3438 192.2344,316.3438 C191.9375,316.3438 191.7344,316.4375 191.5156,316.75 L191.3438,316.6719 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="54" x="203" y="325.1543">ServiceB</text><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="175" x2="259" y1="337" y2="337"/><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="175" x2="259" y1="345" y2="345"/><!--MD5=[0cb3fd55b2e645aac94d717ccdd1ad41]
+class ServiceC--><rect codeLine="34" fill="#98FB98" filter="url(#f73oxsb281u3r)" height="48" id="ServiceC" style="stroke: #00FF7F; stroke-width: 1.5;" width="86" x="316" y="305"/><ellipse cx="331" cy="321" fill="#ADD1B2" rx="11" ry="11" style="stroke: #00FF7F; stroke-width: 1.0;"/><path d="M333.3438,316.6719 C332.4063,316.2344 331.8125,316.0938 330.9375,316.0938 C328.3125,316.0938 326.3125,318.1719 326.3125,320.8906 L326.3125,322.0156 C326.3125,324.5938 328.4219,326.4844 331.3125,326.4844 C332.5313,326.4844 333.6875,326.1875 334.4375,325.6406 C335.0156,325.2344 335.3438,324.7813 335.3438,324.3906 C335.3438,323.9375 334.9531,323.5469 334.4844,323.5469 C334.2656,323.5469 334.0625,323.625 333.875,323.8125 C333.4219,324.2969 333.4219,324.2969 333.2344,324.3906 C332.8125,324.6563 332.125,324.7813 331.3594,324.7813 C329.3125,324.7813 328.0156,323.6875 328.0156,321.9844 L328.0156,320.8906 C328.0156,319.1094 329.2656,317.7969 331,317.7969 C331.5781,317.7969 332.1875,317.9531 332.6563,318.2031 C333.1406,318.4844 333.3125,318.7031 333.4063,319.1094 C333.4688,319.5156 333.5,319.6406 333.6406,319.7656 C333.7813,319.9063 334.0156,320.0156 334.2344,320.0156 C334.5,320.0156 334.7656,319.875 334.9375,319.6563 C335.0469,319.5 335.0781,319.3125 335.0781,318.8906 L335.0781,317.4688 C335.0781,317.0313 335.0625,316.9063 334.9688,316.75 C334.8125,316.4844 334.5313,316.3438 334.2344,316.3438 C333.9375,316.3438 333.7344,316.4375 333.5156,316.75 L333.3438,316.6719 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="54" x="345" y="325.1543">ServiceC</text><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="317" x2="401" y1="337" y2="337"/><line style="stroke: #00FF7F; stroke-width: 1.5;" x1="317" x2="401" y1="345" y2="345"/><!--MD5=[08a9a174e2c1a3551193698ed9b96b01]
+link AssociatedServicelol177990 to AssociatedService--><path d="M92.078,154 C103.79,154 115.501,154 127.212,154 " fill="none" id="AssociatedServicelol177990-AssociatedService" style="stroke: #2E8B57; stroke-width: 1.0;"/><!--MD5=[9014d32e9dbc790375b6e5d4a3297821]
+link AssociatedService to ServiceA--><path codeLine="25" d="M195.433,181.275 C167.813,214.925 120.377,272.716 94.036,304.809 " fill="none" id="AssociatedService-ServiceA" style="stroke: #2E8B57; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="23" x="169" y="226.0669">use</text><polygon fill="#000000" points="176,235.1328,179,241.1328,182,235.1328,176,235.1328" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[03d43a2062f914ede7059ca1c428d010]
+link AssociatedService to ServiceB--><path codeLine="30" d="M217,181.275 C217,214.925 217,272.716 217,304.809 " fill="none" id="AssociatedService-ServiceB" style="stroke: #2E8B57; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="23" x="218" y="226.0669">use</text><polygon fill="#000000" points="225,235.1328,228,241.1328,231,235.1328,225,235.1328" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[f192bbe47bf5c3a8b6d4455d64375856]
+link AssociatedService to ServiceC--><path codeLine="35" d="M238.567,181.275 C266.187,214.925 313.623,272.716 339.964,304.809 " fill="none" id="AssociatedService-ServiceC" style="stroke: #2E8B57; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="23" x="276" y="226.0669">use</text><polygon fill="#000000" points="283,235.1328,286,241.1328,289,235.1328,283,235.1328" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[e40418e402e5a2171dc734b32f915980]
+@startuml
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor SeaGreen
+BorderColor SpringGreen
+}
+
+
+package "Process Orchestration Layer" #DDDDDD
+{
+note top of AssociatedService 
+central orchestrated association
+end note 
+class AssociatedService << explicitly implemented >>
+Service ()- AssociatedService
+
+
+
+
+}
+
+together {
+
+package "PEA A" #DDDDDD {
+class ServiceA
+AssociatedService - - ServiceA : use >
+}
+
+package "PEA B" #DDDDDD {
+class ServiceB
+AssociatedService - - ServiceB : use >
+}
+
+package "PEA C" #DDDDDD {
+class ServiceC
+AssociatedService - - ServiceC : use >
+}
+
+
+
+
+
+
+
+
+}
+@enduml
+
+PlantUML version 1.2020.17beta5(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
