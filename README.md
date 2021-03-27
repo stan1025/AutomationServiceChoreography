@@ -15,17 +15,31 @@ In my research, I am concerned with adapting the idea of service choreographies 
 
 The idea of transferring service choreographies into the domain of industrial automation is the starting point of this work. The goal is to develop and evaluate an adaptive runtime architecture based on a collaborative approach between commercial automation systems.
 
-The scope of my research is initially focused on the process industry and the ongoing activities in this area with regard to the topic of modular production. Requirements for the solution to be developed come from standardization committees, publicly and privately funded research projects as well as expert interviews with users of automation in the process industry. 
+The scope of my research is initially focused on the process industry and the ongoing activities in this area with regard to the topic of modular production. Requirements for the solution to be developed come from standardization committees, publicly and privately funded research projects as well as expert interviews with users of automation in the process industry.
 
 ## :blue_square: List of Content
 
-* :small_blue_diamond: [Part 1 - Motivation](Part_1_Motivation/README.md)
-* :small_blue_diamond: [Part 2 - Service Associations](Part_2_Association/README.md)
-* :small_blue_diamond: [Part 3 - Focus Industry](Part_3_FocusIndustry/README.md)
-* :small_blue_diamond: [Part 4 - Automation Engineering](Part_4_Automation/README.md)
-* :small_blue_diamond: [Part 5 - Choreography Software Pattern](Part_5_SoftwarePattern/README.md)
+* [Part 1 - Motivation](Part_1_Motivation/README.md)
+* [Part 2 - Service-oriented Automation - Basics](Part_2_AutomationBasics/README.md)
+* [Part 3 - Service-oriented Automation - Detail](Part_3_AutomationDetail/README.md)
+* [Part 4 - Focus Industry](Part_4_FocusIndustry/README.md)
+* [Part 5 - Choreography Software Pattern](Part_5_SoftwarePattern/README.md)
 
-## :blue_square: Publication List
+## :blue_square: Contact
 
+If you are interested in my research and results, please feel free to contact me through the channels listed here:
 
+**Andreas Stutz**  
+
+Siemens AG - Karlsruhe  
+Technology and Innovations in Process Industry  
+Research Engineer
+
+Helmut-Schmidt University / University of the Federal Armed Forces Hamburg  
+Institute of Automation Technology  
+External PhD candidate
+
+andreas.stutz@siemens.com
+
+On ResearchGate, all my publications are listed: [My Profile](https://www.researchgate.net/profile/Andreas-Stutz)
 
