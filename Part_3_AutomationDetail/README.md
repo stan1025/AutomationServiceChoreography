@@ -2,4 +2,4 @@
 
 [:rewind:back](../README.md)
 
-## :four: Automation Engineering 
+## :three: Details about Service-Oriented Automation Systems

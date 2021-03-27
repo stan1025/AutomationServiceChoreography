@@ -2,7 +2,7 @@
 
 [:rewind:back](../README.md)
 
-## :two: Mechanisms and Methods for Service Associations
+## :two: Basics about Service-Oriented Automation Systems
 
 ### Introduction of Service-Oriented Automation Systems
 Service-oriented architecture is a type of architectural pattern in which multiple services can be combined to form new associated services. Each of the services communicates with each other via message-based telegrams. The idea is to ensure interoperability between different service implementations from different vendors. The paradigm of service-oriented architectures already know several derivates. The most known are the origin service-oriented architecture (SOA) and the micro-service architecture (MSA) [1].
