@@ -99,7 +99,7 @@ With respect to the both presented mechanisms (orchestration and choreography) a
 **Weaknesses** | Limited scalability due to lack of possibility for encapsulation and hierarchy. Limited design freedom due to the restriction to the single point of access principle. No standardized interface specifications for choreography available
 ## :hash: References
 
-# | Publication
+No. | Publication
 --- | ---
 1 | Richards M., (2015), Microservices vs. Service-Oriented Architecture, O’Reilly Media, Sebastopol
 2 | Jammes F., Smit H., (2005), Service-oriented Paradigms in Industrial Automation, Transactions on Industrial Informatics, 62-70, IEEE

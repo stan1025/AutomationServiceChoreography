@@ -46,7 +46,7 @@ Im nächsten Abschnitt werden hinsichtlich der Wandlungsfähigkeit modularer Anl
 
 ## :hash: References
 
-# | Publication
+No. | Publication
 --- | ---
 1 | Small-Scale Flexible Plants - Towards a More Agile and Competitive EU Chemical Industry; v. Kranenburg, Sofra, Verdoes, de Graaff; 2015; [Link](https://repository.tudelft.nl/view/tno/uuid%3A492dadff-af9d-4059-a41e-2b77270197b2)
 2 | Chemieanlage der Zukunft: das F3 Factory-Project; Liebl; 2010; [Link](https://www.chemietechnik.de/anlagenbau/chemieanlage-der-zukunft-das-f3-factory-projekt.html)
