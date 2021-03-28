@@ -26,21 +26,21 @@ Im nächsten Abschnitt werden hinsichtlich der Wandlungsfähigkeit modularer Anl
 
 ### Wandlungsfähigkeit in modularen Anlagen
 
- <div style="width:250px">Use Case 1</div> | Wandlungsfähigkeit durch Komponententausch
+Use Case 1 | Wandlungsfähigkeit durch Komponententausch
 --- | ---
-[<img src="UseCase_1.png" alt="User Case 1"/>](UseCase_1.png) | Die Komponenten-Ebene stellt die unterste Modellebene dar und ist unterhalb der modularen Funktionseinheit (FEA). Durch die Einführung einer Integrationsebene für Komponenten wird die Möglichkeit geboten, einzelne Ventile, Pumpen oder Sensoren auszutauschen. Insbesondere im Labor- und Technikumsumfeld, ist es notwendig, je nach Material- und Produkteinschränkungen, Sensoren oder Aktoren auszutauschen. Die Funktion der Komponenten wird dadurch nicht geändert, im Falle einer Pumpe, kann somit ein unterschiedlicher Fördermechanismus eingesetzt werden.
+[<img src="UseCase_1.png" width="1800"/>](UseCase_1.png) | Die Komponenten-Ebene stellt die unterste Modellebene dar und ist unterhalb der modularen Funktionseinheit (FEA). Durch die Einführung einer Integrationsebene für Komponenten wird die Möglichkeit geboten, einzelne Ventile, Pumpen oder Sensoren auszutauschen. Insbesondere im Labor- und Technikumsumfeld, ist es notwendig, je nach Material- und Produkteinschränkungen, Sensoren oder Aktoren auszutauschen. Die Funktion der Komponenten wird dadurch nicht geändert, im Falle einer Pumpe, kann somit ein unterschiedlicher Fördermechanismus eingesetzt werden.
 
- <div style="width:250px">Use Case 2</div> | Wandlungsfähigkeit durch Tausch einer funktionalen Einheit
+Use Case 2 | Wandlungsfähigkeit durch Tausch einer funktionalen Einheit
 --- | ---
-[<img src="UseCase_2.png" alt="User Case 2"/>](UseCase_2.png) | Dieser Anwendungsfall fokussiert einen möglichen Austausch oder eine anwendungs- spezifische Erweiterung von Funktionen innerhalb einer modularen Prozesseinheit. Ein typischer Anwendungsfall für eine Erweiterung ist die Integration von Heiz- und Kühlaggregaten in Behälter, die sowohl als unbeheizter Vorlage- als auch als beheizter Reaktionsbehälter genutzt werden können.
+[<img src="UseCase_2.png" width="2000"/>](UseCase_2.png) | Dieser Anwendungsfall fokussiert einen möglichen Austausch oder eine anwendungs- spezifische Erweiterung von Funktionen innerhalb einer modularen Prozesseinheit. Ein typischer Anwendungsfall für eine Erweiterung ist die Integration von Heiz- und Kühlaggregaten in Behälter, die sowohl als unbeheizter Vorlage- als auch als beheizter Reaktionsbehälter genutzt werden können.
 
- <div style="width:250px">Use Case 3</div>  | Wandlungsfähigkeit durch Kombination mehrerer modularer Prozesseinheiten
+Use Case 3 | Wandlungsfähigkeit durch Kombination mehrerer modularer Prozesseinheiten
 --- | ---
-[<img src="UseCase_3.png" alt="User Case 3" style="width:2500px;"/>](UseCase_3.png) | Der Anwendungsfall der Kombination modularer Prozesseinheiten ist äuserst vielseitig. Zum einen sind eine Vielzahl von prozesstechnischen Anwendungen heute nicht derart modularisierbar, dass keine offenen Regelkreise oder Verriegelungen entstehen. Aus diesem Grund ist es notwwendig, die Möglichkeit zu bieten, Funktionen von modularen Prozesseinheiten derart zusammenzuführen, dass diese eine neue zusammengesetzte Funktion ergeben. Ein zweiter exemplarischer Fall ist das sogenannte Numbering-Up. Hierbei wird eine identische Funktion in Form einer zweiten modularen Prozesseinheit parallel angeordnet, um somit den Durchsatz bzw. die Kapazität zu verdoppeln. Beide Automation Services, sind zu einem zusammenzuführen. Diese zusammengesetzten Funktionen sind wiederum als neuer Automation Service bereitgestellt und nutzbar.
+[<img src="UseCase_3.png" width="2000"/>](UseCase_3.png) | Der Anwendungsfall der Kombination modularer Prozesseinheiten ist äuserst vielseitig. Zum einen sind eine Vielzahl von prozesstechnischen Anwendungen heute nicht derart modularisierbar, dass keine offenen Regelkreise oder Verriegelungen entstehen. Aus diesem Grund ist es notwwendig, die Möglichkeit zu bieten, Funktionen von modularen Prozesseinheiten derart zusammenzuführen, dass diese eine neue zusammengesetzte Funktion ergeben. Ein zweiter exemplarischer Fall ist das sogenannte Numbering-Up. Hierbei wird eine identische Funktion in Form einer zweiten modularen Prozesseinheit parallel angeordnet, um somit den Durchsatz bzw. die Kapazität zu verdoppeln. Beide Automation Services, sind zu einem zusammenzuführen. Diese zusammengesetzten Funktionen sind wiederum als neuer Automation Service bereitgestellt und nutzbar.
 
- <div style="width:250px">Use Case 4</div> | Wandlungsfähigkeit in Anlagen durch modulare Prozesseinheiten
+Use Case 4 | Wandlungsfähigkeit in Anlagen durch modulare Prozesseinheiten
 --- | ---
-[<img src="UseCase_4.png" alt="User Case 4" style="width:1000px;"/>](UseCase_4.png) | Zur Realisierung einer modularen Anlage, sind die durch die einzelnen PEAs bereitgestellten Automation Services in der Art zusammenzuführen, dass diese eine Produktion umsetzt. Hierzu sind die Automation Services koordiniert auszuführen und zu überwachen. Diese Ebene fokussiert auf das Zusammenführen aller für die Produktion notwendigen Automation Services.
+[<img src="UseCase_4.png" alt="User Case 4" width="2000"/>](UseCase_4.png) | Zur Realisierung einer modularen Anlage, sind die durch die einzelnen PEAs bereitgestellten Automation Services in der Art zusammenzuführen, dass diese eine Produktion umsetzt. Hierzu sind die Automation Services koordiniert auszuführen und zu überwachen. Diese Ebene fokussiert auf das Zusammenführen aller für die Produktion notwendigen Automation Services.
 
 
 
