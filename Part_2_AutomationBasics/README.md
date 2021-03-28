@@ -39,17 +39,16 @@ A sub-elementary service represents a non-associated service, which provides min
 An supplement to the definition in [11, 12, 13] also describes the possibility of combining elementary and sub-elementary properties for Automation Services. So-called procedures, as defined in [2658-4], can represent elementary or sub-elementary functions. Both types of functions can be implemented as procedures in an Automation Service. In that case, the term automation service with elementary procedures and sub-elementary procedures are used.
 
 
- <div style="width:400px">[<img src="../Media/ServiceClasses.png" alt="User Case 1"/>](../Media/ServiceClasses.png)</div> |  <div style="font-weight:normal">Graphical representation of the relationships between the generic automation service in the middle and the three types of concrete services - elementary, sub-elementare and associated.</div>
+[<img src="../Media/ServiceClasses.png" width="1500"/>](../Media/ServiceClasses.png) |  Graphical representation of the relationships between the generic automation service in the middle and the three types of concrete services - elementary, sub-elementare and associated.
 --- | ---
 
- |
 
 
 ### Association Mechanism - Orchestration
 
- <div style="width:400px">Graphical Representation</div> | Theoretical Definition
+ raphical Representation | Theoretical Definition
 --- | ---
-[<img src="../Media/Orchestration.png" alt="User Case 1"/>](../Media/Orchestration.png) | An orchestration is present if n+1 services are necessary for the realization of a service association that can be defined as independent. The additional (+1) service is the only responsible for the execution of the subordinate and hidden (n) associated, elementary and/or sub-elementary services.
+[<img src="../Media/Orchestration.png" width="1500"/>](../Media/Orchestration.png) | An orchestration is present if n+1 services are necessary for the realization of a service association that can be defined as independent. The additional (+1) service is the only responsible for the execution of the subordinate and hidden (n) associated, elementary and/or sub-elementary services.
 Communication Pattern | The communication pattern of an orchestration follows a star-like structure.
 Interaction | For the orchestration of services, a request-reply interaction is required.
 Accessability | Orchestration defines an executable functionality from the perspective and under the control of a single accessible orchestrating entity.
@@ -62,9 +61,9 @@ The characteristics of orchestration are determined in [11].
 
 ### Association Mechanism - Choreography
 
- <div style="width:400px">Graphical Representation</div> | Theoretical Definition
+Graphical Representation | Theoretical Definition
 --- | ---
-[<img src="../Media/Choreography.png" alt="User Case 1"/>](../Media/Choreography.png) | A Choreography is present when n services, based on the knowledge of their own role share the responsibility for the realization of a service association, which can be defined as independent, transparently among themselves to the same extent.
+[<img src="../Media/Choreography.png" width="1500"/>](../Media/Choreography.png) | A Choreography is present when n services, based on the knowledge of their own role share the responsibility for the realization of a service association, which can be defined as independent, transparently among themselves to the same extent.
 Communication Pattern | The communication pattern of an choreography follows a peer-to-peer structure.
 Interaction | A choreographed service interacts via send-receive or monitor-act interactions.
 Accessability | A choreography describes the observable behavior determined by the interaction of services accessible via a single or two different endpoints.
@@ -80,21 +79,21 @@ The characteristics of choreography are determined in [11].
 
 With respect to the both presented mechanisms (orchestration and choreography) and the executability across different runtime environments three concrete association methods can be derived. The fourth one, a central executed choreography is not in focus.
 
- <div style="width:400px">Central Orchestration Method</div> | Description
+Central Orchestration Method | Description
 --- | ---
- [<img src="../Media/CentralOrchestration.png" alt="User Case 1" style="width:400px"/>](../Media/CentralOrchestration.png) | **Central Orchestration**  use an explicitly implementation of the association in the overlaying control system which is called Process Orchestration Layer. The underlaying services are used be the orchestration entity in the Process Orchestration Layer.
+ [<img src="../Media/CentralOrchestration.png" width="1500"/>](../Media/CentralOrchestration.png) | **Central Orchestration**  use an explicitly implementation of the association in the overlaying control system which is called Process Orchestration Layer. The underlaying services are used be the orchestration entity in the Process Orchestration Layer.
  **Strengths** |Scalable due to hierarchy and encapsulation capability. Coordination of elementary services does not impose hard real-time requirements
 **Weaknesses** | Process value interconnections limited by broker-like communication structure. Higher risk regarding single point of failure and capacity bottlenecks.
 
- <div style="width:400px">Decentral Orchestration Method</div> | Description
+Decentral Orchestration Method | Description
 --- | ---
- [<img src="../Media/DecentralOrchestration.png" alt="User Case 1" style="width:400px"/>](../Media/DecentralOrchestration.png) | **Decentral Orchestration**  use an explicitly implementation of the association in a underlaying system instead of the overlaying control system. The underlaying system is represented by a PEA that contains a orchestration entity and use also underlaying services of i.e. FEAs.
+ [<img src="../Media/DecentralOrchestration.png"width="1500"/>](../Media/DecentralOrchestration.png) | **Decentral Orchestration**  use an explicitly implementation of the association in a underlaying system instead of the overlaying control system. The underlaying system is represented by a PEA that contains a orchestration entity and use also underlaying services of i.e. FEAs.
  **Strengths** |Scalable due to hierarchy and encapsulation capability. Coordination of elementary services does not impose hard real-time requirements. A special option by combining a sub-elementary service as a simultaneous orchestrating entity (its a peer to peer connection)
 **Weaknesses** | Process value interconnections limited by broker-like communication structure. Higher risk regarding single point of failure and capacity bottlenecks.
 
- <div style="width:400px">Distributed Choreography Method</div> | Description
+Distributed Choreography Method | Description
 --- | ---
-  [<img src="../Media/DistributedChoreography.png" alt="User Case 1" style="width:400px"/>](../Media/DistributedChoreography.png) | **Distributed Choreography**  use an implicitly implementation of the association that is distributed over the participating underlaying services of different PEAs. The knowledge of the association is now distributed instead of explicitly implemented in an orchestrating entity. Each participating services knows its role and the knowledge about it to be able to act in a collaborative way.
+  [<img src="../Media/DistributedChoreography.png" width="1500"/>](../Media/DistributedChoreography.png) | **Distributed Choreography**  use an implicitly implementation of the association that is distributed over the participating underlaying services of different PEAs. The knowledge of the association is now distributed instead of explicitly implemented in an orchestrating entity. Each participating services knows its role and the knowledge about it to be able to act in a collaborative way.
  **Strengths** | Reduction of communication effort due to monitoring connections in a client-server as well as publish-subscribe interaction. Feasibility of low-latency applications in process value interconnections for fast process controls.
 **Weaknesses** | Limited scalability due to lack of possibility for encapsulation and hierarchy. Limited design freedom due to the restriction to the single point of access principle. No standardized interface specifications for choreography available
 ## :hash: References
