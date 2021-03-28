@@ -87,7 +87,7 @@ Central Orchestration Method | Description
 
 Decentral Orchestration Method | Description
 --- | ---
- [<img src="../Media/DecentralOrchestration.png"width="1500"/>](../Media/DecentralOrchestration.png) | **Decentral Orchestration**  use an explicitly implementation of the association in a underlaying system instead of the overlaying control system. The underlaying system is represented by a PEA that contains a orchestration entity and use also underlaying services of i.e. FEAs.
+ [<img src="../Media/DecentralOrchestration.png" width="1500"/>](../Media/DecentralOrchestration.png) | **Decentral Orchestration**  use an explicitly implementation of the association in a underlaying system instead of the overlaying control system. The underlaying system is represented by a PEA that contains a orchestration entity and use also underlaying services of i.e. FEAs.
  **Strengths** |Scalable due to hierarchy and encapsulation capability. Coordination of elementary services does not impose hard real-time requirements. A special option by combining a sub-elementary service as a simultaneous orchestrating entity (its a peer to peer connection)
 **Weaknesses** | Process value interconnections limited by broker-like communication structure. Higher risk regarding single point of failure and capacity bottlenecks.
 
