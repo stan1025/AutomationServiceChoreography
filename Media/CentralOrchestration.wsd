@@ -1,0 +1,51 @@
+@startuml CentralOrchestration
+
+skinparam note {
+    BackgroundColor 66667e
+    BorderColor 333353
+}
+
+skinparam class {
+    BackgroundColor 00af8e
+    BorderColor 00d7a0
+    ArrowColor white
+    ArrowFontColor white
+}
+
+skinparam package {
+    BackgroundColor 000028
+    FontColor white
+    BorderColor 333353
+}
+
+package "Central Orchestrated Association"{
+
+    package "Process Orchestration Layer" #00557c
+    {
+        class AssociatedService << <b>explicitly implemented</b> >>
+        Service ()- AssociatedService
+    }
+
+    together {
+
+        package "PEA A" #00557c {
+        class ServiceA <<elementary>>
+        AssociatedService -- ServiceA : use >
+        }
+
+        package "PEA B" #00557c {
+        class ServiceB <<elemntary>>
+        AssociatedService -- ServiceB : use >
+        }
+
+        package "PEA C" #00557c {
+        class ServiceC <<associated>>
+        AssociatedService -- ServiceC : use >
+        }
+
+    }
+
+}
+
+@enduml
+

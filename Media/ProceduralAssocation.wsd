@@ -1,0 +1,22 @@
+@startuml ProceduralAssociation
+
+skinparam note {
+BackgroundColor 50BED7
+BorderColor 005F87
+}
+
+skinparam class {
+BackgroundColor FFB900
+BorderColor EB780A
+}
+
+package "Procedural Association" #BECDD7 {
+
+class AssociatedService
+class ElementaryService
+
+AssociatedService "1" -- "n" ElementaryService : own >
+
+}
+
+@enduml
