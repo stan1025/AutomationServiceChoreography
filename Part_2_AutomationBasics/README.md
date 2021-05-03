@@ -21,13 +21,13 @@ In the process industry, a so-called VDI standard (VDI/VDE/NAMUR 2658 [8]) is cu
 The derivation of the terms and definitions are presented in these papers [11, 12, 13]
 
 **AutomationService**  
-An automation service provides an automated functionality via standardized interfaces in a defined behavior.
+An Automation Service is a piece of software that is executed in a defined environment. It realizes an automated function that can be accessed via standardized interfaces in a defined manner.
 
 **Independence Criterion**  
-The characteristic of a full realization of the input-process-output pattern within a service entity is defined as the independence criterion. It is a property that points out the ability to achieve a real-world effect from an automation perspective.
+The Independence Criterion is a property of an Automation Service that expresses a complete realization of the input-process-output pattern. It indicates the ability to achieve a recognizable effect on the production process.
 
-**Service Association**  
-A service association is used to combine multiple service entities to create a new service entity, which fulfills the independence criterion.
+**Automation Service Association**  
+Automation Service Association is a generic term of associative methods for combining Automation Services to achieve a combined functionality that is built on existing functionality. This can be realized using orchestration or choreography. The result is an associated Automation Service that satisfies the independence criterion 
 
 **Elementary Automation Service**(*1)  
 An elementary service represents a non-associated service, which provides minimum one dedicated parameterizable procedure and fulfills the independence criterion on its own.
@@ -48,7 +48,7 @@ An supplement to the definition in [11, 12, 13] also describes the possibility o
 
  raphical Representation | Theoretical Definition
 --- | ---
-[<img src="../Media/Orchestration.png" width="1500"/>](../Media/Orchestration.png) | An orchestration is present if n+1 services are necessary for the realization of a service association that can be defined as independent. The additional (+1) service is the only responsible for the execution of the subordinate and hidden (n) associated, elementary and/or sub-elementary services.
+[<img src="../Media/Orchestration.png" width="1500"/>](../Media/Orchestration.png) | Orchestration is an association method given when n+1 services are necessary to realize an Automation Service Association. The additional (+1) Automation Service is the only one that is responsible for the execution of the subordinate and hidden (n) Automation Services
 Communication Pattern | The communication pattern of an orchestration follows a star-like structure.
 Interaction | For the orchestration of services, a request-reply interaction is required.
 Accessability | Orchestration defines an executable functionality from the perspective and under the control of a single accessible orchestrating entity.
@@ -63,7 +63,7 @@ The characteristics of orchestration are determined in [11].
 
 Graphical Representation | Theoretical Definition
 --- | ---
-[<img src="../Media/Choreography.png" width="1500"/>](../Media/Choreography.png) | A Choreography is present when n services, based on the knowledge of their own role share the responsibility for the realization of a service association, which can be defined as independent, transparently among themselves to the same extent.
+[<img src="../Media/Choreography.png" width="1500"/>](../Media/Choreography.png) | Choreography is an association method given when n services, based on the knowledge of their own roles, transparently share the responsibility of realizing an Automation Service Association to the same extent among each other
 Communication Pattern | The communication pattern of an choreography follows a peer-to-peer structure.
 Interaction | A choreographed service interacts via send-receive or monitor-act interactions.
 Accessability | A choreography describes the observable behavior determined by the interaction of services accessible via a single or two different endpoints.
