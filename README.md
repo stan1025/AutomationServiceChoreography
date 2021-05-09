@@ -19,7 +19,8 @@ The scope of my research is initially focused on the process industry and the on
 
 ## :blue_square: List of Content
 
-* [Part 1 - Motivation](Part_1_Motivation/README.md)
+* [Part 0 - Motivation](Part_0_Motivation/README.md)
+* [Part 1 - Use Cases of Adaptability](Part_1_UseCases/README.md)
 * [Part 2 - Service-oriented Automation](Part_2_AutomationBasics/README.md)
 * [Part 2.1 - Applicability Analysis](Part_2_1_ApplicabilityAnalysis/README.md)
 * [Part 3.0 - Software Pattern - Introduction](Part_3_Software_Patterns/README.md)
