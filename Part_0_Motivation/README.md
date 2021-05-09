@@ -8,7 +8,7 @@ Last Modification: 09.05.2021
 
 ---
 
-## :one: Motivation
+## :zero: Motivation
 
 ### Introduction
 
@@ -21,7 +21,7 @@ In order to work against this trend at an early stage, a first eu-funded project
 
 The origin of my research originates from the work and participation in this community of modular production in the context of the standard series [5]. In the next section there is a short presentation of this and a second guideline in the environment of modular process plants as well as the motivation derived from it.
 
-### Standardisierung
+### Standardization
 
 For standardization in the field of modular production, reference can currently be made to two series of standards - the VDI 2776 [7] standard specifies the process engineering part of a modular production plant, while the VDI/VDE/NAMUR 2658 standard defines the automation engineering principles in a manufacturer-neutral manner. VDI 5201 [8] is also mentioned at this point. This guideline introduces the two terms flexibility and adaptability. Both terms are relevant for my further work.
 
@@ -31,27 +31,6 @@ Part 4 of the standard series VDI/VDE/NAMUR 2658 [5] specifies a generic service
 The standard series VDI 2776 [7] specifies a kind of physical model of a modular plant, in analogy to IEC 61512 [10]. The following four levels are specified from top to bottom - Modular Plant (MP), Process Equipment Assembly (PEA), Functional Equipment Assembly (FEA), Component (COMP). The adaptability of a modular production plant depends primarily on the possibilities of forming the actual plant from the three lower levels of the model.
 
 In the next section, four practical use cases are described with regard to the adaptability of modular plants. The aim of these use cases is to make the aspect of the adaptability of a modular plant more concrete.
-
-
-### Adaptability in Modular Plants / Modular Equipment
-
-Use Case 1 | Adaptability due to component exchange
---- | ---
-[<img src="UseCase_1.png" width="1500" />](UseCase_1.png) | The component level represents the lowest model level and is below the modular function unit (FEA). The introduction of an integration level for components offers the possibility to exchange individual valves, pumps or sensors. Especially in the laboratory and pilot plant environment, it is necessary to exchange sensors or actuators depending on material and product limitations. This does not change the function of the components; in the case of a pump, a different delivery mechanism can be used.
-
-Use Case 2 | Adaptability due to exchange of a functional unit
---- | ---
-[<img src="UseCase_2.png" width="1500"/>](UseCase_2.png) | This use case focuses on a possible exchange or application-specific extension of functions within a modular process unit. A typical use case for an extension is the integration of heating and cooling units in vessels that can be used both as unheated feed tanks and as heated reactor units.
-
-Use Case 3 | Adaptability by combining several modular process units
---- | ---
-[<img src="UseCase_3.png" width="3500"/>](UseCase_3.png) | The use case of combining modular process units is extremely versatile. On the one hand, a large number of process engineering applications today cannot be modularized in such a way that no open control loops or interlocks are created. For this reason, it is necessary to offer the possibility to combine functions of modular process units in such a way that they result in a new composite function. A second exemplary case is the so-called numbering-up. Here, an identical function is arranged in parallel in the form of a second modular process unit in order to double throughput or capacity. Both automation services are combined into one. These combined functions are in turn made available and usable as a new Automation Service.
-
-Use Case 4 | Adaptability in plants due to modular process units
---- | ---
-[<img src="UseCase_4.png" width="2000"/>](UseCase_4.png) | To realize a modular plant, the automation services provided by the individual PEAs must be coordinated in such a way that they implement a production. For this purpose, the automation services must be executed and monitored in a coordinated manner. This level focuses on bringing together all the automation services required for production.
-
-
 
 ## :hash: References
 

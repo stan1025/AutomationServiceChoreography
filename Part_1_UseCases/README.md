@@ -2,13 +2,13 @@
 
 [:rewind:back](../README.md)
 
-Editing Status: :construction: (under construction))
+Editing Status: :construction: (under construction)
 
 Last Modification: 09.05.2021
 
 ---
 
-## :three: Reference Use Cases for Adaptability
+## :one: Use Cases of Adaptability
 
 Adaptability refers to structural changes of the production system. Structural changes are preceded by changings of the system in terms of design and automation. From a design point of view, a modular production
 system can be separated into four different physical levels:
@@ -20,7 +20,7 @@ system can be separated into four different physical levels:
 
 Those levels are derived from  [1].
 
-Four use cases were defined (see Use Case 1 — Use Case 4) which are exemplary but representative for the physical and automation-related aspects of adaptability. 
+Four use cases were defined (see Use Case 1 — Use Case 4) which are exemplary but representative for the physical and automation-related aspects of adaptability.
 
 Use Case 1 | Adaptability Case of Components in PEAs and FEAs
 --- | ---
@@ -41,11 +41,6 @@ Use Case 4 | Association Case for production process by combining PEAs to a modu
 --- | ---
 [<img src="./UseCase_MP.png" width="1500"/>](../Media/ServiceClasses.png) |  This use case represents an association case to be able to build up the modular production systems based on functionalities of process equipment assemblies or associated automation services (as in use case 3).
 Example 1 | Build up a modular plant for pharma useable water with a neutralization and disinfection function based on modular equipment.
-
-
-## Applicability analysis of association mechanisms in automation based on presented adaptability use cases 
-
-
 
 
 

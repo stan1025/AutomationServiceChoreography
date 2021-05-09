@@ -21,6 +21,7 @@ The scope of my research is initially focused on the process industry and the on
 
 * [Part 1 - Motivation](Part_1_Motivation/README.md)
 * [Part 2 - Service-oriented Automation](Part_2_AutomationBasics/README.md)
+* [Part 2.1 - Applicability Analysis](Part_2_1_ApplicabilityAnalysis/README.md)
 * [Part 3.0 - Software Pattern - Introduction](Part_3_Software_Patterns/README.md)
 * [Part 3.1 - Software Pattern - Configurable Communication](Part_3_1_ConfigurableCommunication/README.md)
 * [Part 3.2 - Software Pattern - Value Registry](Part_3_2_ValueRegistry/README.md)
