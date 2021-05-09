@@ -2,6 +2,11 @@
 
 [:rewind:back](../README.md)
 
+Editing Status: :construction: (under construction))
+
+Last Modification: 09.05.2021
+
+---
 ## :three: Design Patterns in Software Development
 
 ### Introduction to the Gang of Four

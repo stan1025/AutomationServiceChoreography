@@ -2,6 +2,12 @@
 
 [:rewind:back](../README.md)
 
+Editing Status: :heavy_check_mark: (discussed + published)
+
+Last Modification: 09.05.2021
+
+---
+
 ## :two: Basics about Service-Oriented Automation Systems
 
 ### Introduction of Service-Oriented Automation Systems
