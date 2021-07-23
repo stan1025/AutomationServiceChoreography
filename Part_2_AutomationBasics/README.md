@@ -52,7 +52,7 @@ An supplement to the definition in [11, 12, 13] also describes the possibility o
 
 ### Association Mechanism - Orchestration
 
- raphical Representation | Theoretical Definition
+ Graphical Representation | Theoretical Definition
 --- | ---
 [<img src="../Media/Orchestration.png" width="1500"/>](../Media/Orchestration.png) | Orchestration is an association method given when n+1 services are necessary to realize an Automation Service Association. The additional (+1) Automation Service is the only one that is responsible for the execution of the subordinate and hidden (n) Automation Services
 Communication Pattern | The communication pattern of an orchestration follows a star-like structure.
