@@ -126,6 +126,7 @@ Procedural relations are defined on the basis of if-then rules. If the analyzing
 
 Information Source<br>(Observed Service)  | Information Sink<br>(Observing Service)
 --- | ---
+**Relation Group PEA3-PEA1** |
 PEA3.Analyzing.StateCur ? Starting  | PEA1.Filling.CommandInt = Start
 PEA3.Analyzing.StateCur ? Completing  | PEA1.Filling.CommandInt = Complete
 PEA3.Analyzing.StateCur ? Resetting  | PEA1.Filling.CommandInt = Reset
@@ -135,13 +136,13 @@ PEA3.Analyzing.StateCur ? Holding  | PEA1.Filling.CommandInt = Hold
 PEA3.Analyzing.StateCur ? Unholding  | PEA1.Filling.CommandInt = Unhold
 PEA3.Analyzing.StateCur ? Stopping  | PEA1.Filling.CommandInt = Stop
 PEA3.Analyzing.StateCur ? Aborting  | PEA1.Filling.CommandInt = Abort
- | 
+**Relation Group PEA1-PEA1** |
 PEA1.Filling.StateCur ? Starting  | PEA1.Stirring.CommandInt = Start
 PEA1.Filling.StateCur ? Completing  | PEA1.Stirring.CommandInt = Complete
 PEA1.Filling.StateCur ? Resetting  | PEA1.Stirring.CommandInt = Reset
 PEA1.Filling.StateCur ? Stopping  | PEA1.Stirring.CommandInt = Stop
 PEA1.Filling.StateCur ? Aborting  | PEA1.Stirring.CommandInt = Abort
- | 
+**Relation Group PEA1-PEA2** |
 PEA1.Filling.StateCur ? Starting  | PEA2.Dosing.CommandInt = Start
 PEA1.Filling.StateCur ? Completing | PEA2.Dosing.CommandInt = Complete
 PEA1.Filling.StateCur ? Resetting  | PEA2.Dosing.CommandInt = Reset
