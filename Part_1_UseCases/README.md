@@ -2,9 +2,9 @@
 
 [:rewind:back](../README.md)
 
-Editing Status: :construction: (under construction)
+Editing Status: :heavy_check_mark: (discussed)
 
-Last Modification: 09.05.2021
+Last Modification: 23.07.2021
 
 ---
 
