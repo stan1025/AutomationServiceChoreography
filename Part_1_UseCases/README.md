@@ -102,7 +102,7 @@ Report Values | phValue (REAL)<br>FlowSP (REAL)
 An automation functionality, in my investigations, is differentiated into three level of automation logic - procedural, regulatory and interlocking logic parts. 
 
 **Interlocking Logic Parts**  
-Interlocking relationships are required for operational safety. The process value outputs of the Filling Service (PEA1) contain the position of the inlet valve as well as the limit switch of the tank, that is used as OR-processed input at the dosing service (PEA2). This input represents the interlock signal of the pump control. If the valve is closed for any reason or the limit switch is tripped, the pump is stopped immediately via its interlock mechanism. This mechanism bases on continuous value processing.
+Interlocking relationships are required for operational safety. The process value outputs of the Filling Service (PEA1) contain the position of the inlet valve as well as the limit switch of the tank, that is used as OR-processed input at the dosing service (PEA2). This input represents the interlock signal of the pump control. If the valve is closed for any reason or the limit switch is tripped, the pump is stopped immediately via its interlock mechanism. This mechanism bases on continuous value processing. The interlocking logic relation is given in table 1.
 
 Information Source<br>(Observed Service)  | Information Sink<br>(Observing Service)
 --- | ---
@@ -112,7 +112,7 @@ PEA1.Filling.ValveOpen OR NOT PEA1.Filling.MaxLevel | PEA2.Dosing.PumpLock
 
 
 **Regulatory Logic Parts**  
-Continuous value processing is also used for the regulatory relations. By starting the analyzing service (PEA3), the pH value is measured continuously and processed by a pH controller. The controller calculates the flow setpoint that is read by the dosing service (PEA2). The external flow setpoint is used to regulate the flow from PEA2 to the PEA1. The output of the pH controller is specified in ml/min. The dosing service requires the setpoint in l/min. Due to these different units, the value must be converted between the pH controller and the flow controller. 
+Continuous value processing is also used for the regulatory relations. By starting the analyzing service (PEA3), the pH value is measured continuously and processed by a pH controller. The controller calculates the flow setpoint that is read by the dosing service (PEA2). The external flow setpoint is used to regulate the flow from PEA2 to the PEA1. The output of the pH controller is specified in ml/min. The dosing service requires the setpoint in l/min. Due to these different units, the value must be converted between the pH controller and the flow controller. The only relation for the regulatory logic part is given in table 2.
 
 Information Source<br>(Observed Service)  | Information Sink<br>(Observing Service)
 --- | ---
@@ -122,7 +122,7 @@ PEA3.Analyzing.FlowSP * [1000] | PEA2.Dosing.FlowSP
 
 
 **Procedural Logic Parts**  
-Procedural relations are defined on the basis of if-then rules. If the analyzing service (PEA3) is starting, then the filling service (PEA1) starts. With the filling service the stirring service (PEA1) and the dosing service (PEA2) will start. For this, the filling service (PEA1) reads the current state of the analyzing service (PEA3) and the dosing service (PEA2) and the stirring serice (PEA1) read the state from the filling service. By defining multiple if-then rules between the services of the PEAs, a defined order of procedural actions as well as defined reactions in case of exceptions are created.
+Procedural relations are defined on the basis of if-then rules. If the analyzing service (PEA3) is starting, then the filling service (PEA1) starts. With the filling service the stirring service (PEA1) and the dosing service (PEA2) will start. For this, the filling service (PEA1) reads the current state of the analyzing service (PEA3) and the dosing service (PEA2) and the stirring serice (PEA1) read the state from the filling service. By defining multiple if-then rules between the services of the PEAs, a defined order of procedural actions as well as defined reactions in case of exceptions are created. The full list of if-then rules for this example is listed in table 3.
 
 Information Source<br>(Observed Service)  | Information Sink<br>(Observing Service)
 --- | ---
