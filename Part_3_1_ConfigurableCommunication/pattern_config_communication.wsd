@@ -9,41 +9,46 @@ skinparam object {
     BackgroundColor white
     BorderColor black
     FontColor black
-
+    FontSize 16
+    AttributeFontSize 16
     BackgroundColor<<FunctionBlock>> CCCCCC
     BackgroundColor<<User-defined Type>> CCCCCC
     BackgroundColor<<Abstract>> FFFFFF
-
 }
+
+
 
 skinparam Arrow {
     FontColor black
     Color black
     Thickness 2
+    FontSize 16
 }
 
 
-object "Connection Manager"  as com_manager <<FunctionBlock>>{
-    Handles : ConnectionHandle[maxConnectionCount]
+object "ConnectionManager"  as com_manager <<FunctionBlock>>{
+    Handles: ConnectionHandle[maxConnectionCount]
     Configurations: ConnectionConfig[maxConnectionCount]
     BlockCalls: ConnectionBlocks[maxConnectionCount]
 }
-object "Connection Handle" as com_handle <<User-defined Type>>{
-    Handle : DWORD
+
+object "ConnectionHandle" as com_handle <<User-defined Type>>{
+    Handle: DWORD
     State: INT
     NamespaceTable: INT[]
     Scheduling: ScheduleData
 }
 
 object "Reader" as read <<FunctionBlock>>{
-    Handles : ConnectionHandle[maxConnectionCount]
+    Handles: ConnectionHandle[maxConnectionCount]
     HandleIndex: INT
     Configuration: ReadNodeConfig[]
     Data: UnionType[]
     DataIndex: INT
 }
 
-com_manager " 1 " *-down- " M " com_handle : "connection\nhandles\n"
-com_handle " 1 " -right-> " N " read : "indexed\nconnection\n"
+com_manager "1  " *-down-  "1..*  " read : "  Handles"
+
+
 
 @enduml
