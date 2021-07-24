@@ -8,12 +8,12 @@ Last Modification: 25.07.2021
 
 ---
 
-## :three: Software Pattern - Adaptive Logic
+## :three: Software Pattern - Adaptable Logic
 
 **Name**  
 *Name of the PLC Programming Pattern*
 
-Adaptive Logic Pattern
+Adaptable Logic Pattern
 
 ---
 

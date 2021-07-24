@@ -26,6 +26,7 @@ The scope of my research is initially focused on the process industry and the on
 * [Part 3.0 - Software Pattern - Introduction](Part_3_Software_Patterns/README.md)
 * [Part 3.1 - Software Pattern - Configurable Communication](Part_3_1_ConfigurableCommunication/README.md)
 * [Part 3.2 - Software Pattern - Value Registry](Part_3_2_ValueRegistry/README.md)
+* [Part 3.3 - Software Pattern - Adaptable Logic](Part_3_3_AdaptiveLogic/README.md)
 
 ## :blue_square: Contact
 
