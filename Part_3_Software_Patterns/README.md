@@ -56,7 +56,7 @@ Category  | Description
 ---       | ---
 Name                | Name of the PLC Programming Pattern
 Purpose             | Describes the purpose of the PLC Programming Pattern
-Use Case            | Describes the use case behind the pattern
+Motivation          | Reason to use this pattern.
 Applicability       | Describes the usage context of the pattern
 Structure           | Describes the structure of the pattern
 Actors              | Introduce the involved software entities 
