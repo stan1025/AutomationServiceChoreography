@@ -1,0 +1,27 @@
+site_name: PhD Thesis - Automation Service Choreography
+theme: 
+  name: material
+  icon: 
+    logo: material/school
+  favicon: images/favicon.png
+  palette:
+    scheme: slate
+    primary: custom
+    accent: indigo
+  copyright: Copyright &copy; 2025 Andreas Stutz 
+
+nav:
+  - General Information:
+    - Home: index.md
+    - About: about.md
+    - License: license.md
+  - Scientific Content:
+    - Part 0:  "./../Part_0_Motivation/README.md"
+
+
+markdown_extensions:
+  - toc:
+      baselevel: 2
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
