@@ -1,4 +1,6 @@
 
+This list provides an overview of publications which are aligned with the PhD thesis of this Github repository.
+
 ---
 
 ## :book: Decentralized Communication Architecture for direct Module-Module-Interaction based on standardized elements of VDI/VDE/Namur 2658
@@ -53,10 +55,37 @@
 
 ## :book: Coordination of Modular Packaging Lines Using Automation Service Choreographies
 
-**Title:** Konfigurierbare Controller-Controller-Kommunikation für modulare Produktionssysteme  
+**Title:** Coordination of Modular Packaging Lines Using Automation Service Choreographies  
 **Authors:** Michelle Blumenstein, Andreas Stutz, Mathias Maurmaier, Mike Barth, Alexander Fay  
 **Conference:** AUTOMATION 2022  
 **DOI:** [10.1109/ETFA52439.2022.9921609](https://doi.org/10.1109/ETFA52439.2022.9921609)  
 **Research Gate:** [Link](https://www.researchgate.net/publication/364975305_Coordination_of_Modular_Packaging_Lines_Using_Automation_Service_Choreographies)  
 
 ---
+
+## :book: Anwendung von Automatisierungsdienste-Choreografien zur Koordination modularer Logistiklinien
+
+**Title:** Anwendung von Automatisierungsdienste-Choreografien zur Koordination modularer Logistiklinien 
+**Authors:** Andreas Stutz, Michelle Blumenstein, Mathias Maurmaier, Mike Barth, Alexander Fay  
+**Conference:** EKA – Entwurf komplexer Automatisierungssysteme  
+
+---
+
+## :book: OPC UA FX – A Potential Cross Communication Solution for the Module Type Package Concept
+
+**Title:** OPC UA FX – A Potential Cross Communication Solution for the Module Type Package Concept  
+**Authors:** Andreas Stutz, Mathias Maurmaier, Georg Biehler, Michelle Blumenstein, Stephan Hoeme  
+**Conference:** AUTOMATION 2022  
+**DOI:** [10.51202/9783181024195-215](https://doi.org/10.51202/9783181024195-215)  
+**Research Gate:** [Link](https://www.researchgate.net/publication/372049573_OPC_UA_FX_-_A_Potential_Cross_Communication_Solution_for_the_Module_Type_Package_Concept)  
+
+---
+
+## :book: Automatisierungsdienste-Choreografien in der Prozessindustrie: Evaluation anhand zweier Anwendungen in der modularen Produktion
+
+**Title:** Automatisierungsdienste-Choreografien in der Prozessindustrie: Evaluation anhand zweier Anwendungen in der modularen Produktion  
+**Authors:** Andreas Stutz, Michelle Blumenstein, Mathias Maurmaier, Manfred Eckert,  Mike Barth, Alexander Fay  
+**Journal:** atp magazin 65(6-7):62-73
+**DOI:** [10.17560/atp.v65i6-7.2665](https://doi.org/10.17560/atp.v65i6-7.2665)  
+**Research Gate:** [Link](https://www.researchgate.net/publication/371652687_Automatisierungsdienste-Choreografien_in_der_Prozessindustrie_Evaluation_anhand_zweier_Anwendungen_in_der_modularen_Produktion)  
+
