@@ -15,8 +15,9 @@ nav:
     - Home: index.md
     - About: about.md
     - License: license.md
-  - Scientific Content:
-    - Part 0:  "./../Part_0_Motivation/README.md"
+  - Publications: publications/publications.md
+
+
 
 
 markdown_extensions:
@@ -25,3 +26,6 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
