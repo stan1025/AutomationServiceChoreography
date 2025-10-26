@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CL_101_IF2" Id="{93834dce-6ba0-4cdf-a4ea-c034c8491391}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CL_101_IF2 : Word
+VAR_OUTPUT
+	Out						: ASCF_UnionType;				//Result of the computation (Type: VDWord)
+END_VAR
+
+VAR_IN_OUT
+	Arguments				: ARRAY[0..3] OF ASCF_UnionType;	//Arguments for the function (Argument[0]: VDWord, Argument[1]: None, Argument[2]: VDWord, Argument[3]: VDWord)
+END_VAR
+
+VAR
+	Condition				: BOOL;
+	Command					: DWORD;
+	PrevResult				: DWORD;
+	tempQCs					: ARRAY[0..3] OF BYTE;
+	constDefaultUnionType	: ASCF_UnionType;				//Union type that holds only one of its possible data types at a time. The type can be selected via the "Typeselector". Independent of the selected type, every value has a quality code "VQC".
+	constUnionTypes			: ASCF_EnumUnionTypes;			//Enumeration type of the valid values for the "Typeselector" of a "GVR_unionType"-UDT.
+	constQualityCodes		: ASCF_QualityCodes;				//This enum encodes the defines quality codes for the MTP standard. The values are shown in HEX. The lowest value (1) has the highest priority.    | QC Name              | Value | Priority ||----------------------|:-----:|:--------:|| Failure              | 16#00 |    1     || Function Check       | 16#60 |    2     || Ma: INTenance Request  | 16#A4 |    3     || Out of Specification | 16#68 |    4     || OK                   | 16#80 |    5     || Out of Service       | 16#1C |    6     || No Status            | 16#FF |    7     |
+	constErrors				: ASCF_CL_EnumErrors;				//Enumeration type of the error codes of the Adaptive Logic.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+//#################################################################################################
+{region "INITIALIZE VARIABLES"}
+    Out := constDefaultUnionType;
+{endregion}
+
+//#################################################################################################
+{region "PROCESS ARGUMENTS"}
+    //-------------------------------------------------------------------------------------
+    // Condition
+    IF Arguments[0].Typeselector <> constUnionTypes.VBool THEN
+        ASCF_CL_101_IF2 := constErrors.InvalidType;
+        RETURN;
+    END_IF;
+    
+    //-------------------------------------------------------------------------------------
+    // Not Used
+    IF Arguments[1].Typeselector <> constUnionTypes.None THEN
+        ASCF_CL_101_IF2 := constErrors.InvalidType;
+        RETURN;
+    END_IF;
+    
+    //-------------------------------------------------------------------------------------
+    // Command
+    IF Arguments[2].Typeselector <> constUnionTypes.VDWord THEN
+        ASCF_CL_101_IF2 := constErrors.InvalidType;
+        RETURN;
+    END_IF;
+    
+    //-------------------------------------------------------------------------------------
+    // Previous Result
+    IF Arguments[3].Typeselector <> constUnionTypes.VDWord THEN
+        ASCF_CL_101_IF2 := constErrors.InvalidType;
+        RETURN;
+    END_IF;
+    
+    Condition := Arguments[0].VBool;
+    Command := Arguments[2].VDWord;
+    PrevResult := Arguments[3].VDWord;
+    tempQCs[0] := Arguments[0].VQC;
+    tempQCs[1] := constQualityCodes.No_Status;
+    tempQCs[2] := Arguments[2].VQC;
+    tempQCs[3] := Arguments[3].VQC;
+{endregion}
+
+//#################################################################################################
+{region "OUTPUT"}
+    Out.VQC := ASCF_CalcWQC(QC1 := ASCF_CalcWQC(QC1 := tempQCs[0], QC2 := tempQCs[1]), QC2 := ASCF_CalcWQC(QC1 := tempQCs[2], QC2 := tempQCs[3]));
+    Out.Typeselector := constUnionTypes.VDWord;
+    
+    IF Condition THEN
+        Out.VDWord := Command;
+    ELSE
+        Out.VDWord := PrevResult;
+    END_IF;
+    
+    ASCF_CL_101_IF2 := constErrors.None;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Writer_Temp_Bool" Id="{0da7794e-8fc4-41eb-8a8b-0f37907593a5}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Writer_Temp_Bool :
+STRUCT
+	stReadListReturnInfo	: ARRAY [1..1] OF ST_UAReadListReturnInfo;
+	Value		: BOOL		:= false;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

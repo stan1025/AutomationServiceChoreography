@@ -1,0 +1,751 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CC_OPCUACS_Reader" Id="{28fc270a-2ed2-4b63-bfb1-694dc7de9a4a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ASCF_CC_OPCUACS_Reader
+VAR_IN_OUT
+	ConnectionHandles						: ARRAY[*] OF ASCF_CC_OPCUACS_ConnectionHandle;
+	InputList							: ARRAY[*] OF ASCF_UnionType;				
+	Control								: ASCF_CC_OPCUACS_Reader_Interface;
+	PointerSysTime						: POINTER TO STRING;
+END_VAR
+
+VAR							
+	Intern								: ASCF_CC_OPCUACS_Reader_Internals;
+	
+	cbData									: ARRAY [1..nMaxNodeIdsInList] OF UDINT; 									
+	cbDataTotal								: UDINT;
+
+	
+	UaNodeGetHandleList		: UA_NodeGetHandleList;							
+	UaReadList				: UA_ReadList;								
+	UaNodeReleaseHandleList	: UA_NodeReleaseHandleList;					
+
+END_VAR
+
+VAR_TEMP
+	tempScheduleIndex						: USINT;
+	tempGetNodeHandles						: BOOL;
+	tempRead								: BOOL;
+	tempReleaseNodeHandles					: BOOL;
+	tempStatus								: DWORD;
+	tempTimeNow								: DTL;
+	tempTimeDiff							: TIME;
+	tempUnionType							: ASCF_UnionType;							
+	tempLoopVar								: USINT;
+	constErrors								: ASCF_CC_OPCUACS_EnumErrors;							
+	constConnHandleStates					: ASCF_CC_OPCUACS_EnumConnectionHandleStates;			
+	constConstants							: ASCF_CC_OPCUACS_Constants;								
+	constUnionTypes							: ASCF_EnumUnionTypes;						
+	constQualityCodes						: ASCF_QualityCodes;							
+	time_var_1								: DTL;
+	time_var_2								: TIME;
+	DTL_VAR_1								: DTL;
+	temp_var_1								: BOOL;
+	tempNode								: ST_UANodeID;
+END_VAR
+
+VAR CONSTANT
+	MIN_VALID_DATA_TYPE_SELECTOR			: USINT		:= 1;
+	MAX_VALID_DATA_TYPE_SELECTOR			: USINT		:= 5;
+	STATE_UNINITIALIZED						: WORD		:= 16#0001;
+	STATE_INITIALIZING						: WORD		:= 16#0002;
+	STATE_IDLE								: WORD		:= 16#0004;
+	STATE_GETTING_NODE_HANDLES				: WORD		:= 16#0008;
+	STATE_EXECUTING							: WORD		:= 16#0010;
+	STATE_RELEASE_NODE_HANDLES				: WORD		:= 16#0020;
+	STATE_ERROR								: WORD		:= 16#0040;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+//##########################################################################################
+{region "STATE MACHINE"}
+    CASE Intern.STATE.Curr OF
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Uninitialized
+        STATE_UNINITIALIZED:
+            {region "UNINITIALIZED"}
+			    
+                //-----------------------------------------------------------------------------
+                // entering state action
+                IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+                    Intern.STATE.Prev := Intern.STATE.Curr;
+                    
+                    Intern.readerID := 0;
+                    Intern.scheduleIndex := 0;
+                    Intern.tryCount := 0;
+					Intern.lastCycle := CreateDTL();
+                    
+                    Control.Status.Cycle := T#0MS;
+                    
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // continuous state action
+                
+                
+                //-----------------------------------------------------------------------------
+                // state transition condition/action
+                Control.Status.Error := FALSE;
+                Control.Status.Status := constErrors.None;
+                IF Control.Config.ConnectionIndex <> -1 THEN
+                    
+                    // check if config is valid
+                    IF Control.Config.ConnectionIndex >= LOWER_BOUND(ConnectionHandles, 1) AND Control.Config.ConnectionIndex <= UPPER_BOUND(ConnectionHandles, 1) AND
+                        Control.Config.ValueRegistryIndex >= LOWER_BOUND(InputList, 1) AND Control.Config.ValueRegistryIndex <= UPPER_BOUND(InputList, 1) AND
+                        Control.Config.DataTypeSelector >= MIN_VALID_DATA_TYPE_SELECTOR AND Control.Config.DataTypeSelector <= MAX_VALID_DATA_TYPE_SELECTOR THEN
+                        
+                        IF ConnectionHandles[Control.Config.ConnectionIndex].State.Curr = constConnHandleStates.Initializing THEN
+                            
+                            // apply config
+                            Intern.activeConfig.ConnectionIndex := Control.Config.ConnectionIndex;
+                            Intern.activeConfig.ValueRegistryIndex := Control.Config.ValueRegistryIndex;
+                            Intern.activeConfig.DataTypeSelector := Control.Config.DataTypeSelector;
+                            Intern.activeConfig.Timeout := Control.Config.Timeout;
+                            Intern.activeConfig.MaxValueAge := Control.Config.MaxValueAge;
+                            Intern.activeConfig.MaxTryCount := Control.Config.MaxTryCount;
+                            Intern.activeConfig.TargetCycle := Control.Config.TargetCycle;
+                            
+                            Intern.STATE.Curr := STATE_INITIALIZING;
+                            
+							Intern.lastCycle := SYS_TIME_Store_DTL(PointerSysTime	:= PointerSysTime);
+							
+                        END_IF;
+                        
+                    ELSE
+                        Control.Status.Error := TRUE;
+                        Control.Status.Status := constErrors.HandleIndexOutOfBounds;
+                    END_IF;
+                    
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // leaving state action
+				IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+					;
+				END_IF;	 
+			{endregion}
+            
+            
+            
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Initializing
+        STATE_INITIALIZING:
+            {region "INITIALIZING"}
+			//-----------------------------------------------------------------------------
+			// entering state action
+				IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+					Intern.STATE.Prev := Intern.STATE.Curr;
+					
+					// register reader and store reader id
+					ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ReadersCount := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ReadersCount + 1;
+					Intern.readerID := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ReadersCount;
+					
+				END_IF;
+                
+                
+			//-----------------------------------------------------------------------------
+			// continuous state action
+			
+			
+			//-----------------------------------------------------------------------------
+			// state transition condition/action
+			Intern.STATE.Curr := STATE_IDLE;
+			
+		
+			//-----------------------------------------------------------------------------
+			// leaving state action
+			IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+				;
+			END_IF;	
+			{endregion}
+                
+                
+            
+            
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Idle
+        STATE_IDLE:
+            {region "IDLE"}
+			    //-----------------------------------------------------------------------------
+                // entering state action
+                IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+                    Intern.STATE.Prev := Intern.STATE.Curr;
+                    // CODE
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // continuous state action
+                
+                // clear "ScheduleGetNodeHandles"
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Reader AND
+                    ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule, Index => tempScheduleIndex) THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                // clear "ScheduleReleaseNodeHandles"
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Reader AND
+                    ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule, Index => tempScheduleIndex) THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                // clear "ScheduleRead"
+                IF ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule, Index => tempScheduleIndex) THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                //-----------------------------------------------------------------------------
+                // state transition condition/action
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Error THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Disconnected THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF Control.Connect AND ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Executing THEN
+                    Control.Connect := FALSE;
+                    Intern.STATE.Curr := STATE_GETTING_NODE_HANDLES;      
+                END_IF;
+                
+				//-----------------------------------------------------------------------------
+				// leaving state action
+				IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+					;
+				END_IF;	
+			{endregion}
+                
+            
+            
+            
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Getting Node Handles
+        STATE_GETTING_NODE_HANDLES:
+            {region "GETTING NODE HANDLES"}
+			    //-----------------------------------------------------------------------------
+                // entering state action
+                IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+                    Intern.STATE.Prev := Intern.STATE.Curr;
+                    
+                    Intern.activeConfig.Nodes := Control.Config.Nodes;
+					
+					tempNode := Control.Config.Nodes[1];
+					Intern.activeConfig.Nodes[1].nNamespaceIndex := ConnectionHandles[Intern.activeConfig.ConnectionIndex].NamespaceIndexList[tempNode.nNamespaceIndex];
+						
+					tempNode := Control.Config.Nodes[2];
+					Intern.activeConfig.Nodes[2].nNamespaceIndex := ConnectionHandles[Intern.activeConfig.ConnectionIndex].NamespaceIndexList[tempNode.nNamespaceIndex];
+	
+                END_IF; 
+                
+                
+                //-----------------------------------------------------------------------------
+                // continuous state action
+                
+                // clear "ScheduleReleaseNodeHandles"
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Reader AND ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule, Index => tempScheduleIndex) THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                // clear "ScheduleRead"
+                IF ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule, Index => tempScheduleIndex) THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                // trigger get handles
+                IF NOT (UaNodeGetHandleList.Busy OR UaNodeGetHandleList.Done OR UaNodeGetHandleList.Error) THEN
+					
+                    IF 
+						ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Reader AND
+						ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule, Index => Intern.scheduleIndex)
+					THEN		
+                        tempGetNodeHandles := TRUE;
+                    END_IF;
+                    
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // state transition condition/action
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Error THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Disconnected THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF UaNodeGetHandleList.Error THEN
+                    Intern.tryCount := Intern.tryCount + 1;
+                    
+                    IF Intern.tryCount >= Intern.activeConfig.MaxTryCount THEN
+                        Intern.status := UaNodeGetHandleList.ErrorID;
+                        Intern.STATE.Curr := STATE_ERROR;
+                        
+                        ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;
+                        
+                    END_IF;
+                    
+                ELSIF UaNodeGetHandleList.Done THEN
+                    Intern.tryCount := 0;
+                    Intern.STATE.Curr := STATE_EXECUTING;
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;
+                    
+                    // Check if all node handles are valid.
+                    FOR tempLoopVar := 1 TO UINT_TO_USINT(nMaxNodeIDsInList) DO
+                        IF Intern.nodeHandles[tempLoopVar] = 16#FFFF_FFFF THEN
+                            Intern.status := constErrors.InvalidNodeHandle;
+                            Intern.STATE.Curr := STATE_ERROR;
+                            EXIT;
+                        END_IF;
+                    END_FOR;
+                   
+                END_IF;
+                
+                
+				//-----------------------------------------------------------------------------
+				// leaving state action
+				IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+					;
+				END_IF;	
+			{endregion}
+                
+            
+            
+            
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Executing
+        STATE_EXECUTING:
+            {region "EXECUTING"}
+				//-----------------------------------------------------------------------------
+                // entering state action
+                IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+                    Intern.STATE.Prev := Intern.STATE.Curr;
+                    // CODE
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // continuous state action
+                
+                // clear "ScheduleGetNodeHandles"
+                IF 
+					ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Reader AND
+                    ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule, Index => tempScheduleIndex) 
+				THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                // clear "ScheduleReleaseNodeHandles"
+                IF 
+					ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Reader AND
+                    ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule, Index => tempScheduleIndex) 
+				THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+				              
+				// trigger read
+				// Change: In examples of Beckhoff, checking the .Done is never used
+				// why its here removed.
+                IF NOT (UaReadList.Busy OR UaReadList.Error) THEN
+                    
+                    IF 
+						ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule, Index => Intern.scheduleIndex) 
+					THEN
+                        
+                        IF NOT Control.DoRead THEN
+                            // clear "ScheduleRead"
+                            ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;
+                            
+                        ELSE
+									  
+							//Record SYS-Time				  
+							tempTimeNow := SYS_TIME_Store_DTL(PointerSysTime	:= PointerSysTime);		   
+							DTL_VAR_1 := DeltaDTL(	In_1 	:= Intern.lastCycle,				
+													In_2	:= tempTimeNow);					
+							tempTimeDiff := DTL_to_time(IN := DTL_VAR_1);					  
+							  
+                            
+                            // Check if Reader should read again to reach the target ReadCycle
+                            IF tempTimeDiff > Intern.activeConfig.TargetCycle THEN
+								Intern.lastCycle := tempTimeNow;
+                                Control.Status.Cycle := tempTimeDiff;                         
+                                tempRead := TRUE;                      
+                            ELSE
+                                // clear "ScheduleRead"
+                                ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;               
+                            END_IF;
+                            
+                        END_IF;
+                        
+                    END_IF;
+                    
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // state transition condition/action
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Error THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Disconnected THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF Control.Disconnect THEN
+                    Control.Disconnect := FALSE;
+                    Intern.STATE.Curr := STATE_RELEASE_NODE_HANDLES;
+                    
+                ELSIF UaReadList.Error THEN
+                    Intern.tryCount := Intern.tryCount + 1;
+                    
+                    IF Intern.tryCount >= Intern.activeConfig.MaxTryCount THEN
+                        Intern.status := UaReadList.ErrorID;
+                        Intern.STATE.Curr := STATE_ERROR;
+                        
+                        ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;
+                        
+                    END_IF;
+                    
+                ELSIF UaReadList.Done THEN
+                    Intern.tryCount := 0;
+                    Control.DoRead := FALSE;				
+                    
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;
+                    
+                    // Construct UnionType with the read data.
+                    
+                    // VReal
+                    IF Intern.activeConfig.DataTypeSelector = constUnionTypes.VReal THEN
+                        tempUnionType.VQC := Intern.ReaderOutput.VReal.QC;
+                        tempUnionType.Typeselector := constUnionTypes.VReal;
+                        tempUnionType.VReal := Intern.ReaderOutput.VReal.Value;
+                        
+                        // VDINT
+                    ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VDINT THEN
+                        tempUnionType.VQC := Intern.ReaderOutput.VDINT.QC;
+                        tempUnionType.Typeselector := constUnionTypes.VDINT;
+                        tempUnionType.VDINT := Intern.ReaderOutput.VDINT.Value;
+                        
+                        // VDWord
+                    ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VDWord THEN
+                        tempUnionType.VQC := Intern.ReaderOutput.VDWord.QC;
+                        tempUnionType.Typeselector := constUnionTypes.VDWord;
+                        tempUnionType.VDWord := Intern.ReaderOutput.VDWord.Value;
+                        
+                        // VBool
+                    ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VBool THEN
+                        tempUnionType.VQC := Intern.ReaderOutput.VBool.QC;
+                        tempUnionType.Typeselector := constUnionTypes.VBool;
+                        tempUnionType.VBool := Intern.ReaderOutput.VBool.Value;
+                        
+                        // VString
+                    ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VString THEN
+                        tempUnionType.VQC := Intern.ReaderOutput.VString.QC;
+                        tempUnionType.Typeselector := constUnionTypes.VString;
+                        tempUnionType.VString := Intern.ReaderOutput.VString.Value;
+                        
+                    END_IF;
+                    
+                    // Quality Code Check inactive, due to missing timestamp information of
+					// Beckhoff Library
+					// FOR tempLoopVar := 1 TO UINT_TO_USINT(nMaxNodeIDsInList) DO		
+					// 	time_var_1 := delta_DTL(In_1 := internals.lastNodeTimestamps[tempLoopVar], 					
+					// 							In_2 := internals.nodeTimestamps[tempLoopVar]);
+					// 	time_var_2 := DTL_to_time(IN := time_var_1);
+					// 	IF time_var_2 > internals.activeConfig.MaxValueAge THEN
+					// 		tempUnionType.VQC := constQualityCodes.Failure;
+					// 		EXIT;
+					// 	END_IF;
+					// END_FOR;
+                    
+                    // Write values : INTo the InputList
+                    tempStatus := ASCF_WriteValue(Index := Intern.activeConfig.ValueRegistryIndex, Value := tempUnionType, InputList := InputList);
+                    
+                    // Update node timestamps
+                    Intern.lastNodeTimestamps := Intern.nodeTimestamps;
+                    
+                END_IF;
+          
+                
+				//-----------------------------------------------------------------------------
+				// leaving state action
+				IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+					;
+				END_IF;		 
+			{endregion}
+                
+            
+            
+            
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Release Node Handles
+        STATE_RELEASE_NODE_HANDLES:
+            {region "RELEASE NODE HANDLES"}
+			   //-----------------------------------------------------------------------------
+                // entering state action
+                IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+                    Intern.STATE.Prev := Intern.STATE.Curr;
+                    // CODE
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // continuous state action
+                
+                // clear "ScheduleGetNodeHandles"
+                IF 
+					ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Reader AND
+                    ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule, Index => tempScheduleIndex) 
+				THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                // clear "ScheduleRead"
+                IF 
+					ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule, Index => tempScheduleIndex) 
+				THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                // trigger release handle
+                IF NOT (UaNodeReleaseHandleList.Busy OR UaNodeReleaseHandleList.Done OR UaNodeReleaseHandleList.Error) THEN
+                    
+                    IF 
+						ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Reader AND
+                        ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule, Index => Intern.scheduleIndex) 
+					THEN
+                        tempReleaseNodeHandles := TRUE;
+                    END_IF;
+                    
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // state transition condition/action
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Error THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Disconnected THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF UaNodeReleaseHandleList.Error THEN
+                    Intern.tryCount := Intern.tryCount + 1;
+                    
+                    IF Intern.tryCount >= Intern.activeConfig.MaxTryCount THEN
+                        Intern.status := UaNodeReleaseHandleList.ErrorID;
+                        Intern.STATE.Curr := STATE_ERROR;
+                        
+                        ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;
+                        
+                    END_IF;
+                    
+                ELSIF UaNodeReleaseHandleList.Done THEN
+                    Intern.tryCount := 0;
+                    Intern.STATE.Curr := STATE_IDLE;
+                    
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule[Intern.scheduleIndex] := constConstants.OperationDoneID;
+                    
+                END_IF;
+                
+                
+				//-----------------------------------------------------------------------------
+				// leaving state action
+				IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+					;
+				END_IF;	
+			{endregion}
+                
+             
+            
+            
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Error
+        STATE_ERROR:
+            {region "ERROR"}
+			    //-----------------------------------------------------------------------------
+                // entering state action
+                IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+                    Intern.STATE.Prev := Intern.STATE.Curr;
+                    
+                    Control.Status.Error := TRUE;
+                    Control.Status.Status := Intern.status;
+                    
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // continuous state action
+                ConnectionHandles[Intern.activeConfig.ConnectionIndex].ReaderError := TRUE;
+                
+                IF 
+					ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Reader AND
+                    ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule, Index => tempScheduleIndex) 
+				THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleGetNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                IF 
+					ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Reader AND
+                    ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule, Index => tempScheduleIndex) 
+				THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleReleaseNodeHandles.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                IF 
+					ASCF_CC_OPCUACS_QuerySchedule(ID := Intern.readerID, Schedule := ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule, Index => tempScheduleIndex) 
+				THEN
+                    ConnectionHandles[Intern.activeConfig.ConnectionIndex].ScheduleData.ScheduleRead.Schedule[tempScheduleIndex] := constConstants.OperationDoneID;
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // state transition condition/action
+                IF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Error THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF ConnectionHandles[Intern.activeConfig.ConnectionIndex].State.Curr = constConnHandleStates.Disconnected THEN
+                    Intern.STATE.Curr := STATE_UNINITIALIZED;
+                    
+                ELSIF Control.Reset THEN
+                    Intern.STATE.Curr := STATE_RELEASE_NODE_HANDLES;
+                    
+                END_IF;
+                
+                
+                //-----------------------------------------------------------------------------
+                // leaving state action
+                IF Intern.STATE.Curr <> Intern.STATE.Prev THEN
+                    Control.Reset := FALSE;
+                    
+                    Control.Status.Error := FALSE;
+                    Control.Status.Status := constErrors.None;
+                    
+                END_IF;	 
+			{endregion}  
+    END_CASE;
+{endregion}
+    
+
+
+
+//##########################################################################################
+{region "OPC UA CALLS"}
+   
+    IF Intern.STATE.Curr <> STATE_UNINITIALIZED THEN
+     
+        
+		UaNodeGetHandleList(	Execute := tempGetNodeHandles,
+							   ConnectionHdl := ConnectionHandles[Intern.activeConfig.ConnectionIndex].Handle,
+							   NodeIDCount := 2,
+							   NodeIDs := Intern.activeConfig.Nodes,
+							   Timeout := Intern.activeConfig.Timeout,
+							   NodeErrorIDs => Intern.nodeStatusList,
+							   NodeHdls => Intern.nodeHandles
+							);	 
+	
+
+        
+        // VReal
+        IF Intern.activeConfig.DataTypeSelector = constUnionTypes.VReal THEN
+            
+            cbData[1] := SIZEOF(Intern.ReaderOutput.VReal.QC);
+			cbData[2] := SIZEOF(Intern.ReaderOutput.VReal.Value);
+			cbDataTotal := SIZEOF(Intern.ReaderOutput.VReal);	
+				
+
+			UaReadList( 	Execute := tempRead,
+						  ConnectionHdl := ConnectionHandles[Intern.activeConfig.ConnectionIndex].Handle,
+						  NodeHdlCount := 2,
+						  NodeHdls := Intern.nodeHandles,
+						  Timeout := Intern.activeConfig.Timeout,
+						  pVariable := ADR(Intern.ReaderOutput.VReal),
+						  cbData := cbData,
+						  cbDataTotal := cbDataTotal);	
+            
+            // VDINT
+        ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VDINT THEN
+            cbData[1] := SIZEOF(Intern.ReaderOutput.VDINT.QC);
+			cbData[2] := SIZEOF(Intern.ReaderOutput.VDINT.Value);
+			cbDataTotal := SIZEOF(Intern.ReaderOutput.VDINT);	
+				
+
+			UaReadList( Execute := tempRead,
+					  ConnectionHdl := ConnectionHandles[Intern.activeConfig.ConnectionIndex].Handle,
+					  NodeHdlCount := nMaxNodeIDsInList,
+					  NodeHdls := Intern.nodeHandles,
+					  Timeout := Intern.activeConfig.Timeout,
+					  pVariable := ADR(Intern.ReaderOutput.VDINT),
+					  cbData := cbData,
+					  cbDataTotal := cbDataTotal);
+												
+													 
+            
+            // VDWord
+        ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VDWord THEN
+            cbData[1] := SIZEOF(Intern.ReaderOutput.VDWord.QC);
+			cbData[2] := SIZEOF(Intern.ReaderOutput.VDWord.Value);
+			cbDataTotal := SIZEOF(Intern.ReaderOutput.VDWord);	
+				
+
+			UaReadList( Execute := tempRead,
+					  ConnectionHdl := ConnectionHandles[Intern.activeConfig.ConnectionIndex].Handle,
+					  NodeHdlCount := nMaxNodeIDsInList,
+					  NodeHdls := Intern.nodeHandles,
+					  Timeout := Intern.activeConfig.Timeout,
+					  pVariable := ADR(Intern.ReaderOutput.VDWord),
+					  cbData := cbData,
+					  cbDataTotal := cbDataTotal);
+            
+            // VBool
+        ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VBool THEN
+            cbData[1] := SIZEOF(Intern.ReaderOutput.VBool.QC);
+			cbData[2] := SIZEOF(Intern.ReaderOutput.VBool.Value);
+			cbDataTotal := SIZEOF(Intern.ReaderOutput.VBool);	
+				
+
+			UaReadList( Execute := tempRead,
+					  ConnectionHdl := ConnectionHandles[Intern.activeConfig.ConnectionIndex].Handle,
+					  NodeHdlCount := nMaxNodeIDsInList,
+					  NodeHdls := Intern.nodeHandles,
+					  Timeout := Intern.activeConfig.Timeout,
+					  pVariable := ADR(Intern.ReaderOutput.VBool),
+					  cbData := cbData,
+					  cbDataTotal := cbDataTotal);
+            
+            // VString
+        ELSIF Intern.activeConfig.DataTypeSelector = constUnionTypes.VString THEN
+            cbData[1] := SIZEOF(Intern.ReaderOutput.VString.QC);
+			cbData[2] := SIZEOF(Intern.ReaderOutput.VString.Value);
+			cbDataTotal := SIZEOF(Intern.ReaderOutput.VString);	
+				
+
+			UaReadList( Execute := tempRead,
+					  ConnectionHdl := ConnectionHandles[Intern.activeConfig.ConnectionIndex].Handle,
+					  NodeHdlCount := nMaxNodeIDsInList,
+					  NodeHdls := Intern.nodeHandles,
+					  Timeout := Intern.activeConfig.Timeout,
+					  pVariable := ADR(Intern.ReaderOutput.VString),
+					  cbData := cbData,
+					  cbDataTotal := cbDataTotal);
+            
+        END_IF;
+        
+        UaNodeReleaseHandleList( Execute := tempReleaseNodeHandles,
+							   ConnectionHdl := ConnectionHandles[Intern.activeConfig.ConnectionIndex].Handle,
+							   NodeHdlCount := nMaxNodeIDsInList,
+							   NodeHdls := Intern.nodeHandles,
+							   Timeout := Intern.activeConfig.Timeout,
+							   NodeErrorIDs => Intern.nodeStatusList);		
+
+        
+    END_IF;			
+{endregion}
+ 
+
+
+//##########################################################################################
+{region "OUTPUTS"}
+    Control.Status.State := Intern.STATE.Curr;
+{endregion}
+	]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

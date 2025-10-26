@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CC_OPCUACS_ScheduleAlgorithmType1" Id="{58d95390-32b9-49a8-a210-736349267a32}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CC_OPCUACS_ScheduleAlgorithmType1
+VAR_INPUT
+	ReadersCount		: USINT;			//Number of read blocks
+	WritersCount		: USINT;			//Number of writer blocks
+END_VAR
+
+VAR_IN_OUT
+	Schedule			: ASCF_CC_OPCUACS_ScheduleDataType1;
+END_VAR
+
+VAR
+	constConstants		: ASCF_CC_OPCUACS_Constants;		//Constants used by the ConfigurableCommunication.
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "SCHEDULE ALGORITHM"}
+    // both flags can't be set/not set
+    // --> fix flag state
+    IF Schedule.Reader = Schedule.Writer THEN
+        Schedule.Reader := TRUE;
+        Schedule.Writer := FALSE;
+    END_IF;
+    
+    // nothing to schedule if there is no reader and no writer
+    IF ReadersCount = 0 AND WritersCount = 0 THEN
+        Schedule.NextID := 1;
+        Schedule.Schedule[0] := -1;
+        RETURN;
+    END_IF;
+    
+    // nothing to schedule of the operation in not done
+    IF Schedule.Schedule[0] <> constConstants.OperationDoneID THEN
+        RETURN;
+    END_IF;
+    
+    // Scheduling Algorithm:
+    // The scheduling algorithm needs to handle the following 3 cases:
+    // 1. The last readers operations is done --> switch to writer
+    // 2. The last writers operations is done --> switch to reader
+    // 3. None of the cases above --> schedule the next reader/writer
+    // 
+    // Why the while loop?
+    // Lets assume currently case 1 is handled and the schedule switches
+    // from reader to writer but there is no writer to schedule. To prevent
+    // a "lock" by scheduling a block that doesn't exist and therefore will never
+    // complete its operations, the loop is needed. So in the second loop the
+    // algorithm switches back from writer to reader. In the third and final loop
+    // the algorithm handles case 3 which is no edge-case and returns.
+    // 
+    // Overall the alorithm needs 1 loop in the best-case and 3 loops in the worst-case.
+    WHILE TRUE DO
+        
+        IF Schedule.Reader AND Schedule.NextID > ReadersCount THEN
+            Schedule.Reader := FALSE;
+            Schedule.Writer := TRUE;
+            
+            Schedule.NextID := 1;
+            
+        ELSIF Schedule.Writer AND Schedule.NextID > WritersCount THEN
+            Schedule.Reader := TRUE;
+            Schedule.Writer := FALSE;
+            
+            Schedule.NextID := 1;
+            
+        ELSE
+            Schedule.Schedule[0] := Schedule.NextID;
+            Schedule.NextID := Schedule.NextID + 1;
+            RETURN;
+            
+        END_IF;
+        
+    END_WHILE;
+    
+    // Alternative Algorithm (NOT TESTED)
+    // IF #ReadersCount = 0 THEN
+    //     #Schedule.Writer := true;
+    //     IF #Schedule.NextID > #WritersCount THEN
+    //         #Schedule.NextID := 1;
+    //     END_IF;
+    // ELSIF #WritersCount = 0 THEN
+    //     #Schedule.Reader := true;
+    //     IF #Schedule.NextID > #ReadersCount THEN
+    //         #Schedule.NextID := 1;
+    //     END_IF;
+    // ELSE
+    //     IF #Schedule.Reader AND #Schedule.NextID > #ReadersCount THEN
+    //         #Schedule.Reader := false;
+    //         #Schedule.Writer := true;
+    //         #Schedule.NextID := 1;
+    //     ELSIF #Schedule.Writer AND #Schedule.NextID > #WritersCount THEN
+    //         #Schedule.Reader := true;
+    //         #Schedule.Writer := false;
+    //         #Schedule.NextID := 1;
+    //     END_IF;
+    // END_IF;
+    // #Schedule.Schedule[0] := #Schedule.NextID;
+    // #Schedule.NextID := #Schedule.NextID + 1;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

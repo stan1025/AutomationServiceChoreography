@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CL_33_NAND" Id="{d978bdea-9f9f-43c0-9f35-2f6d1058532f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CL_33_NAND : WORD
+VAR_OUTPUT
+	Out						: ASCF_UnionType;					//Result of the computation (Type: VBool or VDWord)
+END_VAR
+
+VAR_IN_OUT
+	Arguments				: ARRAY[0..3] OF ASCF_UnionType;		//Arguments for the function (Arguments: 2 - 4, Type: VBool or VDWord)
+END_VAR
+
+VAR
+	tempRet					: WORD;
+	constErrors				: ASCF_CL_EnumErrors; 					//Enumeration type of the error codes of the Adaptive Logic.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "EXECUTE AND OUTPUT"}
+    tempRet := ASCF_CL_31_AND(Arguments := Arguments, Out => Out);
+    
+    // negate result if AND was successful
+    IF tempRet = constErrors.None THEN
+        Out.VBool := NOT Out.VBool;
+    END_IF;
+    
+    ASCF_CL_33_NAND := tempRet;
+{endregion}
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

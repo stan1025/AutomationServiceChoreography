@@ -1,0 +1,80 @@
+FUNCTION "ASCF_CL_100_IF1" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_OUTPUT 
+      Out : "ASCF_UnionType";   
+   END_VAR
+
+   VAR_IN_OUT 
+      Arguments : Array[0..3] of "ASCF_UnionType";  
+   END_VAR
+
+   VAR_TEMP 
+      State1 : DWord;
+      State2 : DWord;
+      Command : DWord;
+      PrevCommand : DWord;
+      tempQCs : Array[0..3] of Byte;
+      constDefaultUnionType : "ASCF_UnionType";
+      constUnionTypes : "ASCF_EnumUnionTypes";
+      constQualityCodes : "ASCF_QualityCodes";
+      constErrors : "ASCF_CL_EnumErrors";
+   END_VAR
+
+
+BEGIN
+
+	REGION INITIALIZE VARIABLES
+	    
+	    #Out := #constDefaultUnionType;
+	    
+	END_REGION INITIALIZE VARIABLES
+	
+	REGION PROCESS ARGUMENTS    
+	    
+	    IF #Arguments[0].Typeselector <> #constUnionTypes.VDWord THEN
+	        #ASCF_CL_100_IF1 := #constErrors.InvalidType;
+	        RETURN;
+	    END_IF;
+
+	    IF #Arguments[1].Typeselector <> #constUnionTypes.VDWord THEN
+	        #ASCF_CL_100_IF1 := #constErrors.InvalidType;
+	        RETURN;
+	    END_IF;
+
+	    IF #Arguments[2].Typeselector <> #constUnionTypes.VDWord THEN
+	        #ASCF_CL_100_IF1 := #constErrors.InvalidType;
+	        RETURN;
+	    END_IF;
+
+	    IF #Arguments[3].Typeselector <> #constUnionTypes.VDWord THEN
+	        #ASCF_CL_100_IF1 := #constErrors.InvalidType;
+	        RETURN;
+	    END_IF;
+	    
+	    #State1 := #Arguments[0].VDWord;
+	    #State2 := #Arguments[1].VDWord;
+	    #Command := #Arguments[2].VDWord;
+	    #PrevCommand := #Arguments[3].VDWord;
+	    #tempQCs[0] := #Arguments[0].VQC;
+	    #tempQCs[1] := #Arguments[1].VQC;
+	    #tempQCs[2] := #Arguments[2].VQC;
+	    #tempQCs[3] := #Arguments[3].VQC;
+	    
+	END_REGION PROCESS ARGUMENTS
+	
+	REGION OUTPUT    
+	    
+	    #Out.VQC := "ASCF_CalcWQC"(QC1 := "ASCF_CalcWQC"(QC1 := #tempQCs[0], QC2 := #tempQCs[1]), QC2 := "ASCF_CalcWQC"(QC1 := #tempQCs[2], QC2 := #tempQCs[3]));
+	    #Out.Typeselector := #constUnionTypes.VDWord;
+	    
+	    IF #State1 = #State2 THEN
+	        #Out.VDWord := #Command;
+	    ELSE
+	        #Out.VDWord := #PrevCommand;
+	    END_IF;
+	    
+	    #ASCF_CL_100_IF1 := #constErrors.None;
+	    
+	END_REGION EXECUTE AND OUTPUT
+END_FUNCTION

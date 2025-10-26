@@ -1,0 +1,8 @@
+TYPE "ASCF_CC_OPCUACS_ScheduleDataType2"
+VERSION : 0.1
+   STRUCT
+      NextID : Int := 1;  
+      Schedule : Array[0..4] of Int := [-1];
+   END_STRUCT;
+
+END_TYPE

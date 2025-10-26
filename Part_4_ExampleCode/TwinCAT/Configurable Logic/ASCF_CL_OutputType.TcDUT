@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CL_OutputType" Id="{c128f241-84b1-4471-9ab4-b884ae1b7340}">
+    <Declaration><![CDATA[TYPE ASCF_CL_OutputType :
+STRUCT
+	PreparedConfig	: ASCF_CL_OutputTypeConfig;			//Prepared configuration (must be applied to take effect)
+	ActiveConfig	: ASCF_CL_OutputTypeConfig;			//Active configuration, which is currently used
+	Substitute		: ASCF_UnionType;				//Substitute value in case of Source = None
+	Value			: ASCF_UnionType;				//Output value
+	DataType		: BYTE		:= 16#0;			//Expected DataType of the Ouput
+	Status			: WORD		:= 16#0;			//Status
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

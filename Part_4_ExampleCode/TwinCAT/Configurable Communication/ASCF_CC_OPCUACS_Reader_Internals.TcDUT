@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Reader_Internals" Id="{8b98939d-3dfe-4538-86f3-f88f8d22175f}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Reader_Internals :
+STRUCT
+	STATE					: ASCF_State_Internals;							//State of the statemachine
+	status					: DWORD			:= 16#0;
+	readerID				: USINT			:= 0;
+	scheduleIndex			: USINT			:= 0;
+	tryCount				: USINT			:= 0;
+	lastCycle				: DTL;			
+	ReaderOutput			: ASCF_CC_OPCUACS_Reader_Temp;
+	activeConfig			: ASCF_CC_OPCUACS_ReaderConfig;
+	nodeHandles				: ARRAY[1..nMaxNodeIdsInList] OF DWORD  := [16#0, 16#0];											
+	nodeStatusList			: ARRAY[1..nMaxNodeIdsInList] OF DWORD  := [16#0, 16#0];											
+	nodeTimestamps			: ARRAY[1..nMaxNodeIdsInList] OF DTL;																
+	lastNodeTimestamps		: ARRAY[1..nMaxNodeIdsInList] OF DTL;																
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

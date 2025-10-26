@@ -1,0 +1,14 @@
+TYPE "ASCF_CL_OutputType"
+TITLE = AL_outputType
+VERSION : 0.1
+
+   STRUCT
+      PreparedConfig { S7_SetPoint := 'False'} : "ASCF_CL_OutputTypeConfig";   
+      ActiveConfig { ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ASCF_CL_OutputTypeConfig"; 
+      Substitute { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ASCF_UnionType";  
+      Value { ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ASCF_UnionType";  
+      DataType { S7_SetPoint := 'True'} : Byte; 
+      Status { ExternalWritable := 'False'} : Word;  
+   END_STRUCT;
+
+END_TYPE

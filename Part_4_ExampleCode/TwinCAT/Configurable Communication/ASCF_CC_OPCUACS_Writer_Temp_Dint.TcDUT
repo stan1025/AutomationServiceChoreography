@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Writer_Temp_Dint" Id="{441a6d7f-cb5d-4a0e-8e18-1cb38a82be5d}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Writer_Temp_Dint :
+STRUCT
+	stReadListReturnInfo	: ARRAY [1..1] OF ST_UAReadListReturnInfo;
+	Value		: DINT		:= 0;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

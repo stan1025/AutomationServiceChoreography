@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_GetVBoolOutputList" Id="{c5d9eae1-8f2a-41ec-a13b-c1b4686383dd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_GetVBoolOutputList : Word
+VAR_INPUT
+	Index		: INT;
+END_VAR
+
+VAR_OUTPUT
+	QC			: BYTE;
+	Value		: BOOL;
+END_VAR
+
+VAR_IN_OUT
+	OutputList	: ARRAY[*] OF ASCF_CL_OutputType;		//Output-Element of the Adaptive Logic.
+END_VAR
+
+VAR
+	tempLowerBound	: DINT;
+	tempUpperBound	: DINT;
+	tempResult		: WORD;
+	tempUnionType	: ASCF_UnionType;				//Union type that holds only one of its possible data types at a time. The type can be selected via the "Typeselector". Independent of the selected type, every value has a quality code "VQC".
+	constErrors		: ASCF_CL_EnumErrors;				//Enumeration type of the error codes of the Adaptive Logic.
+	constUnionTypes	: ASCF_EnumUnionTypes;			//Enumeration type of the valid values for the "Typeselector" of a "GVR_unionType"-UDT.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+tempResult := ASCF_GetValueOutputList(Index := Index, Value => tempUnionType, OutputList := OutputList);
+
+IF tempResult <> constErrors.None THEN
+    ASCF_GetVBoolOutputList := tempResult;
+    RETURN;
+END_IF;
+
+IF tempUnionType.Typeselector <> constUnionTypes.VBool THEN
+    ASCF_GetVBoolOutputList := constErrors.TypesDoNotMatch;
+    RETURN;
+END_IF;
+
+QC := tempUnionType.VQC;
+Value := tempUnionType.VBool;
+ASCF_GetVBoolOutputList := constErrors.None;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

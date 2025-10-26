@@ -1,0 +1,13 @@
+TYPE "ASCF_CC_OPCUACS_ScheduleData"
+TITLE = CC_scheduleData
+VERSION : 0.1
+   STRUCT
+      ReadersCount : USInt := 0;   
+      WritersCount : USInt := 0;  
+      ScheduleGetNodeHandles { S7_SetPoint := 'False'} : "ASCF_CC_OPCUACS_ScheduleDataType1" := ((), (), (), [-1]); 
+      ScheduleReleaseNodeHandles { S7_SetPoint := 'False'} : "ASCF_CC_OPCUACS_ScheduleDataType1" := ((), (), (), [-1]); 
+      ScheduleRead { S7_SetPoint := 'False'} : "ASCF_CC_OPCUACS_ScheduleDataType2" := ((), [-1]);  
+      ScheduleWrite { S7_SetPoint := 'False'} : "ASCF_CC_OPCUACS_ScheduleDataType2" := ((), [-1]); 
+   END_STRUCT;
+
+END_TYPE

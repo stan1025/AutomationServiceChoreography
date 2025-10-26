@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CC_OPCUACS_Scheduler" Id="{446a5e3b-46df-46f4-b289-80ef847740ae}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CC_OPCUACS_Scheduler
+VAR_IN_OUT
+	ScheduleData			: ASCF_CC_OPCUACS_ScheduleData;		//Schedule data of a connection, to coordinate access to OPC UA functions.
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+
+//#################################################################################################
+{region "SCHEDULING"}
+    //#############################################################################################
+    {region "NODE_GET_HANDLE_LIST"}
+        ASCF_CC_OPCUACS_ScheduleAlgorithmType1(ReadersCount:=ScheduleData.ReadersCount,
+                                    WritersCount:=ScheduleData.WritersCount,
+                                    Schedule := ScheduleData.ScheduleGetNodeHandles);		 
+	{endregion}
+  
+    //#############################################################################################
+    {region "NODE_RELEASE_HANDLE_LIST"}
+        ASCF_CC_OPCUACS_ScheduleAlgorithmType1(ReadersCount := ScheduleData.ReadersCount,
+                                    WritersCount := ScheduleData.WritersCount,
+                                    Schedule := ScheduleData.ScheduleReleaseNodeHandles);		 
+	{endregion}    
+    
+    //#############################################################################################
+    {region "NODE_READ_LIST"}
+        ASCF_CC_OPCUACS_ScheduleAlgorithmType2(OperationsCount:=ScheduleData.ReadersCount,
+                                    ScheduleSlots:=5,
+                                    ScheduleData := ScheduleData.ScheduleRead);		 
+	{endregion}    
+  
+    //#############################################################################################
+    {region "NODE_WRITE_LIST"}
+        ASCF_CC_OPCUACS_ScheduleAlgorithmType2(OperationsCount := ScheduleData.WritersCount,
+                                    ScheduleSlots := 5,
+                                    ScheduleData := ScheduleData.ScheduleWrite);		 
+	{endregion}
+{endregion}
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

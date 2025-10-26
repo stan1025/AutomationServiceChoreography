@@ -1,0 +1,63 @@
+FUNCTION "ASCF_CL_37_FE" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_OUTPUT 
+      Out : "ASCF_UnionType";   
+   END_VAR
+
+   VAR_IN_OUT 
+      Arguments : Array[0..3] of "ASCF_UnionType";   
+      Memory : "ASCF_CL_ArgumentType";  
+   END_VAR
+
+   VAR_TEMP 
+      tempQC : Byte;
+      tempSignal : Bool;
+      constDefaultUnionType : "ASCF_UnionType";
+      constUnionTypes : "ASCF_EnumUnionTypes";
+      constQualityCodes : "ASCF_QualityCodes";
+      constErrors : "ASCF_CL_EnumErrors";
+   END_VAR
+
+
+BEGIN
+
+
+	REGION INITIALIZE VARIABLES
+
+	    #Out := #constDefaultUnionType;
+	    
+	END_REGION INITIALIZE VARIABLES
+	
+
+	REGION PROCESS ARGUMENTS    
+	    
+	    IF #Arguments[0].Typeselector = #constUnionTypes.None THEN
+	        
+	        #ASCF_CL_37_FE := #constErrors.TooFewArguments;
+	        RETURN;
+	        
+	    ELSIF #Arguments[0].Typeselector = #constUnionTypes.VBool THEN
+	        
+	        #tempSignal := #Arguments[0].VBool;
+	        #tempQC := #Arguments[0].VQC;
+	        
+	    ELSE
+	        #ASCF_CL_37_FE := #constErrors.InvalidType;
+	        RETURN;
+	        
+	    END_IF;
+	    
+	END_REGION PROCESS ARGUMENTS
+	
+	REGION OUTPUT    
+	    
+	    #Out.Typeselector := #constUnionTypes.VBool;
+	    #Out.VQC := #tempQC;
+	    #Out.VBool := NOT #tempSignal AND #Memory.Const.VBool;
+	    
+	    #Memory.Const.VBool := #tempSignal;
+	    #ASCF_CL_37_FE := #constErrors.None;
+	    
+	END_REGION EXECUTE AND OUTPUT
+END_FUNCTION

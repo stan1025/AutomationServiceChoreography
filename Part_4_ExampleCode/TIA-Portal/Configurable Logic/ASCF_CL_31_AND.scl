@@ -1,0 +1,98 @@
+
+FUNCTION "ASCF_CL_31_AND" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_OUTPUT 
+      Out : "ASCF_UnionType";  
+   END_VAR
+
+   VAR_IN_OUT 
+      Arguments : Array[0..3] of "ASCF_UnionType";   
+   END_VAR
+
+   VAR_TEMP 
+      tempLoopVar : DInt;
+      tempDone : Bool;
+      tempQC : Byte;
+      tempResult : DWord;
+      tempDWordFlag : Bool;
+      tempValidArgumentCount : UInt;
+      constDefaultUnionType : "ASCF_UnionType";
+      constUnionTypes : "ASCF_EnumUnionTypes";
+      constQualityCodes : "ASCF_QualityCodes";
+      constErrors : "ASCF_CL_EnumErrors";
+   END_VAR
+
+   VAR CONSTANT 
+      MIN_ARGUMENTS_COUNT : UInt := 2;
+   END_VAR
+
+
+BEGIN
+
+	REGION INITIALIZE VARIABLES
+	    
+	    #tempResult := 16#FFFF_FFFF;
+	    #tempQC := #constQualityCodes."No Status";
+	    #Out := #constDefaultUnionType;
+	    
+	END_REGION INITIALIZE VARIABLES
+
+	REGION PROCESS ARGUMENTS    
+	    
+	    FOR #tempLoopVar := 0 TO 3 DO
+
+	        IF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.None THEN
+	            
+	            #tempDone := true;
+
+	        ELSIF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.VBool THEN
+	            
+	            #tempResult := #tempResult AND BOOL_TO_DWORD(#Arguments[#tempLoopVar].VBool);
+	            #tempQC := "ASCF_CalcWQC"(QC1 := #tempQC, QC2 := #Arguments[#tempLoopVar].VQC);
+	            #tempValidArgumentCount := #tempValidArgumentCount + 1;
+
+	        ELSIF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.VDWord THEN
+	            
+	            #tempResult := #tempResult AND #Arguments[#tempLoopVar].VDWord;
+	            #tempQC := "ASCF_CalcWQC"(QC1 := #tempQC, QC2 := #Arguments[#tempLoopVar].VQC);
+	            #tempValidArgumentCount := #tempValidArgumentCount + 1;
+	            #tempDWordFlag := true;
+
+	        ELSE
+	            #ASCF_CL_31_AND := #constErrors.InvalidType;
+	            RETURN;
+	            
+	        END_IF;
+
+	        IF #tempDone THEN
+	            EXIT;
+	        END_IF;
+	        
+	    END_FOR;
+
+	    IF #tempValidArgumentCount < #MIN_ARGUMENTS_COUNT THEN
+	        #ASCF_CL_31_AND := #constErrors.TooFewArguments;
+	        RETURN;
+	    END_IF;
+	    
+	END_REGION PROCESS ARGUMENTS
+	
+	
+	
+	REGION OUTPUT    
+	    
+	    IF #tempDWordFlag THEN
+	        #Out.Typeselector := #constUnionTypes.VDWord;
+	        #Out.VQC := #tempQC;
+	        #Out.VDWord := #tempResult;
+	    ELSE
+	        #Out.Typeselector := #constUnionTypes.VBool;
+	        #Out.VQC := #tempQC;
+	        #Out.VBool := DWORD_TO_BOOL(#tempResult);
+	    END_IF;
+	    
+	    #ASCF_CL_31_AND := #constErrors.None;
+	    
+	END_REGION EXECUTE AND OUTPUT
+END_FUNCTION

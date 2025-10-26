@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_ReaderConfig" Id="{7d0c1181-97c8-4f57-8748-c553e39091c4}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_ReaderConfig :
+STRUCT
+	ConnectionIndex		: INT		:= -1;				//Connection the Reader should use
+	ValueRegistryIndex	: UINT		:= 0;
+	DataTypeSelector	: BYTE		:= 16#00;
+	Timeout				: TIME		:= T#5S;			//Timout for the used OPC UA operations
+	MaxValueAge			: TIME		:= T#100MS;			//Maximum age a read value should have. If exceeded the WQC is set to "Failure"
+	MaxTryCount			: USINT		:= 5;				//Number of tries for an OPC UA operation until the Reader transitions : INTo the error state
+	TargetCycle			: TIME		:= T#100MS;			//Target cycle for the read operation
+	Nodes				: ARRAY[1..nMaxNodeIDsInList] OF ST_UANodeID;	//NodeIDs of the nodes to read, QC then Value
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

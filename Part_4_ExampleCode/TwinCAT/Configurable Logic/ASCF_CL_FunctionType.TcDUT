@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CL_FunctionType" Id="{151662a8-dd2f-4d28-b151-2d21db6ee074}">
+    <Declaration><![CDATA[TYPE ASCF_CL_FunctionType :
+STRUCT
+	PreparedConfig	: ASCF_CL_FunctionTypeConfig;		//Prepared configuration (must be applied to take effect)
+	ActiveConfig	: ASCF_CL_FunctionTypeConfig;		//Active configuration, which is currently used
+	Out 			: ASCF_UnionType;				//Output
+	_Ret			: WORD			:= 16#0;		//Status returned by the function
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

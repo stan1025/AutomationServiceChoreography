@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="MTPChoreographyParticipantManager" Id="{f0334980-f27d-49a3-bc37-82c245ef4220}">
+    <Declaration><![CDATA[{attribute 'OPC.UA.DA' := '1'}
+{attribute 'OPC.UA.DA.StructuredType' := '1'}
+TYPE MTPChoreographyParticipantManager :
+STRUCT
+	WQC							: BYTE			:= 16#FF;		//Worst Quality Code
+	ViewSel						: BOOL			:= FALSE;		//Selection to view prepared configuration (false) or active configuration (true)
+	ViewCur						: BOOL			:= FALSE;		//Currently selected view: false = prepared, true = active
+	RestoreDefaultEn			: BOOL			:= FALSE;		//Enable flag to restore default configuration
+	RestoreDefault				: BOOL			:= FALSE;		//Restores the default config of all inputs, logics and outputs
+	ExecuteEn					: BOOL			:= FALSE;		//Enable flag to execute the Adaptive Logic
+	ExecuteOn					: BOOL			:= FALSE;		//Trigger to start the execution
+	ExecuteOff					: BOOL			:= FALSE;		//Trigger to quit the execution, outputs are set to default value
+	ExecuteAct					: BOOL			:= FALSE;		//Flag which indicates the active execution
+	ExecuteErr					: BOOL			:= FALSE;		//Flag which indicates min. one processing error
+	Input_IndexSel				: UINT			:= 0;			//Index of the desired input configuration to be shown
+	Input_IndexMax				: UINT			:= 0;			//Maximum index for input configuration
+	Input_IndexCur				: UINT			:= 0;			//Index of the currently selected input configuration
+	Input_VQC					: BYTE			:= 16#0;		//Value quality code of the currently selected input
+	Input_DataType				: BYTE			:= 16#0;		//Data Type of the currently selected input
+	Input_VReal					: REAL			:= 0.0;			//Real value of the currently selected input
+	Input_VDInt					: DINT			:= 0;			//Double : INTeger value of the currently selected input
+	Input_VDWord				: DWORD			:= 16#0;		//Double Word value of the currently selected input
+	Input_VBool					: BOOL			:= FALSE; 		//Boolean value of the currently selected input
+	Input_VString				: STRING[254]	:= '';			//String value of the currently selected input
+	Logic_IndexSel				: UINT			:= 0;			//Index of the desired logic configuration to be shown
+	Logic_IndexMax				: UINT			:= 0;			//Maximum index for logic configuration
+	Logic_IndexCur				: UINT			:= 0;			//Index of the currently selected logic configuration
+	Logic_FuncTypeSel			: UINT			:= 0;			//Function type selector of the currently selected logic element
+	Logic_In0_Source			: SINT			:= 16#0;		//Source of input 0 of the currently selected logic element											//War vorher Byte
+	Logic_In0_Index				: UINT			:= 0;			//Index of input 0 of the currently selected logic element
+	Logic_In0_Const_VQC			: BYTE			:= 16#0;		//Constant value quality code of input 0 of the currently selected logic element
+	Logic_In0_Const_DataTypeSel	: BYTE			:= 16#0;		//Constant data type of input 0 of the currently selected logic element
+	Logic_In0_Const_VReal		: REAL			:= 0.0;			//Constant Real value of input 0 of the currently selected logic element
+	Logic_In0_Const_VDInt		: DINT			:= 0;			//Constant Double : INTeger value of input 0 of the currently selected logic element
+	Logic_In0_Const_VDWord		: DWORD			:= 16#0;		//Constant Double Word value of input 0 of the currently selected logic element
+	Logic_In0_Const_VBool		: BOOL			:= FALSE;		//Constant Boolean value of input 0 of the currently selected logic element
+	Logic_In0_Const_VString		: STRING[254]	:= '';			//Constant String value of input 0 of the currently selected logic element
+	Logic_In1_Source			: SINT			:= 16#0;		//Source of input 1 of the currently selected logic element											//war vorher Byte
+	Logic_In1_Index				: UINT			:= 0;			//Index of input 1 of the currently selected logic element
+	Logic_In1_Const_VQC			: BYTE			:= 16#0;		//Constant value quality code of input 1 of the currently selected logic element
+	Logic_In1_Const_DataTypeSel	: BYTE			:= 16#0;		//Constant data type of input 1 of the currently selected logic element
+	Logic_In1_Const_VReal		: REAL			:= 0.0;			//Constant Real value of input 1 of the currently selected logic element
+	Logic_In1_Const_VDInt		: DINT			:= 0;			//Constant Double : INTeger value of input 1 of the currently selected logic element
+	Logic_In1_Const_VDWord		: DWORD			:= 16#0;		//Constant Double Word value of input 1 of the currently selected logic element
+	Logic_In1_Const_VBool		: BOOL			:= FALSE;		//Constant Boolean value of input 1 of the currently selected logic element
+	Logic_In1_Const_VString		: STRING[254]	:= '';			//Constant String value of input 1 of the currently selected logic element
+	Logic_In2_Source			: SINT			:= 16#0;		//Source of input 2 of the currently selected logic element											//war vorher Byte
+	Logic_In2_Index				: UINT			:= 0;			//Index of input 2 of the currently selected logic element
+	Logic_In2_Const_VQC			: BYTE			:= 16#0;		//Constant value quality code of input 2 of the currently selected logic element
+	Logic_In2_Const_DataTypeSel	: BYTE			:= 16#0;		//Constant data type of input 2 of the currently selected logic element
+	Logic_In2_Const_VReal		: REAL			:= 0.0;			//Constant Real value of input 2 of the currently selected logic element
+	Logic_In2_Const_VDInt		: DINT			:= 0;			//Constant Double : INTeger value of input 2 of the currently selected logic element
+	Logic_In2_Const_VDWord		: DWORD			:= 16#0;		//Constant Double Word value of input 2 of the currently selected logic element
+	Logic_In2_Const_VBool		: BOOL			:= FALSE;		//Constant Boolean value of input 2 of the currently selected logic element
+	Logic_In2_Const_VString		: STRING[254]	:= '';			//Constant String value of input 2 of the currently selected logic element
+	Logic_In3_Source			: SINT			:= 16#0;		//Source of input 3 of the currently selected logic element											//war voher Byte
+	Logic_In3_Index				: UINT			:= 0;			//Index of input 3 of the currently selected logic element
+	Logic_In3_Const_VQC			: BYTE			:= 16#0;		//Constant value quality code of input 3 of the currently selected logic element
+	Logic_In3_Const_DataTypeSel	: BYTE			:= 16#0;		//Constant data type of input 3 of the currently selected logic element
+	Logic_In3_Const_VReal		: REAL			:= 0.0;			//Constant Real value of input 3 of the currently selected logic element
+	Logic_In3_Const_VDInt		: DINT			:= 0;			//Constant Double : INTeger value of input 3 of the currently selected logic element
+	Logic_In3_Const_VDWord		: DWORD			:= 16#0;		//Constant Double Word value of input 3 of the currently selected logic element
+	Logic_In3_Const_VBool		: BOOL			:= FALSE;		//Constant Boolean value of input 3 of the currently selected logic element
+	Logic_In3_Const_VString		: STRING[254]	:= '';			//Constant String value of input 3 of the currently selected logic element
+	Logic_Out_VQC				: BYTE			:= 16#0;		//Constant value quality code of output  of the currently selected logic element
+	Logic_Out_DataType			: BYTE			:= 16#0;		//Constant data type of output of the currently selected logic element
+	Logic_Out_VReal				: REAL			:= 0.0;			//Constant Real value of output of the currently selected logic element
+	Logic_Out_VDInt				: DINT			:= 0;			//Constant Double : INTeger value of output of the currently selected logic element
+	Logic_Out_VDWord			: DWORD			:= 16#0;		//Constant Double Word value of output of the currently selected logic element
+	Logic_Out_VBool				: BOOL			:= FALSE;		//Constant Boolean value of output of the currently selected logic element
+	Logic_Out_VString			: STRING[254]	:= '';			//Constant String value of output of the currently selected logic element
+	Logic_Ret					: UINT			:= 0;			//Return value of the currently selected logic element
+	Output_IndexSel				: UINT			:= 0;			//Index of the desired output configuration to be shown
+	Output_IndexMax				: UINT			:= 0;			//Maximum index for output configuration
+	Output_IndexCur				: UINT			:= 0;			//Index of the currently selected output configuration
+	Output_Source				: SINT			:= 16#0;		//Source of the currently selected output															//war vorher Byte
+	Output_Index				: UINT			:= 0;			//Index of the currently selected output
+	Output_DataType				: BYTE			:= 16#0;		//Data type of the currently selected output
+	Output_Const_VQC			: BYTE			:= 16#0;		//Constant value quality code of the currently selected output
+	Output_Const_DataTypeSel	: BYTE			:= 16#0;		//Constant data type of the currently selected output
+	Output_Const_VReal			: REAL			:= 0.0;			//Constant Real value of the currently selected output
+	Output_Const_VDInt			: DINT			:= 0;			//Constant Double : INTeger value of the currently selected output
+	Output_Const_VDWord			: DWORD			:= 16#0;		//Constant Double Word value of the currently selected output
+	Output_Const_VBool			: BOOL			:= FALSE;		//Constant Boolean value of the currently selected output
+	Output_Const_VString		: STRING[254]	:= '';			//Constant String value of the currently selected output
+	Output_Value_VQC			: BYTE			:= 16#0;		//Value quality code of the currently selected output
+	Output_Value_DataTypeSel	: BYTE			:= 16#0;		//Data type of the currently selected output
+	Output_Value_VReal			: REAL			:= 0.0;			//Real value of the currently selected output
+	Output_Value_VDInt			: DINT			:= 0;			//Double : INTeger value of the currently selected output
+	Output_Value_VDWord			: DWORD			:= 16#0;		//Double Word value of the currently selected output
+	Output_Value_VBool			: BOOL			:= FALSE;		//Boolean value of the currently selected output
+	Output_Value_VString		: STRING[254]	:= '';			//String value of the currently selected output
+	Output_Ret					: UINT			:= 0;			//Return value of the currently selected output
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

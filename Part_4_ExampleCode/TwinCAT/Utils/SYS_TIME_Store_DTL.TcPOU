@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="SYS_TIME_Store_DTL" Id="{81edc6ce-ddc8-4e62-bad4-2a293288fd0d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION SYS_TIME_Store_DTL : DTL
+VAR_INPUT
+	PointerSysTime			: POINTER TO STRING;
+END_VAR
+VAR
+	fbGetLocalSystemTime	: FB_LocalSystemTime;
+	
+	aSystemDateTime			: STRING;
+	
+	aSystemDateYear			: INT;
+	aSystemDateMonth		: INT;
+	aSystemDateDay			: INT;
+	
+	aSystemTimeHour			: INT;
+	aSystemTimeMinute 		: INT;
+	aSystemTimeSecond		: INT;
+	aSystemTimeMSecond		: INT;
+END_VAR
+
+VAR
+	OUT			: DTL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Time in STING-Format
+aSystemDateTime	:= PointerSysTime^;
+
+//GVL.aSystemDate 			:= MID(STR:= aSystemDateTime, LEN:= 10, POS:= 1);
+aSystemDateYear			:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 4, POS:= 1));
+aSystemDateMonth		:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 2, POS:= 6));
+aSystemDateDay			:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 2, POS:= 9));
+ 
+//GVL.aSystemTime := MID(STR:= GVL.aSystemDateTime, LEN:= 12, POS:= 12);
+aSystemTimeHour 		:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 2, POS:= 12));
+aSystemTimeMinute 		:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 3, POS:= 15));
+aSystemTimeSecond 		:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 3, POS:= 18));
+aSystemTimeMSecond		:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 3, POS:= 21));
+	
+//Output
+OUT.YEAR			:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 4, POS:= 1));
+OUT.MONTH 			:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 2, POS:= 6)); 
+OUT.DAY				:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 2, POS:= 9));
+OUT.WEEKDAY			:= 0;
+OUT.HOUR			:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 2, POS:= 12));
+OUT.MINUTE 			:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 3, POS:= 15));
+OUT.SECOND  		:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 3, POS:= 18));
+OUT.MILLISECOND		:= STRING_TO_INT(MID(STR:= aSystemDateTime, LEN:= 3, POS:= 21)); 
+
+SYS_TIME_Store_DTL := OUT;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

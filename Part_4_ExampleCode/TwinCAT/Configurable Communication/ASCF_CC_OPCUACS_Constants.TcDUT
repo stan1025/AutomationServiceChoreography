@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Constants" Id="{fd208b4f-042a-461d-a1b3-799d8e7762cc}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Constants :
+STRUCT
+	MaxEntriesPerSchedule		: USINT		:= 5;
+	MaxTryCount					: USINT		:= 5;
+	ReaderNodeCount				: USINT		:= 2;
+	WriterNodeCount				: USINT		:= 3;
+	OperationDoneID				: SINT		:= -1;
+	MinNamespaceUrisCount		: USINT		:= 1;
+	MaxNamespaceUrisCount		: USINT		:= 5;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

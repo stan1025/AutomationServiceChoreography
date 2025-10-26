@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CL_EnumSourceTypes" Id="{a8f41747-d0b4-42f1-bc5e-faceb34e3c4d}">
+    <Declaration><![CDATA[TYPE ASCF_CL_EnumSourceTypes :
+STRUCT
+	Constante	: INT		:= -1;		//Type: Constant
+	None		: INT		:= 0;		//Type: None
+	Input		: INT		:= 1;		//Type: Input
+	Logic		: INT		:= 2;		//Type: Logic
+	Output		: INT		:= 3;		//Type: Output
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

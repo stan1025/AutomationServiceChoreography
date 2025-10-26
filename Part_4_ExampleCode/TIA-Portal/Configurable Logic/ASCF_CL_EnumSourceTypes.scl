@@ -1,0 +1,12 @@
+TYPE "ASCF_CL_EnumSourceTypes"
+TITLE = AL_enumSourceTypes
+VERSION : 0.1
+   STRUCT
+      "Constant" { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int := -1;   
+      None { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int := 0;  
+      Input { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int := 1;  
+      Logic { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int := 2;   
+      Output { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int := 3;  
+   END_STRUCT;
+
+END_TYPE

@@ -1,0 +1,50 @@
+FUNCTION "ASCF_CC_OPCUACS_Scheduler" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_IN_OUT 
+      ScheduleData : "ASCF_CC_OPCUACS_ScheduleData";
+   END_VAR
+
+
+BEGIN
+	
+	REGION SCHEDULING
+	    
+	    
+	    
+	    REGION NODE_GET_HANDLE_LIST
+	        "ASCF_CC_OPCUACS_ScheduleAlgorithmType1"(ReadersCount:=#ScheduleData.ReadersCount,
+	                                    WritersCount:=#ScheduleData.WritersCount,
+	                                    Schedule:=#ScheduleData.ScheduleGetNodeHandles);
+	        
+	    END_REGION NODE_GET_HANDLE_LIST
+	    
+	  
+	    
+	    REGION NODE_RELEASE_HANDLE_LIST
+	        "ASCF_CC_OPCUACS_ScheduleAlgorithmType1"(ReadersCount := #ScheduleData.ReadersCount,
+	                                    WritersCount := #ScheduleData.WritersCount,
+	                                    Schedule := #ScheduleData.ScheduleReleaseNodeHandles);
+	        
+	    END_REGION NODE_RELEASE_HANDLE_LIST
+	    
+	    
+	    
+	    REGION NODE_READ_LIST
+	        "ASCF_CC_OPCUACS_ScheduleAlgorithmType2"(OperationsCount:=#ScheduleData.ReadersCount,
+	                                    ScheduleSlots:=5,
+	                                    ScheduleData:=#ScheduleData.ScheduleRead);
+	        
+	    END_REGION NODE_READ_LIST
+	    
+	  
+	    
+	    REGION NODE_WRITE_LIST
+	        "ASCF_CC_OPCUACS_ScheduleAlgorithmType2"(OperationsCount := #ScheduleData.WritersCount,
+	                                    ScheduleSlots := 5,
+	                                    ScheduleData := #ScheduleData.ScheduleWrite);
+	        
+	    END_REGION NODE_WRITE_LIST
+	    
+	END_REGION SCHEDULING
+END_FUNCTION

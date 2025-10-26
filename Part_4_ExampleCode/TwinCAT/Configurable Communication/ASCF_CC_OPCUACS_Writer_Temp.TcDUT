@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Writer_Temp" Id="{36a78fc8-9288-4d87-9fbf-83b0133acd2c}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Writer_Temp :
+STRUCT
+	VReal		: ASCF_CC_OPCUACS_Writer_Temp_Real;
+	VDInt		: ASCF_CC_OPCUACS_Writer_Temp_Dint;
+	VDWord		: ASCF_CC_OPCUACS_Writer_Temp_Dword;
+	VBool		: ASCF_CC_OPCUACS_Writer_Temp_Bool;
+	VString		: ASCF_CC_OPCUACS_Writer_Temp_String;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

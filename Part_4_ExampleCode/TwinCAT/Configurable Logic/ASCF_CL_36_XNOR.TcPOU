@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CL_36_XNOR" Id="{e0284d83-382e-4fb4-a51a-4f077d3849c1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CL_36_XNOR : WORD
+VAR_OUTPUT
+	Out						: ASCF_UnionType;				//Result of the computation (Type: VBool)
+END_VAR
+
+VAR_IN_OUT
+	Arguments				: ARRAY[0..3] OF ASCF_UnionType;	//Arguments for the function (Arguments: 2 - 4, Type: VBool)
+END_VAR
+
+VAR
+	tempRet					: WORD;
+	constErrors				: ASCF_CL_EnumErrors;				//Enumeration type of the error codes of the Adaptive Logic.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "EXECUTE AND OUTPUT"}
+    tempRet := ASCF_CL_35_XOR(Arguments := Arguments, Out => Out);
+    
+    // negate result if XOR was successful
+    IF tempRet = constErrors.None THEN
+        Out.VBool := NOT Out.VBool;
+    END_IF;
+    
+    ASCF_CL_36_XNOR := tempRet;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

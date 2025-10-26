@@ -1,0 +1,351 @@
+FUNCTION_BLOCK "ASCF_ExternalLeader"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      InitialCall { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;   
+      InitialOpMode { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte; 
+   END_VAR
+
+   VAR_IN_OUT 
+      InputList : Array[*] of "ASCF_UnionType";
+      OutputList : Array[*] of "ASCF_CL_OutputType";
+   END_VAR
+
+   VAR 
+      InstanceIdent { S7_SetPoint := 'False'} : "ServiceInstanceIdentification";  
+      Procedures { S7_SetPoint := 'False'} : Array[0..0] of "ServiceProcedureDefinition"; 
+      Connector { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ServiceConnectStruct";  
+      Service { S7_SetPoint := 'False'} : "ServiceCoreBlock";   
+      InputListConfig { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Struct
+         Service_State_Initialization { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 0;
+         Service_State_Idle { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 1;
+         Service_State_Starting { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 2;
+         Service_State_Execute { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 3;
+         Service_State_Completing { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 4;
+         Service_State_Completed { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 5;
+         Service_State_Resetting { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 6;
+         Service_State_Holding { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 7;
+         Service_State_Held { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 8;
+         Service_State_Unholding { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 9;
+         Service_State_Pausing { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 10;
+         Service_State_Paused { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 11;
+         Service_State_Resuming { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 12;
+         Service_State_Stopping { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 13;
+         Service_State_Stopped { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 14;
+         Service_State_Aborting { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 15;
+         Service_State_Aborted { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 16;
+         Service_Procedure_Cur { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 17;
+         Service_Procedure_Req { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 18;
+      END_STRUCT;
+      OutputListConfig { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Struct
+         Service_InitializationDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 0;
+         Service_IdleDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 1;
+         Service_StartingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 2;
+         Service_ExecuteDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 3;
+         Service_CompletingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 4;
+         Service_CompletedDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 5;
+         Service_PausingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 6;
+         Service_PausedDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 7;
+         Service_ResumingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 8;
+         Service_HoldingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 9;
+         Service_HeldDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 10;
+         Service_UnholdingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 11;
+         Service_StoppingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 12;
+         Service_StoppedDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 13;
+         Service_AbortingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 14;
+         Service_AbortedDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 15;
+         Service_ResettingDone { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 16;
+         Service_Command_Reset { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 17;
+         Service_Command_Start { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 18;
+         Service_Command_Stop { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 19;
+         Service_Command_Hold { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 20;
+         Service_Command_Unhold { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 21;
+         Service_Command_Pause { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 22;
+         Service_Command_Resume { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 23;
+         Service_Command_Abort { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 24;
+         Service_Command_Restart { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 25;
+         Service_Command_Complete { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 26;
+         Service_Procedure { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 27;
+      END_STRUCT;
+   END_VAR
+
+   VAR_TEMP 
+      Enum : Struct 
+         InitOpMode : "enumInitialOpMode";
+         ValueLimitMode : "enumValueLimitationMode";
+         QCs : "enumQualityCodes";
+         AccessModes : "enumAccessMode";
+         UnionTypes : "ASCF_EnumUnionTypes";
+      END_STRUCT;
+      ProcedureNum : Int;
+      CommandPea : "ServiceCommandStruct";
+   END_VAR
+
+
+BEGIN
+
+
+	REGION SERVICE EXECUTION LOGIC
+
+	    #Connector.DoneReply.Init := #Connector.DoRequest.Init; 
+	    #Connector.DoneReply.Idle := #OutputList[#OutputListConfig.Service_IdleDone].Value.VBool;
+
+	    #Connector.DoneReply.Starting := #OutputList[#OutputListConfig.Service_StartingDone].Value.VBool;
+	    #Connector.DoneReply.Execute := #OutputList[#OutputListConfig.Service_ExecuteDone].Value.VBool;
+	    #Connector.DoneReply.Completing := #OutputList[#OutputListConfig.Service_CompletingDone].Value.VBool;
+	    #Connector.DoneReply.Completed := #OutputList[#OutputListConfig.Service_CompletedDone].Value.VBool;
+
+	    #Connector.DoneReply.Pausing := #OutputList[#OutputListConfig.Service_PausingDone].Value.VBool;
+	    #Connector.DoneReply.Paused := #OutputList[#OutputListConfig.Service_PausedDone].Value.VBool;
+	    #Connector.DoneReply.Resuming := #OutputList[#OutputListConfig.Service_ResumingDone].Value.VBool;
+
+	    #Connector.DoneReply.Holding := #OutputList[#OutputListConfig.Service_HoldingDone].Value.VBool;
+	    #Connector.DoneReply.Held := #OutputList[#OutputListConfig.Service_HeldDone].Value.VBool;
+	    #Connector.DoneReply.Unholding := #OutputList[#OutputListConfig.Service_UnholdingDone].Value.VBool;
+
+	    #Connector.DoneReply.Stopping := #OutputList[#OutputListConfig.Service_StoppingDone].Value.VBool;
+	    #Connector.DoneReply.Stopped := #OutputList[#OutputListConfig.Service_StoppedDone].Value.VBool;
+
+	    #Connector.DoneReply.Aborting := #OutputList[#OutputListConfig.Service_AbortingDone].Value.VBool;
+	    #Connector.DoneReply.Aborted := #OutputList[#OutputListConfig.Service_AbortedDone].Value.VBool;
+
+	    #Connector.DoneReply.Resetting := #OutputList[#OutputListConfig.Service_ResettingDone].Value.VBool;
+	    
+	END_REGION
+	
+	REGION CHOREOGRAPHY PRE PROCESSING
+	    
+	    #OutputList[#OutputListConfig.Service_InitializationDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_InitializationDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_InitializationDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Init := #OutputList[#OutputListConfig.Service_InitializationDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_IdleDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_IdleDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_IdleDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Idle := #OutputList[#OutputListConfig.Service_IdleDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_StartingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_StartingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_StartingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Starting := #OutputList[#OutputListConfig.Service_StartingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_ExecuteDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_ExecuteDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_ExecuteDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Execute := #OutputList[#OutputListConfig.Service_ExecuteDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_CompletingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_CompletingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_CompletingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Completing := #OutputList[#OutputListConfig.Service_CompletingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_CompletedDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_CompletedDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_CompletedDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Completed := #OutputList[#OutputListConfig.Service_CompletedDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_PausingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_PausingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_PausingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Pausing := #OutputList[#OutputListConfig.Service_PausingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_PausedDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_PausedDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_PausedDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Paused := #OutputList[#OutputListConfig.Service_PausedDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_ResumingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_ResumingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_ResumingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Resuming := #OutputList[#OutputListConfig.Service_ResumingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_HoldingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_HoldingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_HoldingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Holding := #OutputList[#OutputListConfig.Service_HoldingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_HeldDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_HeldDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_HeldDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Held := #OutputList[#OutputListConfig.Service_HeldDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_UnholdingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_UnholdingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_UnholdingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Unholding := #OutputList[#OutputListConfig.Service_HeldDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_StoppingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_StoppingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_StoppingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Stopping := #OutputList[#OutputListConfig.Service_StoppingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_StoppedDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_StoppedDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_StoppedDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Stopped := #OutputList[#OutputListConfig.Service_StoppedDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_AbortingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_AbortingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_AbortingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Aborting := #OutputList[#OutputListConfig.Service_AbortingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_AbortedDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_AbortedDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_AbortedDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Aborted := #OutputList[#OutputListConfig.Service_AbortedDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_ResettingDone].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_ResettingDone].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_ResettingDone].Substitute.VBool := TRUE;
+	    #Connector.DoneReply.Resetting := #OutputList[#OutputListConfig.Service_ResettingDone].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Reset].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Reset].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Reset].Substitute.VBool := FALSE;
+	    #Connector.Command.Reset := #OutputList[#OutputListConfig.Service_Command_Reset].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Start].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Start].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Start].Substitute.VBool := FALSE;
+	    #Connector.Command.Start := #OutputList[#OutputListConfig.Service_Command_Start].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Stop].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Stop].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Stop].Substitute.VBool := FALSE;
+	    #Connector.Command.Stop := #OutputList[#OutputListConfig.Service_Command_Stop].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Hold].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Hold].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Hold].Substitute.VBool := FALSE;
+	    #Connector.Command.Hold := #OutputList[#OutputListConfig.Service_Command_Hold].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Unhold].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Unhold].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Unhold].Substitute.VBool := FALSE;
+	    #Connector.Command.Unhold := #OutputList[#OutputListConfig.Service_Command_Unhold].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Pause].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Pause].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Pause].Substitute.VBool := FALSE;
+	    #Connector.Command.Pause := #OutputList[#OutputListConfig.Service_Command_Pause].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Resume].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Resume].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Resume].Substitute.VBool := FALSE;
+	    #Connector.Command.Resume := #OutputList[#OutputListConfig.Service_Command_Resume].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Abort].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Abort].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Abort].Substitute.VBool := FALSE;
+	    #Connector.Command.Abort := #OutputList[#OutputListConfig.Service_Command_Abort].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Restart].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Restart].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Restart].Substitute.VBool := FALSE;
+	    #Connector.Command.Restart := #OutputList[#OutputListConfig.Service_Command_Restart].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Command_Complete].DataType := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Complete].Substitute.Typeselector := #Enum.UnionTypes.VBool;
+	    #OutputList[#OutputListConfig.Service_Command_Complete].Substitute.VBool := FALSE;
+	    #Connector.Command.Complete := #OutputList[#OutputListConfig.Service_Command_Complete].Value.VBool;
+	    
+	    #OutputList[#OutputListConfig.Service_Procedure].DataType := #Enum.UnionTypes.VDWord;
+	    #OutputList[#OutputListConfig.Service_Procedure].Substitute.Typeselector := #Enum.UnionTypes.VDWord;
+	    #OutputList[#OutputListConfig.Service_Procedure].Substitute.VDWord := 16#0;
+	    
+	    
+	END_REGION
+	
+	
+	REGION SERVICE CORE
+	    
+	    #Service(InitialCall := #InitialCall,
+	             InitialOpMode := #InitialOpMode,
+	             CommandPea := #CommandPea,
+	             Procedures := #Procedures,
+	             Connect := #Connector);
+	    
+	END_REGION
+	
+	REGION CHOREOGRAPHY_POST_PROCEESSING
+	    
+	    #InputList[#InputListConfig.Service_State_Initialization].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Initialization].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Initialization].VBool := #Connector.CurrentState.Init;
+	    
+	    #InputList[#InputListConfig.Service_State_Idle].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Idle].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Idle].VBool := #Connector.CurrentState.Idle;
+	    
+	    #InputList[#InputListConfig.Service_State_Starting].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Starting].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Starting].VBool := #Connector.CurrentState.Starting;
+	    
+	    #InputList[#InputListConfig.Service_State_Execute].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Execute].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Execute].VBool := #Connector.CurrentState.Execute;
+	    
+	    #InputList[#InputListConfig.Service_State_Completing].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Completing].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Completing].VBool := #Connector.CurrentState.Completing;
+	    
+	    #InputList[#InputListConfig.Service_State_Completed].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Completed].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Completed].VBool := #Connector.CurrentState.Completed;
+	    
+	    #InputList[#InputListConfig.Service_State_Resetting].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Resetting].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Resetting].VBool := #Connector.CurrentState.Resetting;
+	    
+	    #InputList[#InputListConfig.Service_State_Pausing].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Pausing].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Pausing].VBool := #Connector.CurrentState.Pausing;
+	    
+	    #InputList[#InputListConfig.Service_State_Paused].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Paused].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Paused].VBool := #Connector.CurrentState.Paused;
+	    
+	    #InputList[#InputListConfig.Service_State_Resuming].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Resuming].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Resuming].VBool := #Connector.CurrentState.Resuming;
+	    
+	    #InputList[#InputListConfig.Service_State_Holding].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Holding].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Holding].VBool := #Connector.CurrentState.Holding;
+	    
+	    #InputList[#InputListConfig.Service_State_Held].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Held].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Held].VBool := #Connector.CurrentState.Held;
+	    
+	    #InputList[#InputListConfig.Service_State_Unholding].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Unholding].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Unholding].VBool := #Connector.CurrentState.Unholding;
+	    
+	    #InputList[#InputListConfig.Service_State_Stopping].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Stopping].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Stopping].VBool := #Connector.CurrentState.Stopping;
+	    
+	    #InputList[#InputListConfig.Service_State_Stopped].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Stopped].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Stopped].VBool := #Connector.CurrentState.Stopped;
+	    
+	    #InputList[#InputListConfig.Service_State_Aborting].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Aborting].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Aborting].VBool := #Connector.CurrentState.Aborting;
+	    
+	    #InputList[#InputListConfig.Service_State_Aborted].Typeselector := #Enum.UnionTypes.VBool;
+	    #InputList[#InputListConfig.Service_State_Aborted].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_State_Aborted].VBool := #Connector.CurrentState.Aborted;
+	    
+	    #InputList[#InputListConfig.Service_Procedure_Req].Typeselector := #Enum.UnionTypes.VDWord;
+	    #InputList[#InputListConfig.Service_Procedure_Req].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_Procedure_Req].VDWord := #Service.ProcedureReq;
+	    
+	    #InputList[#InputListConfig.Service_Procedure_Cur].Typeselector := #Enum.UnionTypes.VDWord;
+	    #InputList[#InputListConfig.Service_Procedure_Cur].VQC := #Service.MTP.WQC;
+	    #InputList[#InputListConfig.Service_Procedure_Cur].VDWord := #Service.ProcedureCur;
+	    
+	END_REGION
+
+END_FUNCTION_BLOCK

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="CreateDTL" Id="{09c3a8fc-7199-4dc5-bad7-159cec065828}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION CreateDTL : DTL]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CreateDTL.YEAR		:= 0;
+CreateDTL.MONTH		:= 0;
+CreateDTL.DAY			:= 0;
+CreateDTL.HOUR		:= 0;
+CreateDTL.MINUTE		:= 0;
+CreateDTL.SECOND		:= 0;
+CreateDTL.MILLISECOND	:= 0;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

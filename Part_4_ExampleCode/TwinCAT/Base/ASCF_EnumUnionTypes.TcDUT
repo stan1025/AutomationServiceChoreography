@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_EnumUnionTypes" Id="{3bbdb8bd-7e4c-4ba2-a1de-2116983ce92b}">
+    <Declaration><![CDATA[TYPE ASCF_EnumUnionTypes :
+STRUCT
+	None		: BYTE		:= 0;		//Type: None
+	VReal		: BYTE		:= 1;		//Type: Real
+	VDINT		: BYTE		:= 2;		//Type: DINT
+	VDWord		: BYTE		:= 3;		//Type: DWord
+	VBool		: BYTE		:= 4;		//Type: Bool
+	VString		: BYTE		:= 5;		//Type: String
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

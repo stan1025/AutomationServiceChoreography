@@ -1,0 +1,34 @@
+FUNCTION "ASCF_GetValueOutputList" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Index : UInt;
+   END_VAR
+
+   VAR_OUTPUT 
+      Value : "ASCF_UnionType";
+   END_VAR
+
+   VAR_IN_OUT 
+      Outputs : Array[*] of "ASCF_CL_OutputType";
+   END_VAR
+
+   VAR_TEMP 
+      tempLowerBound : DInt;
+      tempUpperBound : DInt;
+      constErrors : "ASCF_CL_EnumErrors";
+   END_VAR
+
+
+BEGIN
+	#tempLowerBound := LOWER_BOUND(ARR := #Outputs, DIM := 1);
+	#tempUpperBound := UPPER_BOUND(ARR := #Outputs, DIM := 1);
+	
+	IF #Index < #tempLowerBound OR #Index > #tempUpperBound THEN
+	    #ASCF_GetValueOutputList := #constErrors.InvalidIndex;
+	    RETURN;
+	END_IF;
+	
+	#Value := #Outputs[#Index].Value;
+	#ASCF_GetValueOutputList := #constErrors.None;
+END_FUNCTION

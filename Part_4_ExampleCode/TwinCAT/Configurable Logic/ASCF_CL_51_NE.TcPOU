@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CL_51_NE" Id="{c62c6e8a-73f5-418c-88f5-ab368878e07a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CL_51_NE : WORD
+VAR_OUTPUT
+	Out							: ASCF_UnionType;				//Result of the computation (Type: VBool)
+END_VAR
+
+VAR_IN_OUT
+	Arguments					: ARRAY[0..3] OF ASCF_UnionType;	//Arguments for the function (Arguments: 2 , Type: VReal or VDINT or VDWord)
+END_VAR
+
+VAR
+	tempRet						: WORD;
+	constErrors					: ASCF_CL_EnumErrors;				//Enumeration type of the error codes of the Adaptive Logic.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "EXECUTE AND OUTPUT"}
+    tempRet := ASCF_CL_50_EE(Arguments := Arguments, Out => Out);
+    
+    // negate result if EE was successful
+    IF tempRet = constErrors.None THEN
+        Out.VBool := NOT Out.VBool;
+    END_IF;
+    
+    ASCF_CL_51_NE := tempRet;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

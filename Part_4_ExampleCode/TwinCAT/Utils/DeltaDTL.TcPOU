@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="DeltaDTL" Id="{5ce43540-cda4-46fe-8da2-6a622764b90a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION DeltaDTL : DTL
+VAR_INPUT
+	In_1		: DTL;										//past
+	In_2		: DTL;										//actual
+END_VAR
+
+VAR	
+	MS				: INT		:=0;						//delta
+	Sec				: INT		:=0;
+	Mi				: INT		:=0;
+	H				: INT		:=0;
+	D				: INT		:=0;
+	Mo				: INT		:=0;
+	Y				: INT		:=0;
+	
+	MS_c			: BOOL		:=0;						//carry
+	Sec_c			: BOOL		:=0;
+	Mi_c			: BOOL		:=0;
+	H_c				: BOOL		:=0;
+	D_c				: BOOL		:=0;
+	Mo_c			: BOOL		:=0;
+	Y_c				: BOOL		:=0;
+	
+	days_this_month	: INT		:=0;
+	
+	ERROR			: BOOL		:=0;
+	WARNING			: BOOL		:=0;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Node: 
+//- no leap year considered!!!
+
+//meaning of the indices
+//a = actual	= IN_2
+//p = past		= IN_1
+//c = carry
+
+ERROR 			:= FALSE;
+WARNING			:= FALSE;
+{endregion}
+
+
+{region "Error: test input"}
+IF IN_1.MILLISECOND > 1000 THEN
+	ERROR := TRUE;
+END_IF
+
+IF IN_1.SECOND > 60 THEN
+	ERROR := TRUE;
+END_IF
+
+IF IN_1.MINUTE > 60 THEN
+	ERROR := TRUE;
+END_IF
+
+IF IN_1.HOUR > 24 THEN
+	ERROR := TRUE;
+END_IF
+
+IF IN_1.DAY > 31 THEN
+	ERROR := TRUE;
+END_IF
+
+IF IN_1.MONTH > 12 THEN
+	ERROR := TRUE;
+END_IF
+{endregion}
+
+{region "delta Time"}
+	{region "milliseconds"}
+	IF IN_2.MILLISECOND >= IN_1.MILLISECOND THEN
+		MS := IN_2.MILLISECOND - IN_1.MILLISECOND;
+		MS_c := FALSE;
+	ELSE
+		MS := 1000 + IN_2.MILLISECOND - IN_1.MILLISECOND;
+		MS_c := TRUE;
+	END_IF
+	{endregion}
+	
+	
+	{region "seconds"}
+	IF IN_2.SECOND >= IN_1.SECOND THEN
+		IF MS_c = 0 THEN					//carry = 0
+			Sec := IN_2.SECOND - IN_1.SECOND;
+		ELSE								//carry = 1
+			IF IN_2.SECOND - 1 >= IN_1.SECOND THEN
+				Sec := IN_2.SECOND - 1 - IN_1.SECOND;
+				Sec_c := FALSE;
+			ELSE
+				Sec := 60 + IN_2.SECOND - 1 - IN_1.SECOND;
+				Sec_c := TRUE;
+			END_IF
+		END_IF
+	ELSE
+		IF MS_c = 0 THEN					//carry = 0
+			Sec := 60 + IN_2.SECOND - IN_1.SECOND;
+			Sec_c := TRUE;
+		ELSE								//carry = 1
+			Sec := 60 + IN_2.SECOND - IN_1.SECOND - 1;
+			Sec_c := TRUE;
+		END_IF
+	END_IF	 
+	{endregion}
+	
+	
+	{region "minute"}
+	IF IN_2.MINUTE >= IN_1.MINUTE THEN
+		IF Sec_c = 0 THEN					//carry = 0
+			Mi := IN_2.MINUTE - IN_1.MINUTE;
+		ELSE								//carry = 1
+			IF IN_2.MINUTE - 1 >= IN_1.MINUTE THEN
+				Mi := IN_2.MINUTE - 1 - IN_1.MINUTE;
+				Mi_c := FALSE;
+			ELSE
+				Mi := 60 + IN_2.MINUTE - 1 - IN_1.MINUTE;
+				Mi_c := TRUE;
+			END_IF
+		END_IF
+	ELSE
+		IF Sec_c = 0 THEN					//carry = 0
+			Mi := 60 + IN_2.MINUTE - IN_1.MINUTE;
+			Mi_c := TRUE;
+		ELSE								//carry = 1
+			Mi := 60 + IN_2.MINUTE - 1 - IN_1.MINUTE;
+			Mi_c := TRUE;
+		END_IF
+	END_IF	 
+	{endregion}
+	
+	
+	{region "hour"}
+	IF IN_2.HOUR >= IN_1.HOUR THEN
+		IF Mi_c = 0 THEN					//carry = 0
+			H := IN_2.HOUR - IN_1.HOUR;
+		ELSE								//carry = 1
+			IF IN_2.HOUR - 1 >= IN_1.HOUR THEN
+				H := IN_2.HOUR - 1 - IN_1.HOUR;
+				H_c := FALSE;
+			ELSE
+				H := 24 + IN_2.HOUR - 1 - IN_1.HOUR;
+				H_c := TRUE;
+			END_IF
+		END_IF
+	ELSE
+		IF Mi_c = 0 THEN					//carry = 0
+			H := 24 + IN_2.HOUR - IN_1.HOUR;
+			H_c := TRUE;
+		ELSE								//carry = 1
+			H := 24 + IN_2.HOUR - 1 - IN_1.HOUR;
+			H_c := TRUE;
+		END_IF
+	END_IF	 
+	{endregion}
+	
+		 
+	{region "calculate number of days"}
+	CASE IN_1.MONTH OF
+		1	: days_this_month := 31;
+		2	: days_this_month := 28;
+		3	: days_this_month := 31;
+		4	: days_this_month := 30;
+		5	: days_this_month := 31;
+		6	: days_this_month := 30;
+		7	: days_this_month := 31;
+		8	: days_this_month := 31;
+		9	: days_this_month := 30;
+		10	: days_this_month := 31;
+		11	: days_this_month := 30;
+		12	: days_this_month := 31;
+	ELSE
+		Error := TRUE;	 
+	END_CASE
+	{endregion}
+		 
+			  
+	
+	//Error in the input
+	IF (days_this_month - IN_1.DAY) < 0 THEN
+		Error := TRUE;
+	END_IF
+				 
+					  
+	{region "day"}
+	IF IN_2.DAY >= IN_1.DAY THEN
+		IF H_c = 0 THEN						//carry = 0
+			D := IN_2.DAY - IN_1.DAY;
+		ELSE								//carry = 1
+			IF IN_2.DAY - 1 >= IN_1.DAY THEN
+				D := IN_2.DAY - 1 - IN_1.DAY;
+				D_c := FALSE;
+			ELSE
+				D := IN_2.DAY - INT_TO_USINT(days_this_month) - IN_1.DAY;
+				D_c := TRUE;
+			END_IF
+		END_IF
+	ELSE
+		IF H_c = 0 THEN						//carry = 0
+			D := IN_2.DAY - INT_TO_USINT(days_this_month) - IN_1.DAY;
+			D_c := TRUE;
+		ELSE								//carry = 1
+			D := IN_2.DAY - INT_TO_USINT(days_this_month) - IN_1.DAY - 1;
+			D_c := TRUE;
+		END_IF
+	END_IF	 
+	{endregion}
+	
+	
+	{region "month"}
+	IF IN_2.MONTH >= IN_1.MONTH THEN
+		IF D_c = 0 THEN						//carry = 0
+			Mo := IN_2.MONTH - IN_1.MONTH;
+		ELSE								//carry = 1
+			IF IN_2.MONTH - 1 >= IN_1.MONTH THEN
+				Mo := IN_2.MONTH - 1 - IN_1.MONTH;
+				Mo_c := FALSE;
+			ELSE
+				Mo := 12 + IN_2.MONTH - 1 - IN_1.MONTH;
+				Mo_c := TRUE;
+			END_IF
+		END_IF
+	ELSE
+		IF D_c = 0 THEN						//carry = 0
+			Mo := 12 + IN_2.MONTH - IN_1.MONTH;
+			Mo_c := TRUE;
+		ELSE								//carry = 1
+			Mo := 12 + IN_2.MONTH - 1 - IN_1.MONTH;
+			Mo_c := TRUE;
+		END_IF
+	END_IF	 
+	{endregion}
+	
+	
+	{region "year"}
+IF IN_2.YEAR >= IN_1.YEAR THEN
+	IF Mo_c = 0 THEN						//carry = 0
+		Y := IN_2.YEAR - IN_1.YEAR;
+	ELSE									//carry = 1
+		IF IN_2.YEAR - 1 >= IN_1.YEAR THEN
+			Y := IN_2.YEAR - IN_1.YEAR - 1;
+		ELSE
+			ERROR := TRUE;
+		END_IF
+	END_IF
+ELSE
+	ERROR := TRUE;	
+END_IF	 
+{endregion}
+{endregion}
+
+
+{region "Error: test output"}	//Error: if T_delta is outside the value range
+IF MS > 1000 THEN
+	Error := TRUE;
+END_IF
+
+IF Sec > 60 THEN
+	Error := TRUE;
+END_IF
+
+IF Mi > 60 THEN
+	Error := TRUE;
+END_IF
+
+IF H > 24 THEN
+	Error := TRUE;
+END_IF
+	 
+IF D > days_this_month THEN
+	Error := TRUE;
+END_IF		  
+
+IF Mo > 12 THEN
+	Error := TRUE;
+END_IF
+{endregion}
+
+	 
+{region "Warning: test output"}		//here T_delta is normally in the ms range, if greater, a warning should be issued
+IF Y > 0 THEN
+	WARNING := TRUE;
+END_IF
+
+IF Mo > 0 THEN
+	WARNING := TRUE;
+END_IF
+
+IF D > 0 THEN
+	WARNING := TRUE;
+END_IF
+
+IF H > 24 THEN
+	WARNING := TRUE;
+END_IF
+
+IF Mi > 60 THEN
+	WARNING := TRUE;
+END_IF
+{endregion}
+
+
+{region "output"}
+IF Error = 0 THEN	
+	DeltaDTL.YEAR			:= Y;
+	DeltaDTL.MONTH			:= Mo;
+	DeltaDTL.DAY			:= D;
+	DeltaDTL.HOUR			:= H;
+	DeltaDTL.MINUTE		:= Mi;
+	DeltaDTL.SECOND		:= Sec;
+	DeltaDTL.MILLISECOND	:= MS;
+	
+ELSE
+	DeltaDTL.YEAR			:= 0;
+	DeltaDTL.MONTH			:= 0;
+	DeltaDTL.DAY			:= 0;
+	DeltaDTL.HOUR			:= 0;
+	DeltaDTL.MINUTE		:= 0;
+	DeltaDTL.SECOND		:= 0;
+	DeltaDTL.MILLISECOND	:= 0;
+END_IF
+
+IF WARNING = 1 THEN
+	{warning 'unexpectedly large time difference'}
+	WARNING := 0;
+END_IF
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

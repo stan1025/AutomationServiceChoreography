@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CL_EnumErrors" Id="{3271cc39-3c3e-42ef-97dc-069025b9654c}">
+    <Declaration><![CDATA[TYPE ASCF_CL_EnumErrors :
+STRUCT
+	None					: WORD		:= 16#0000;
+	InvalidIndex			: WORD		:= 16#2001;
+	NoSourceSelected		: WORD		:= 16#2002;
+	InvalidSourceSelected	: WORD		:= 16#2003;
+	NoFunctionSelected		: WORD		:= 16#2004;
+	InvalidFunctionSelected	: WORD		:= 16#2005;
+	ErrorInArgument			: WORD		:= 16#2006;
+	InvalidType				: WORD		:= 16#2007;
+	DivisionByZero			: WORD		:= 16#2008;
+	TooFewArguments			: WORD		:= 16#2009;
+	TypesDoNotMatch			: WORD		:= 16#200A;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

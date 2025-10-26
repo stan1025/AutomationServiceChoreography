@@ -1,0 +1,14 @@
+TYPE "ASCF_CC_OPCUACS_ConnectionConfig"
+TITLE = CC_connectionConfig
+VERSION : 0.1
+
+   STRUCT
+      ServerURL : WString;  
+      SessionConnectInfo {InstructionName := 'OPC_UA_SessionConnectInfo'; LibVersion := '1.0'; S7_SetPoint := 'False'} : OPC_UA_SessionConnectInfo;  
+      NamespaceUrisCount : USInt;   
+      NamespaceUris : Array[0..4] of WString; 
+      ConnectionTimeout : UInt := 5000;   
+      ConnectionDiagnoseCycle : UInt := 1000;   
+   END_STRUCT;
+
+END_TYPE

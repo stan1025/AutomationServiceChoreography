@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CL_31_AND" Id="{8956c13c-4828-4213-8a21-f94eed7de63d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CL_31_AND : WORD
+VAR_OUTPUT
+	Out					: ASCF_UnionType;		//Result of the computation (Type: VBool or VDWord)
+END_VAR
+
+VAR_IN_OUT
+	Arguments			: ARRAY[0..3] OF ASCF_UnionType;		//Arguments for the function (Arguments: 2 - 4, Type: VBool or VDWord)
+END_VAR
+
+VAR
+	tempLoopVar			: DINT;
+	tempDone			: BOOL;
+	tempQC				: BYTE;
+	tempResult			: DWORD;
+	tempDWordFlag		: BOOL;
+	tempValidArgumentCount	: UINT;
+	constDefaultUnionType	: ASCF_UnionType;				//Union type that holds only one of its possible data types at a time. The type can be selected via the "Typeselector". Independent of the selected type, every value has a quality code "VQC".
+	constUnionTypes			: ASCF_EnumUnionTypes;			//Enumeration type of the valid values for the "Typeselector" of a "GVR_unionType"-UDT.
+	constQualityCodes		: ASCF_QualityCodes;				//This enum encodes the defines quality codes for the MTP standard. The values are shown in HEX. The lowest value (1) has the highest priority.    | QC Name              | Value | Priority ||----------------------|:-----:|:--------:|| Failure              | 16#00 |    1     || Function Check       | 16#60 |    2     || Ma: INTenance Request  | 16#A4 |    3     || Out of Specification | 16#68 |    4     || OK                   | 16#80 |    5     || Out of Service       | 16#1C |    6     || No Status            | 16#FF |    7     |
+	constErrors				: ASCF_CL_EnumErrors;				//Enumeration type of the error codes of the Adaptive Logic.
+END_VAR
+
+VAR CONSTANT
+	MIN_ARGUMENTS_COUNT		: UINT		:= 2;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+//#################################################################################################
+{region "INITIALIZE VARIABLES"}
+    tempResult := 16#FFFF_FFFF;
+    tempQC := constQualityCodes.No_Status;
+    Out := constDefaultUnionType;
+{endregion}
+
+//#################################################################################################
+{region "PROCESS ARGUMENTS"}
+    FOR tempLoopVar := 0 TO 3 DO
+        
+        //-------------------------------------------------------------------------------------
+        // no type --> exit loop, argument processing is done
+        IF Arguments[tempLoopVar].Typeselector = constUnionTypes.None THEN
+            
+            tempDone := TRUE;
+            
+            //-------------------------------------------------------------------------------------
+            // VBool --> process
+        ELSIF Arguments[tempLoopVar].Typeselector = constUnionTypes.VBool THEN
+            
+            tempResult := tempResult AND BOOL_TO_DWORD(Arguments[tempLoopVar].VBool);
+            tempQC := ASCF_CalcWQC(QC1 := tempQC, QC2 := Arguments[tempLoopVar].VQC);
+            tempValidArgumentCount := tempValidArgumentCount + 1;
+            
+            //-------------------------------------------------------------------------------------
+            // VDWord --> process
+        ELSIF Arguments[tempLoopVar].Typeselector = constUnionTypes.VDWord THEN
+            
+            tempResult := tempResult AND Arguments[tempLoopVar].VDWord;
+            tempQC := ASCF_CalcWQC(QC1 := tempQC, QC2 := Arguments[tempLoopVar].VQC);
+            tempValidArgumentCount := tempValidArgumentCount + 1;
+            tempDWordFlag := TRUE;
+            
+            //-------------------------------------------------------------------------------------
+            // invalid type --> error
+        ELSE
+            ASCF_CL_31_AND := constErrors.InvalidType;
+            RETURN;
+            
+        END_IF;
+        
+        // argument processing is done --> exit loop
+        IF tempDone THEN
+            EXIT;
+        END_IF;
+        
+    END_FOR;
+    
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // too few arguments
+    IF tempValidArgumentCount < MIN_ARGUMENTS_COUNT THEN
+        ASCF_CL_31_AND := constErrors.TooFewArguments;
+        RETURN;
+    END_IF;
+{endregion}
+
+//#################################################################################################
+{region "OUTPUT"}
+    IF tempDWordFlag THEN
+        Out.Typeselector := constUnionTypes.VDWord;
+        Out.VQC := tempQC;
+        Out.VDWord := tempResult;
+    ELSE
+        Out.Typeselector := constUnionTypes.VBool;
+        Out.VQC := tempQC;
+        Out.VBool := DWORD_TO_BOOL(tempResult);
+    END_IF;
+    
+    ASCF_CL_31_AND := constErrors.None;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

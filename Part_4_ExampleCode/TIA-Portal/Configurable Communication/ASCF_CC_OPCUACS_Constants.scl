@@ -1,0 +1,16 @@
+
+TYPE "ASCF_CC_OPCUACS_Constants"
+TITLE = CC_constants
+VERSION : 0.1
+
+   STRUCT
+      MaxEntriesPerSchedule { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : USInt := 5;
+      MaxTryCount { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : USInt := 5;
+      ReaderNodeCount { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : USInt := 2;
+      WriterNodeCount { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : USInt := 3;
+      OperationDoneID { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : SInt := -1;
+      MinNamespaceUrisCount { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : USInt := 1;
+      MaxNamespaceUrisCount { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : USInt := 5;
+   END_STRUCT;
+
+END_TYPE

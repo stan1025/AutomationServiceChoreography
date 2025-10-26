@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Writer_Interface" Id="{9f5e5f09-8dfb-4cdf-a2ed-a86cdf7e72fe}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Writer_Interface :
+STRUCT
+	Connect		: BOOL		:= FALSE;		//Connect the Reader (NOTE: This means the writer will start to read and has nothing to do with the actual OPC UA connection)
+	Disconnect	: BOOL		:= FALSE;		//Disconnect the Reader (NOTE: This means the writer will stop to read and has nothing to do with the actual OPC UA connection)
+	DoWrite		: BOOL		:= FALSE;		//Command to do one read operation. Is set to 0 when done. Use a constant true to continuously read.
+	Reset		: BOOL		:= FALSE;		//Reset the Reader
+	Config		: ASCF_CC_OPCUACS_WriterConfig;					//Configuration of the Reader
+	Status		: ASCF_CC_OPCUACS_WriterStatus;					//Status of the Reader
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_ConnectionInterface" Id="{faabdf98-8188-4b90-80a5-de1edaccdeff}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_ConnectionInterface :
+STRUCT
+	Active				: BOOL		:= FALSE;			// Flag to control if the connection is active
+	Connect				: BOOL		:= FALSE;			// Connect command
+	Disconnect			: BOOL		:= FALSE;			// Disconnect command
+	Reset				: BOOL		:= FALSE;			// Reset command
+	Config				: ASCF_CC_OPCUACS_ConnectionConfig;			// Connection config
+//	Handle				: CC_connectionHandle;			// Connection handle
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CL_FunctionTypeConfig" Id="{debddeed-e578-48a9-be2a-bd4371e3b89e}">
+    <Declaration><![CDATA[TYPE ASCF_CL_FunctionTypeConfig :
+STRUCT
+	Selector	: UINT		:= 0;								//Selector for the function to execute (see "AL_enumFunctionTypes" for the available functions)
+	Arguments	: ARRAY[0..3] OF ASCF_CL_ArgumentType;	//Arguments for the selected function
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

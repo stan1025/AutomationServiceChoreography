@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CC_OPCUACS_QuerySchedule" Id="{084ccc6f-4c1c-4aa2-9475-b228b200f394}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CC_OPCUACS_QuerySchedule : Bool
+VAR_INPUT
+	ID			: USINT;			//ID of the block
+END_VAR
+
+VAR_OUTPUT
+	Index		: USINT;			//Index where the block is scheduled (only valid if the return value is true)
+END_VAR
+
+VAR_IN_OUT
+	Schedule	: ARRAY[*] OF INT;
+END_VAR
+
+VAR
+	tempLowerBound	: DINT;
+	tempUpperBound	: DINT;
+	tempLoopVar		: DINT;
+	constConstants	: ASCF_CC_OPCUACS_Constants;	//Constants used by the ConfigurableCommunication.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "QUERY #Schedule"}
+    tempLowerBound := LOWER_BOUND(Schedule, 1);
+    tempUpperBound := UPPER_BOUND(Schedule, 1);
+    
+    FOR tempLoopVar := tempLowerBound TO tempUpperBound DO
+        IF Schedule[tempLoopVar] = ID THEN
+            Index := DINT_TO_USINT(tempLoopVar);
+            ASCF_CC_OPCUACS_QuerySchedule := TRUE;
+            RETURN;
+        END_IF;
+    END_FOR;
+    
+    ASCF_CC_OPCUACS_QuerySchedule := FALSE;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

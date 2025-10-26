@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_OpcUaClientServerManager" Id="{793bc831-6bae-427d-86b1-1ce22e978292}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ASCF_OpcUaClientServerManager
+VAR_IN_OUT
+	//Union type that holds only one of its possible data types at a time. The type can be selected via the "Typeselector". Independent of the selected type, every value has a quality code "VQC".
+	Inputs						: ARRAY[*] OF ASCF_UnionType;		
+	
+	//Output-Element of the Adaptive Logic.
+	Outputs						: ARRAY[*] OF ASCF_CL_OutputType;
+
+	//Mapping List of Reader to Input List Elements		
+	ReaderInputMapping				: ARRAY[*] OF UINT; 
+	
+	//Mapping List of Reader to Input List Elements
+	WriterOutputMapping				: ARRAY[*] OF UINT;
+	
+	//Pointer to the System Type from PRG
+	PointerSysTime				: POINTER TO STRING;
+END_VAR
+
+VAR
+	//Connection Manager Instance
+	ConnectionManager			: ASCF_CC_OPCUACS_Connections;
+	//List of Connection Handles
+	ConnectionHandles		: ARRAY[0..9] OF ASCF_CC_OPCUACS_ConnectionHandle;
+	//List of Connection Control Interfaces
+	ConnectionInterface			: ARRAY[0..MAX_CONNECTION_IDX] OF ASCF_CC_OPCUACS_ConnectionInterface;
+	
+	//List of Reader Instances
+	Reader						: ARRAY[0..MAX_READER_IDX] OF ASCF_CC_OPCUACS_Reader;
+	//List of Reader Control Interfaces	
+	aInterface_Read				: ARRAY[0..MAX_READER_IDX] OF ASCF_CC_OPCUACS_Reader_Interface;
+		
+		
+	//List of Writer Instances
+	Writer						: ARRAY[0..MAX_WRITER_IDX] OF ASCF_CC_OPCUACS_Writer;
+	//List of Writer Control Interfaces
+	aInterface_Write			: ARRAY[0..MAX_WRITER_IDX] OF ASCF_CC_OPCUACS_Writer_Interface;
+	
+	
+	//Flag for Change Detection - ConnectionViewCur
+	stLastConnectionViewCur		: BOOL		:= TRUE;	
+	//Flag for Change Detection - ConnectionIndexCur
+	stLastConnectionIndexCur	: UINT		:= 999;
+	//Flag for Change Detection - ReaderViewCur
+	stLastReaderViewCur			: BOOL		:= TRUE;	
+	//Flag for Change Detection - ReaderIndexCur
+	stLastReaderIndexCur		: UINT		:= 999;	
+	//Flag for Change Detection - WriterViewCur
+	stLastWriterViewCur			: BOOL		:= TRUE;	
+	//Flag for Change Detection - WriterIndexCur
+	stLastWriterIndexCur		: UINT		:= 999;
+	
+	//MTP-specific interface of Client Server Manager
+	{attribute 'OPC.UA.DA' := '1'}
+  	{attribute 'OPC.UA.DA.StructuredType' := '1'}
+	MTP							: MTPOpcUaClientServerManager;
+
+END_VAR
+
+VAR_TEMP
+	//Counter of the current proceeded connection
+	i							: USINT;
+	//Temporary Counter - Connection In Use
+	tmpConnCountInUse			: USINT;
+	//Temporary Counter - Connection Error
+	tmpConnCountError			: USINT;
+	//Temporary Counter - Reader in Use
+	tmpReaderCountInUse			: USINT;
+	//Temporary Counter - Reader Error
+	tmpReaderCountError			: USINT;
+	//Temporary Counter - Writer in Use
+	tmpWriterCountInUse			: USINT;
+	//Temporary Counter - Writer Error
+	tmpWriterCountError			: USINT;
+	//Temporary Store - Connection Restore active
+	tmpConnRestoreDefault		: BOOL;
+	//Temporary Store - Reader Restore active
+	tmpReaderRestoreDefault		: BOOL;
+	//Temporary Store - Writer Restore active
+	tmpWriterRestoreDefault		: BOOL;
+	
+	//Enumeration - Connection Handle States
+	enumConnectionStates		: ASCF_CC_OPCUACS_EnumConnectionHandleStates;
+	//Enumeration - Data Type Selector 	
+	TypeSelector		: ASCF_EnumUnionTypes;		
+	
+	//Temeporary Store - Restore Default of Connection Interface
+	defaultConnectionInterface	: ASCF_CC_OPCUACS_ConnectionInterface;
+END_VAR
+
+
+
+VAR CONSTANT
+	MIN_IDX						: USINT		:= 0;
+	MAX_CONNECTION_IDX			: USINT		:= 9;
+	MAX_READER_IDX				: USINT		:= 49;
+	MAX_WRITER_IDX				: USINT		:= 49;
+	VIEW_PREP_CONFIG			: BOOL		:= FALSE;
+	VIEW_ACT_CONFIG				: BOOL		:= TRUE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//#############################################################################
+{region "RUN CONNECTION MANAGER"}
+    ConnectionManager(	ConnectionHandles := ConnectionHandles,					//die variabel unnötig, weil nicht nur HDL-Struct, sondern die ganze "Mutter-Struktur" IN-Out-Variable ist
+						ConnectionInterface	:= ConnectionInterface,
+						PointerSysTime		:= PointerSysTime);
+    
+    FOR i := MIN_IDX TO MAX_CONNECTION_IDX DO
+        
+        // Connection Active
+		IF ConnectionInterface[i].Active THEN
+            tmpConnCountInUse := tmpConnCountInUse + 1;
+        END_IF;
+        
+        // Connection Error
+        IF ConnectionHandles[i].State.Curr = enumConnectionStates.Error THEN
+            tmpConnCountError := tmpConnCountError + 1;
+        END_IF;
+        
+    END_FOR;
+{endregion}
+    
+
+
+
+//#############################################################################
+{region "RUN READERS"}
+    FOR i := MIN_IDX TO MAX_READER_IDX DO
+
+        aInterface_Read[i].Connect := TRUE;
+        aInterface_Read[i].DoRead := TRUE;
+        aInterface_Read[i].Config.ValueRegistryIndex := ReaderInputMapping[i];
+		
+        Reader[i](
+			ConnectionHandles	:= ConnectionHandles,
+            InputList			:= Inputs,
+			Control			:= aInterface_Read[i],
+			PointerSysTime		:= PointerSysTime
+			);
+        
+        // reader in use
+        IF Reader[i].Intern.activeConfig.ConnectionIndex >= 0 THEN
+            tmpReaderCountInUse := tmpReaderCountInUse + 1;
+        END_IF;
+        
+        // reader with error
+        IF aInterface_Read[i].Status.Error THEN
+            tmpReaderCountError := tmpReaderCountError + 1;
+        END_IF;
+        
+    END_FOR;
+{endregion}
+    
+
+
+
+//#############################################################################
+{region "RUN WRITERS"}
+    FOR i := MIN_IDX TO MAX_WRITER_IDX DO
+        
+        aInterface_Write[i].Connect := TRUE;
+        aInterface_Write[i].DoWrite := TRUE;
+        aInterface_Write[i].Config.ValueRegistryIndex := WriterOutputMapping[i];
+        Writer[i](	ConnectionHandles	:= ConnectionHandles,
+                  	ValueRegistry 		:= Outputs,
+				  	aInterface			:= aInterface_Write[i],
+					PointerSysTime		:= PointerSysTime);
+        
+        // writer in use
+        IF Writer[i].internals.activeConfig.ConnectionIndex >= 0 THEN
+            tmpWriterCountInUse := tmpWriterCountInUse + 1;
+        END_IF;
+        
+        // riter with error
+        IF aInterface_Write[i].Status.Error THEN
+            tmpWriterCountError := tmpWriterCountError + 1;
+        END_IF;
+        
+    END_FOR;
+{endregion}
+    
+
+
+//#############################################################################
+{region "MTP INTERFACE"}
+    // ------------------------------------------------------------------------
+    {region "CONNECTION"}
+        // view
+        MTP.ConnectionViewCur := MTP.ConnectionViewSel;
+        
+        // index
+        MTP.ConnectionIndexMax := MAX_CONNECTION_IDX;
+        MTP.ConnectionIndexCur := LIMIT(MIN_IDX, MTP.ConnectionIndexSel, MAX_CONNECTION_IDX);
+        
+        // count active/inactive/error
+        MTP.ConnectionCountActive := tmpConnCountInUse;
+        MTP.ConnectionCountInactive := (MAX_CONNECTION_IDX + 1) - tmpConnCountInUse;
+        MTP.ConnectionCountError := tmpConnCountError;
+        
+        // restore default
+        MTP.Connection_RestoreDefaultEn := TRUE;
+        
+        IF MTP.Connection_RestoreDefaultEn AND MTP.Connection_RestoreDefault
+        THEN
+            tmpConnRestoreDefault := TRUE;
+            ConnectionInterface[MTP.ConnectionIndexCur] := defaultConnectionInterface;
+        END_IF;
+        MTP.Connection_RestoreDefault := FALSE;
+        
+        // connect
+        MTP.Connection_ConnectEn := ConnectionHandles[MTP.ConnectionIndexCur].State.Curr = enumConnectionStates.Disconnected;
+        
+        IF MTP.Connection_ConnectEn AND MTP.Connection_Connect
+        THEN
+            ConnectionInterface[MTP.ConnectionIndexCur].Connect := TRUE;
+        END_IF;
+        MTP.Connection_Connect := FALSE;
+        
+        // disconnect
+        MTP.Connection_DisconnectEn := ConnectionHandles[MTP.ConnectionIndexCur].State.Curr <> enumConnectionStates.Disconnected
+        AND ConnectionHandles[MTP.ConnectionIndexCur].State.Curr <> enumConnectionStates.Disconnecting
+        AND ConnectionHandles[MTP.ConnectionIndexCur].State.Curr <> enumConnectionStates.Error;
+        
+        IF MTP.Connection_DisconnectEn AND MTP.Connection_Disconnect
+        THEN
+            ConnectionInterface[MTP.ConnectionIndexCur].Disconnect := TRUE;
+        END_IF;
+        MTP.Connection_Disconnect := FALSE;
+        
+        // reset
+        IF MTP.Connection_Reset
+        THEN
+            ConnectionInterface[MTP.ConnectionIndexCur].Reset := TRUE;
+        END_IF;
+        MTP.Connection_Reset := FALSE;
+        
+        // active
+        IF MTP.ConnectionViewCur = stLastConnectionViewCur AND MTP.ConnectionIndexCur = stLastConnectionIndexCur THEN
+            ConnectionInterface[MTP.ConnectionIndexCur].Active := MTP.Connection_Active;
+        END_IF;
+        MTP.Connection_Active := ConnectionInterface[MTP.ConnectionIndexCur].Active;
+        
+        // status
+        MTP.Connection_ConnectAct := (ConnectionHandles[MTP.ConnectionIndexCur].State.Curr <> enumConnectionStates.Disconnected
+        AND ConnectionHandles[MTP.ConnectionIndexCur].State.Curr <> enumConnectionStates.Error);
+        MTP.Connection_ConnectErr := ConnectionHandles[MTP.ConnectionIndexCur].State.Curr = enumConnectionStates.Error;
+        MTP.Connection_Status := ConnectionHandles[MTP.ConnectionIndexCur].Status;
+        
+        // config
+        IF MTP.ConnectionViewCur = VIEW_ACT_CONFIG THEN
+            
+            MTP.Connection_ServerUrl := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].ServerURL;
+            MTP.Connection_NamespaceUriCount := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].NamespaceUrisCount;
+            MTP.Connection_NamespaceUri_1 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].NamespaceUris[0];
+            MTP.Connection_NamespaceUri_2 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].NamespaceUris[1];
+            MTP.Connection_NamespaceUri_3 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].NamespaceUris[2];
+            MTP.Connection_NamespaceUri_4 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].NamespaceUris[3];
+            MTP.Connection_NamespaceUri_5 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].NamespaceUris[4];
+            //MTP.Connection_SessionInfo_SessionName := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.SessionName;
+            MTP.Connection_SessionInfo_ApplicationName := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.sApplicationName;
+            MTP.Connection_SessionInfo_SecurityMsgMode := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.eSecurityMode;
+            MTP.Connection_SessionInfo_SecurityPolicy := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.eSecurityPolicyUri;
+            //MTP.Connection_SessionInfo_ServerUri := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.ServerUri;
+            //MTP.Connection_SessionInfo_CheckServerCertificate := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.CheckServerCertificate;
+            MTP.Connection_SessionInfo_TransportProfile := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.eTransportProfileUri;
+			MTP.Connection_SessionInfo_UserIdentityTokenType := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.stUserIdentTokenType.eUserIdentTokenType; 
+			MTP.Connection_SessionInfo_UserTokenParam1 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.stUserIdentTokenType.sTokenParam1;
+            MTP.Connection_SessionInfo_UserTokenParam2 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.stUserIdentTokenType.sTokenParam2;
+            //MTP.Connection_SessionInfo_CertificateID := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.CertificateID;
+            MTP.Connection_SessionInfo_SessionTimeout := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.tSessionTimeout;
+            //MTP.Connection_SessionInfo_MonitorConnection := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.MonitorConnection;
+            //MTP.Connection_SessionInfo_LocaleID_1 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.LocaleIDs[0];
+            //MTP.Connection_SessionInfo_LocaleID_2 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.LocaleIDs[1];
+            //MTP.Connection_SessionInfo_LocaleID_3 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.LocaleIDs[2];
+            //MTP.Connection_SessionInfo_LocaleID_4 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.LocaleIDs[3];
+            //MTP.Connection_SessionInfo_LocaleID_5 := ConnectionManager.activeConnectionConfig[MTP.ConnectionIndexCur].SessionConnectInfo.LocaleIDs[4];
+            
+        ELSIF MTP.ConnectionViewCur = VIEW_PREP_CONFIG
+            AND (stLastConnectionViewCur = VIEW_ACT_CONFIG OR MTP.ConnectionIndexCur <> stLastConnectionIndexCur OR tmpConnRestoreDefault) THEN
+            
+            MTP.Connection_ServerUrl := ConnectionInterface[MTP.ConnectionIndexCur].Config.ServerURL;
+            MTP.Connection_NamespaceUriCount := ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUrisCount;
+            MTP.Connection_NamespaceUri_1 := ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[0];
+            MTP.Connection_NamespaceUri_2 := ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[1];
+            MTP.Connection_NamespaceUri_3 := ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[2];
+            MTP.Connection_NamespaceUri_4 := ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[3];
+            MTP.Connection_NamespaceUri_5 := ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[4];
+            //MTP.Connection_SessionInfo_SessionName := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.SessionName;
+            MTP.Connection_SessionInfo_ApplicationName := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.sApplicationName;
+            MTP.Connection_SessionInfo_SecurityMsgMode := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.eSecurityMode;
+            MTP.Connection_SessionInfo_SecurityPolicy := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.eSecurityPolicyUri;
+            //MTP.Connection_SessionInfo_ServerUri := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.ServerUri;
+            //MTP.Connection_SessionInfo_CheckServerCertificate := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.CheckServerCertificate;
+            MTP.Connection_SessionInfo_TransportProfile := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.eTransportProfileUri;
+            MTP.Connection_SessionInfo_UserIdentityTokenType := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.stUserIdentTokenType.eUserIdentTokenType;
+            MTP.Connection_SessionInfo_UserTokenParam1 := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.stUserIdentTokenType.sTokenParam1;
+            MTP.Connection_SessionInfo_UserTokenParam2 := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.stUserIdentTokenType.sTokenParam2;
+            //MTP.Connection_SessionInfo_CertificateID := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.CertificateID;
+            MTP.Connection_SessionInfo_SessionTimeout := ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.tSessionTimeout;
+            //MTP.Connection_SessionInfo_MonitorConnection := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.MonitorConnection;
+            //MTP.Connection_SessionInfo_LocaleID_1 := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[0];
+            //MTP.Connection_SessionInfo_LocaleID_2 := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[1];
+            //MTP.Connection_SessionInfo_LocaleID_3 := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[2];
+            //MTP.Connection_SessionInfo_LocaleID_4 := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[3];
+            //MTP.Connection_SessionInfo_LocaleID_5 := ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[4];
+            
+        ELSIF MTP.ConnectionViewCur = VIEW_PREP_CONFIG THEN
+            
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.ServerURL := MTP.Connection_ServerUrl;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUrisCount := MTP.Connection_NamespaceUriCount;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[0] := MTP.Connection_NamespaceUri_1;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[1] := MTP.Connection_NamespaceUri_2;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[2] := MTP.Connection_NamespaceUri_3;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[3] := MTP.Connection_NamespaceUri_4;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.NamespaceUris[4] := MTP.Connection_NamespaceUri_5;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.SessionName := MTP.Connection_SessionInfo_SessionName;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.sApplicationName := MTP.Connection_SessionInfo_ApplicationName;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.eSecurityMode := MTP.Connection_SessionInfo_SecurityMsgMode;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.eSecurityPolicyUri := MTP.Connection_SessionInfo_SecurityPolicy;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.ServerUri := MTP.Connection_SessionInfo_ServerUri;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.CheckServerCertificate := MTP.Connection_SessionInfo_CheckServerCertificate;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.eTransportProfileUri := MTP.Connection_SessionInfo_TransportProfile;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.stUserIdentTokenType.eUserIdentTokenType := MTP.Connection_SessionInfo_UserIdentityTokenType;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.UserTokenParam1 := MTP.Connection_SessionInfo_UserTokenParam1;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.UserTokenParam2 := MTP.Connection_SessionInfo_UserTokenParam2;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.CertificateID := MTP.Connection_SessionInfo_CertificateID;
+            ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.tSessionTimeout := MTP.Connection_SessionInfo_SessionTimeout;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.MonitorConnection := MTP.Connection_SessionInfo_MonitorConnection;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[0] := MTP.Connection_SessionInfo_LocaleID_1;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[1] := MTP.Connection_SessionInfo_LocaleID_2;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[2] := MTP.Connection_SessionInfo_LocaleID_3;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[3] := MTP.Connection_SessionInfo_LocaleID_4;
+            //ConnectionManager.ConnectionInterface[MTP.ConnectionIndexCur].Config.SessionConnectInfo.LocaleIDs[4] := MTP.Connection_SessionInfo_LocaleID_5;
+            
+        END_IF;	 
+	{endregion}
+        
+
+    
+    // ------------------------------------------------------------------------
+    {region "READER"}
+        MTP.ReaderViewCur := MTP.ReaderViewSel;
+        
+        // index
+        MTP.ReaderIndexMax := MAX_READER_IDX;
+        MTP.ReaderIndexCur := LIMIT(MIN_IDX, MTP.ReaderIndexSel, MAX_READER_IDX);
+        
+        // count in use/error
+        MTP.ReaderCountInUse := tmpReaderCountInUse;
+        MTP.ReaderCountError := tmpReaderCountError;
+        
+        // restore default
+        MTP.Reader_RestoreDefaultEn := TRUE;
+        
+        IF MTP.Reader_RestoreDefaultEn AND MTP.Reader_RestoreDefault
+        THEN
+            tmpReaderRestoreDefault := TRUE;
+            aInterface_Read[MTP.ReaderIndexCur].Config.ConnectionIndex := -1;
+            aInterface_Read[MTP.ReaderIndexCur].Config.DataTypeSelector := TypeSelector.None;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Timeout := T#5S;
+            aInterface_Read[MTP.ReaderIndexCur].Config.MaxTryCount := 5;
+            aInterface_Read[MTP.ReaderIndexCur].Config.TargetCycle := T#100MS;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].nNamespaceIndex := 0;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].sIdentifier := '';
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].eIdentifierType := 0;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].nNamespaceIndex := 0;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].sIdentifier := '';
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].eIdentifierType := 0;
+        END_IF;
+        MTP.Reader_RestoreDefault := FALSE;
+        
+        // reset
+        IF MTP.Reader_Reset
+        THEN
+            aInterface_Read[MTP.ReaderIndexCur].Reset := TRUE;
+        END_IF;
+        MTP.Reader_Reset := FALSE;
+        
+        // status
+        MTP.Reader_InputIndex :=  aInterface_Read[MTP.ReaderIndexCur].Config.ValueRegistryIndex;
+        MTP.Reader_Error := aInterface_Read[MTP.ReaderIndexCur].Status.Error;
+        MTP.Reader_Status := aInterface_Read[MTP.ReaderIndexCur].Status.Status;
+        MTP.Reader_CycleCur := aInterface_Read[MTP.ReaderIndexCur].Status.Cycle;
+        
+        // config
+        IF MTP.ReaderViewCur = VIEW_ACT_CONFIG THEN
+            
+            MTP.Reader_ConnectionIndex := Reader[MTP.ReaderIndexCur].Intern.activeConfig.ConnectionIndex;
+            MTP.Reader_DataTypeSel := Reader[MTP.ReaderIndexCur].Intern.activeConfig.DataTypeSelector;
+            MTP.Reader_Timeout := Reader[MTP.ReaderIndexCur].Intern.activeConfig.Timeout;
+            MTP.Reader_MaxTryCount := Reader[MTP.ReaderIndexCur].Intern.activeConfig.MaxTryCount;
+            MTP.Reader_CycleSel := Reader[MTP.ReaderIndexCur].Intern.activeConfig.TargetCycle;
+            MTP.Reader_QC_NamespaceIndex := Reader[MTP.ReaderIndexCur].Intern.activeConfig.Nodes[1].nNamespaceIndex;
+            MTP.Reader_QC_Identifier := Reader[MTP.ReaderIndexCur].Intern.activeConfig.Nodes[1].sIdentifier;
+            MTP.Reader_QC_IdentifierType := Reader[MTP.ReaderIndexCur].Intern.activeConfig.Nodes[1].eIdentifierType;
+            MTP.Reader_Value_NamespaceIndex := Reader[MTP.ReaderIndexCur].Intern.activeConfig.Nodes[2].nNamespaceIndex;
+            MTP.Reader_Value_Identifier := Reader[MTP.ReaderIndexCur].Intern.activeConfig.Nodes[2].sIdentifier;
+            MTP.Reader_Value_IdentifierType := Reader[MTP.ReaderIndexCur].Intern.activeConfig.Nodes[2].eIdentifierType;
+            
+        ELSIF MTP.ReaderViewCur = VIEW_PREP_CONFIG
+            AND (stLastReaderViewCur = VIEW_ACT_CONFIG OR MTP.ReaderIndexCur <> stLastReaderIndexCur OR tmpReaderRestoreDefault) THEN
+            
+            MTP.Reader_ConnectionIndex := aInterface_Read[MTP.ReaderIndexCur].Config.ConnectionIndex;
+            MTP.Reader_DataTypeSel := aInterface_Read[MTP.ReaderIndexCur].Config.DataTypeSelector;
+            MTP.Reader_Timeout := aInterface_Read[MTP.ReaderIndexCur].Config.Timeout;
+            MTP.Reader_MaxTryCount := aInterface_Read[MTP.ReaderIndexCur].Config.MaxTryCount;
+            MTP.Reader_CycleSel :=aInterface_Read[MTP.ReaderIndexCur].Config.TargetCycle;
+            MTP.Reader_QC_NamespaceIndex := aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].nNamespaceIndex;
+            MTP.Reader_QC_Identifier := aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].sIdentifier;
+            MTP.Reader_QC_IdentifierType := aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].eIdentifierType;
+            MTP.Reader_Value_NamespaceIndex := aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].nNamespaceIndex;
+            MTP.Reader_Value_Identifier := aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].sIdentifier;
+            MTP.Reader_Value_IdentifierType := aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].eIdentifierType;
+            
+        ELSIF MTP.ReaderViewCur = VIEW_PREP_CONFIG THEN
+            
+            aInterface_Read[MTP.ReaderIndexCur].Config.ConnectionIndex := MTP.Reader_ConnectionIndex;
+            aInterface_Read[MTP.ReaderIndexCur].Config.DataTypeSelector := MTP.Reader_DataTypeSel;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Timeout := MTP.Reader_Timeout;
+            aInterface_Read[MTP.ReaderIndexCur].Config.MaxTryCount := MTP.Reader_MaxTryCount;
+            aInterface_Read[MTP.ReaderIndexCur].Config.TargetCycle := MTP.Reader_CycleSel;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].nNamespaceIndex := MTP.Reader_QC_NamespaceIndex;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].sIdentifier := MTP.Reader_QC_Identifier;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[1].eIdentifierType := MTP.Reader_QC_IdentifierType;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].nNamespaceIndex := MTP.Reader_Value_NamespaceIndex;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].sIdentifier := MTP.Reader_Value_Identifier;
+            aInterface_Read[MTP.ReaderIndexCur].Config.Nodes[2].eIdentifierType := MTP.Reader_Value_IdentifierType;
+            
+        END_IF;	 
+	{endregion}
+        
+
+    
+    // ------------------------------------------------------------------------
+    {region "WRITER"}
+            MTP.WriterViewCur := MTP.WriterViewSel;
+            
+            // index
+            MTP.WriterIndexMax := MAX_READER_IDX;
+            MTP.WriterIndexCur := LIMIT(MIN_IDX, MTP.WriterIndexSel, MAX_READER_IDX);
+            
+            // count in use/error
+            MTP.WriterCountInUse := tmpWriterCountInUse;
+            MTP.WriterCountError := tmpWriterCountError;
+            
+            // restore default
+            MTP.Writer_RestoreDefaultEn := TRUE;
+            
+            IF MTP.Writer_RestoreDefaultEn AND MTP.Writer_RestoreDefault
+            THEN
+                tmpWriterRestoreDefault := TRUE;
+				
+                aInterface_Write[MTP.WriterIndexCur].Config.ConnectionIndex := -1;
+                aInterface_Write[MTP.WriterIndexCur].Config.DataTypeSelector := TypeSelector.None;
+                aInterface_Write[MTP.WriterIndexCur].Config.Timeout := T#5S;
+                aInterface_Write[MTP.WriterIndexCur].Config.MaxTryCount := 5;
+                aInterface_Write[MTP.WriterIndexCur].Config.TargetCycle := T#100MS;
+                aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].nNamespaceIndex := 0;
+                aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].sIdentifier := '';
+                aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].eIdentifierType := 0;
+            END_IF;
+            MTP.Writer_RestoreDefault := FALSE;
+            
+            // reset
+            IF MTP.Writer_Reset
+            THEN
+                aInterface_Write[MTP.WriterIndexCur].Reset := TRUE;
+            END_IF;
+            MTP.Writer_Reset := FALSE;
+            
+            // status
+            MTP.Writer_OutputIndex := aInterface_Write[MTP.WriterIndexCur].Config.ValueRegistryIndex;
+            MTP.Writer_Error := aInterface_Write[MTP.WriterIndexCur].Status.Error;
+            MTP.Writer_Status := aInterface_Write[MTP.WriterIndexCur].Status.Status;
+            MTP.Writer_CycleCur := aInterface_Write[MTP.WriterIndexCur].Status.Cycle;
+            
+            // config
+            IF MTP.WriterViewCur = VIEW_ACT_CONFIG THEN
+                
+                MTP.Writer_ConnectionIndex := Writer[MTP.WriterIndexCur].internals.activeConfig.ConnectionIndex;
+                MTP.Writer_DataTypeSel := Writer[MTP.WriterIndexCur].internals.activeConfig.DataTypeSelector;
+                MTP.Writer_Timeout := Writer[MTP.WriterIndexCur].internals.activeConfig.Timeout;
+                MTP.Writer_MaxTryCount := Writer[MTP.WriterIndexCur].internals.activeConfig.MaxTryCount;
+                MTP.Writer_CycleSel := Writer[MTP.WriterIndexCur].internals.activeConfig.TargetCycle;
+                MTP.Writer_Value_NamespaceIndex := Writer[MTP.WriterIndexCur].internals.activeConfig.Nodes[1].nNamespaceIndex;
+                MTP.Writer_Value_Identifier := Writer[MTP.WriterIndexCur].internals.activeConfig.Nodes[1].sIdentifier;
+                MTP.Writer_Value_IdentifierType := Writer[MTP.WriterIndexCur].internals.activeConfig.Nodes[1].eIdentifierType;
+                
+            ELSIF MTP.WriterViewCur = VIEW_PREP_CONFIG
+                AND (stLastWriterViewCur = VIEW_ACT_CONFIG OR MTP.WriterIndexCur <> stLastWriterIndexCur OR tmpWriterRestoreDefault) THEN
+                
+                MTP.Writer_ConnectionIndex := aInterface_Write[MTP.WriterIndexCur].Config.ConnectionIndex;
+                MTP.Writer_DataTypeSel := aInterface_Write[MTP.WriterIndexCur].Config.DataTypeSelector;
+                MTP.Writer_Timeout := aInterface_Write[MTP.WriterIndexCur].Config.Timeout;
+                MTP.Writer_MaxTryCount := aInterface_Write[MTP.WriterIndexCur].Config.MaxTryCount;
+                MTP.Writer_CycleSel := aInterface_Write[MTP.WriterIndexCur].Config.TargetCycle;
+                MTP.Writer_Value_NamespaceIndex := aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].nNamespaceIndex;
+                MTP.Writer_Value_Identifier := aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].sIdentifier;
+                MTP.Writer_Value_IdentifierType := aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].eIdentifierType;
+                
+            ELSIF MTP.WriterViewCur = VIEW_PREP_CONFIG THEN
+                
+                aInterface_Write[MTP.WriterIndexCur].Config.ConnectionIndex := MTP.Writer_ConnectionIndex;
+                aInterface_Write[MTP.WriterIndexCur].Config.DataTypeSelector := MTP.Writer_DataTypeSel;
+                aInterface_Write[MTP.WriterIndexCur].Config.Timeout := MTP.Writer_Timeout;
+                aInterface_Write[MTP.WriterIndexCur].Config.MaxTryCount := MTP.Writer_MaxTryCount;
+                aInterface_Write[MTP.WriterIndexCur].Config.TargetCycle := MTP.Writer_CycleSel;
+                aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].nNamespaceIndex := MTP.Writer_Value_NamespaceIndex;
+                aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].sIdentifier := MTP.Writer_Value_Identifier;
+                aInterface_Write[MTP.WriterIndexCur].Config.Nodes[1].eIdentifierType := MTP.Writer_Value_IdentifierType;
+                
+            END_IF; 
+	{endregion}
+{endregion}
+    
+
+
+
+// ############################################################################
+{region "FINISH"}
+    stLastConnectionViewCur := MTP.ConnectionViewCur;
+    stLastConnectionIndexCur := MTP.ConnectionIndexCur;
+    stLastReaderViewCur := MTP.ReaderViewCur;
+    stLastReaderIndexCur := MTP.ReaderIndexCur;
+    stLastWriterViewCur := MTP.WriterViewCur;
+    stLastWriterIndexCur := MTP.WriterIndexCur;
+{endregion}
+    
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

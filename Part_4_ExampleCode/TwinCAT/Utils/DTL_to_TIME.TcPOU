@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="DTL_to_TIME" Id="{3d04e3b5-6271-4b79-899b-acd96f08b3f4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION DTL_to_TIME : TIME
+VAR_INPUT
+	IN				: DTL;
+END_VAR
+
+VAR
+	D_s				: STRING	:= '';
+	H_s				: STRING	:= '';
+	Mi_s			: STRING	:= '';
+	Sec_s			: STRING	:= '';
+	MSec_s			: STRING	:= '';
+	time_s			: STRING	:= '';
+	
+	ERROR			: BOOL		:= FALSE;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Error if DTL to big for TIME-Format
+//IF (IN.YEAR > 0 OR IN.MONTH > 0) THEN
+//	Error := TRUE;
+//END_IF
+
+
+//IF Error = FALSE THEN
+//convert : INT to string
+MSec_s	:= INT_TO_STRING(IN.MILLISECOND);
+Sec_s	:= INT_TO_STRING(IN.SECOND);
+Mi_s	:= INT_TO_STRING(IN.MINUTE);
+H_s		:= INT_TO_STRING(IN.HOUR);
+D_s		:= INT_TO_STRING(IN.DAY);
+
+//compose string
+time_s := INSERT('T#', D_s, len('T#'));
+time_s := INSERT(time_s, 'd', len(time_s));
+time_s := INSERT(time_s, H_s, len(time_s));
+time_s := INSERT(time_s, 'h', len(time_s));
+time_s := INSERT(time_s, Mi_s, len(time_s));
+time_s := INSERT(time_s, 'm', len(time_s));
+time_s := INSERT(time_s, Sec_s, len(time_s));
+time_s := INSERT(time_s, 's', len(time_s));
+time_s := INSERT(time_s, MSec_s, len(time_s));
+time_s := INSERT(time_s, 'ms', len(time_s));	
+
+//convert string to time-format
+DTL_to_time := STRING_TO_TIME(time_s);
+//ELSE
+//	DTL_to_time := T#0MS;
+//END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

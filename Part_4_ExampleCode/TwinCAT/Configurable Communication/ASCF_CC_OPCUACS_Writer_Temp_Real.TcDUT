@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Writer_Temp_Real" Id="{5061912f-e0b9-4936-9e16-c3777b786056}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Writer_Temp_Real :
+STRUCT
+	stReadListReturnInfo	: ARRAY [1..1] OF ST_UAReadListReturnInfo;
+	Value		: REAL		:= 0.0;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

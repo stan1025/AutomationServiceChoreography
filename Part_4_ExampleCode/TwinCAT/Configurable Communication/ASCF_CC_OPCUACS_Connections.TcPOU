@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CC_OPCUACS_Connections" Id="{c7d6b6c1-3246-40e4-afb5-3320bf6edae6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ASCF_CC_OPCUACS_Connections
+VAR CONSTANT
+	CONNECTION_ARRAY_LIMIT				: USINT		:= 9;
+END_VAR
+
+VAR																							
+	//ConnectionInterface					: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF CC_ConnectionInterface;		//: INTerface of a Connection. Contains means to control and configure the connection.
+	ConnectionInterface_actual			: ASCF_CC_OPCUACS_ConnectionInterface;
+	activeConnectionConfig				: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF ASCF_CC_OPCUACS_ConnectionConfig;			//Configuration of a Connection.					//Fehler, das müsste non-retain sein
+	activeConnectionConfig_actual		: ASCF_CC_OPCUACS_ConnectionConfig;
+	statLastConnDiag					: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF DTL;
+	statLastConnDiag_actual				: DTL;
+	
+	OPC_UA_Connect_Calls						: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF UA_Connect;					//Create an OPC-UA transport connection				//Fehler, das müsste non-retain sein
+	OPC_UA_Disconnect_Calls						: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF UA_Disconnect;				//Close an OPC-UA transport connection
+	OPC_UA_NamespaceGetIndexList_Calls			: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF UA_GetNamespaceIndex;			//Get the namespace-indexes of namespace-URIs.
+	OPC_UA_ConnectionGetStatus_Calls			: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF UA_ConnectGetStatus;			//Read the connection status
+	
+	wasd : INT;Handle: INT;
+END_VAR
+
+VAR_TEMP
+	i								: USINT;
+	j								: USINT;
+	tempReq							: BOOL;
+	tempDone						: BOOL;
+	tempError						: BOOL;
+	tempStatus						: DWORD;
+	tempConnDiagReq					: BOOL;
+	tempTimeNow						: DTL;
+	tempTimeDiff					: TIME;
+	constConstants					: ASCF_CC_OPCUACS_Constants;							//Constants used by the ConfigurableCommunication.
+	constErrors						: ASCF_CC_OPCUACS_EnumErrors;						//Enumeration type of the error codes of the Configurable Communication.
+	constConnHandleStates			: ASCF_CC_OPCUACS_EnumConnectionHandleStates;		//Enumeration of the states of a "CC_connectionHandle".
+	
+	var_1		: DINT 				:= 0;
+	var_2		: DINT 				:= 0;
+	k			: INT 				:= 0;
+	DTL_VAR_1	: DTL;
+	Dword_Var_1	: DWORD;
+END_VAR
+
+VAR_IN_OUT
+	ConnectionHandles						: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF ASCF_CC_OPCUACS_ConnectionHandle;
+	ConnectionInterface							: ARRAY[0..CONNECTION_ARRAY_LIMIT] OF ASCF_CC_OPCUACS_ConnectionInterface;		//Interface of a Connection. Contains means to control and configure the connection.
+	PointerSysTime			: POINTER TO STRING;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ {region "BLOCK INFO HEADER"}
+    //===============================================================================
+    // SIEMENS AG / (c)Copyright 2019
+    //-------------------------------------------------------------------------------
+    // Title:            CC_ConnectionManager
+    // Comment/Function: Manages the connections of the ConfigurableCommunication.
+    //
+    // Author:           Tim Kempin
+    // Engineering:      TIA Portal V17
+    //-------------------------------------------------------------------------------
+    // Change log table:
+    // Version  | Date       | Expert in charge       | Changes applied
+    //----------|------------|------------------------|------------------------------
+    // 01.04.00 | 31.03.2022 | First released version
+    // 01.04.01 | 31.03.2022 | Documentation update
+    // 01.04.02 | 11.08.2022 | Update : INTerface
+    //===============================================================================
+{endregion}
+
+
+
+{region "DESCRIPTION"}
+	(*
+	The ConnectionManager manages up to 10 OPC-UA Connections.
+	
+	## ConnectionManager Settings ##
+	
+	The connection manager offers some settings ("Settings"), that globaly change the behaviour of the ConnectionManager.
+	These settings include:
+	
+	* ActiveConnections: The number of connections to use. (E.g. if the value is 2, the ConnectionManager will procress the first 2 connections)
+	* ConnectionTimout: Max. response time of OPC-UA Operations used by the ConnectionManager.
+	* ConnectionDiagnoseCycle: The cycle in which the active connections should be diagnosed.
+	
+	## Configuring and Controlling a Connection ##
+	
+	A Connection can be controlled via the 3 commands "Connect", "Disconnect" and "Reset". The ConnectionManager will automatically reset
+	those values once the command has been acknowledged. When disconnecting the ConnectionManager waits for all scheduled operations to 
+	finish before actually disconnecting. By setting the "Disconnect" command again the disconnect can be forced (This means that allocated
+	resources might not be released properly).
+	  
+	To configure a connection the "Config" struct is used. Here you can input the ServerURL, SessionConnectInfo and the NamespaceURIs.
+	Once a connection has been established the configuration can not be changed. To apply a new configuration the connetion has to be
+	disconnected and connected again.  
+	  
+	The "Handle" struct in the connection contains : INTernal state and information about the connection and is used by other blocks of the
+	ConfigurableCommunication to "use" this connection.
+	*)
+{endregion}
+	
+	
+//Einstellungen für mein Test				
+(*
+FOR wasd := 0 TO 9 DO
+	ConnectionInterface[wasd].Config.ServerURL 			:= 'opc.tcp://192.168.0.10:4840';
+	
+	ConnectionInterface[wasd].Config.SessionConnectInfo.tConnectTimeout	:= T#5S;
+	ConnectionInterface[wasd].Config.SessionConnectInfo.tSessionTimeout	:= T#20S;
+	ConnectionInterface[wasd].Config.SessionConnectInfo.sApplicationName	:= '';
+	ConnectionInterface[wasd].Config.SessionConnectInfo.eSecurityMode		:= eUASecurityMsgMode_None;
+	ConnectionInterface[wasd].Config.SessionConnectInfo.eSecurityPolicyUri	:= eUASecurityPolicy_None;
+	ConnectionInterface[wasd].Config.SessionConnectInfo.eTransportProfileUri	:= eUATransportProfileUri_UATcp;
+	
+	ConnectionInterface[wasd].Config.NamespaceUrisCount		:= 4;
+	ConnectionInterface[wasd].Config.NamespaceUris[0]		:= 'http://opcfoundation.org/UA/';
+	ConnectionInterface[wasd].Config.NamespaceUris[1]		:= 'urn:SIMATIC.S7-1500.OPC-UA.Application:PLC_Server';
+	ConnectionInterface[wasd].Config.NamespaceUris[2]		:= 'http://opcfoundation.org/UA/DI/';
+	ConnectionInterface[wasd].Config.NamespaceUris[3]		:= 'http://www.siemens.com/simatic-s7-opcua';
+END_FOR
+*)
+//Ende Einstellungen
+
+
+
+//#################################################################################################
+{region "LOOP"}
+    FOR i := 0 TO CONNECTION_ARRAY_LIMIT DO
+
+        IF NOT ConnectionInterface[i].Active THEN
+            CONTINUE;
+        END_IF;
+        
+        //#########################################################################################
+        {region "PREPARE LOOP"}
+            
+            // reset temp variables
+            tempReq := FALSE;
+            tempDone := FALSE;
+            tempError := FALSE;
+            tempStatus := 16#0000_0000; // OK
+            tempConnDiagReq := FALSE;
+            
+            // reset reader/writer error
+            ConnectionHandles[i].ReaderError := FALSE;
+            ConnectionHandles[i].WriterError := FALSE;	
+		{endregion}
+
+{endregion}
+    
+
+        
+        //##########################################################################################
+        {region "STATE MACHINE"}
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Disconnected
+            IF ConnectionHandles[i].State.Curr = constConnHandleStates.Disconnected THEN
+                
+                
+                {region "DISCONNECTED"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                        
+                        // reset schedule
+                        ConnectionHandles[i].ScheduleData.ReadersCount := 0;
+                        ConnectionHandles[i].ScheduleData.WritersCount := 0;
+                        
+                        ConnectionHandles[i].ScheduleData.ScheduleGetNodeHandles.NextID := 1;
+                        ConnectionHandles[i].ScheduleData.ScheduleReleaseNodeHandles.NextID := 1;
+                        ConnectionHandles[i].ScheduleData.ScheduleRead.NextID := 1;
+                        ConnectionHandles[i].ScheduleData.ScheduleWrite.NextID := 1;
+                        
+                        ConnectionHandles[i].ScheduleData.ScheduleGetNodeHandles.Reader := TRUE;
+                        ConnectionHandles[i].ScheduleData.ScheduleGetNodeHandles.Writer := FALSE;
+                        ConnectionHandles[i].ScheduleData.ScheduleGetNodeHandles.Schedule[0] := constConstants.OperationDoneID;
+                        
+                        ConnectionHandles[i].ScheduleData.ScheduleReleaseNodeHandles.Reader := TRUE;
+                        ConnectionHandles[i].ScheduleData.ScheduleReleaseNodeHandles.Writer := FALSE;
+                        ConnectionHandles[i].ScheduleData.ScheduleReleaseNodeHandles.Schedule[0] := constConstants.OperationDoneID;
+                        
+                        FOR j := 0 TO constConstants.MaxEntriesPerSchedule - 1 DO
+                            ConnectionHandles[i].ScheduleData.ScheduleRead.Schedule[j] := constConstants.OperationDoneID;
+                            ConnectionHandles[i].ScheduleData.ScheduleWrite.Schedule[j] := constConstants.OperationDoneID;
+                        END_FOR;
+                        
+                        // Reset ConnectionStatus
+                        ConnectionHandles[i].ConnectionStatus.Status := 0;
+                        ConnectionHandles[i].ConnectionStatus.ServerState := 0;
+                        ConnectionHandles[i].ConnectionStatus.ServiceLevel := 0;
+                        
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    
+                    // connect request
+                    IF ConnectionInterface[i].Connect THEN
+                        ConnectionInterface[i].Connect := FALSE; // acknowledge request
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Initializing;    
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    // IF #tempState.CurrentState <> #tempState.PreviousState THEN
+                    //     // code
+                    // END_IF;			
+				{endregion}
+                    
+
+                
+                
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // Initializing
+            ELSIF ConnectionHandles[i].State.Curr = constConnHandleStates.Initializing THEN
+                
+                
+                {region "INITIALIZING"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                        
+                        // save connection config in connection handle
+                        activeConnectionConfig[i] := ConnectionInterface[i].Config;
+                        
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    ConnectionHandles[i].State.Curr := constConnHandleStates.Connecting;
+                    
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    // IF #tempState.CurrentState <> #tempState.PreviousState THEN
+                    //     // code
+                    // END_IF;			
+				{endregion}
+                    
+
+                
+                
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // Connecting
+            ELSIF ConnectionHandles[i].State.Curr = constConnHandleStates.Connecting THEN
+                
+                
+                {region "CONNECTING"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                        
+                        // request for OPC_UA_Connect
+                        tempReq := TRUE;
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+                    OPC_UA_Connect_Calls[i]( Execute := tempReq,
+											 ServerUrl  := activeConnectionConfig[i].ServerURL,
+											 SessionConnectInfo  := activeConnectionConfig[i].SessionConnectInfo,
+											 Timeout  := UINT_TO_TIME(activeConnectionConfig[i].ConnectionTimeout),
+											 Done => tempDone,
+											 Error => tempError,
+											 ErrorID  => tempStatus,
+											 ConnectionHdl  => ConnectionHandles[i].Handle);
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    
+                    // Connection Failed --> Transition to Error
+                    IF tempError THEN
+                        ConnectionHandles[i].Status := tempStatus;
+                        ConnectionHandles[i].Handle := 16#0000_0000;
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Error;
+                        
+                        // Connection Succeeded --> Transition to GettingNodeHandles
+                    ELSIF tempDone THEN
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.GettingNamespaceIndexList;
+                        
+                        // Disconnect Request --> Transition to Disconnected
+                    ELSIF ConnectionInterface[i].Disconnect THEN
+                        ConnectionInterface[i].Disconnect := FALSE; // acknowledge request
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Disconnected;
+                        
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    // IF #tempState.CurrentState <> #tempState.PreviousState THEN
+                    //     // code
+                    // END_IF;			
+				{endregion}
+                    
+  
+                
+                
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // GettingNamespaceIndexList
+            ELSIF ConnectionHandles[i].State.Curr = constConnHandleStates.GettingNamespaceIndexList THEN
+                
+                
+                {region "GETTING NAMESPACE INDEX LIST"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                        
+                        ConnectionHandles[i].NamespaceIndexCount := activeConnectionConfig[i].NamespaceUrisCount;
+                        
+                        // request for OPC_UA_Connect
+                        tempReq := TRUE;
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+					FOR k := 0 TO activeConnectionConfig_actual.NamespaceUrisCount BY 1 DO
+						OPC_UA_NamespaceGetIndexList_Calls[i]( Execute  := tempReq,
+																ConnectionHdl  := ConnectionHandles[i].Handle,
+															   //NamespaceUrisCount := activeConnectionConfig[i].NamespaceUrisCount,
+															   NamespaceUri  := activeConnectionConfig[i].NamespaceUris[k],
+															   Timeout := UINT_TO_TIME(activeConnectionConfig[i].ConnectionTimeout),
+															   Done => tempDone,
+															   Error => tempError,
+															   ErrorID  => tempStatus,
+															   NamespaceIndex  => ConnectionHandles[i].NamespaceIndexList[k]);
+					END_FOR
+               
+                    
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    
+                    // Connection Failed --> Transition to Error
+                    IF tempError THEN
+                        ConnectionHandles[i].Status := tempStatus;
+                        ConnectionHandles[i].Handle := 16#0000_0000;
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Error;
+                        
+                        // Connection Succeeded --> Transition to Executing
+                    ELSIF tempDone THEN
+                        
+                        // check namespace indexes
+                        FOR j := 0 TO activeConnectionConfig[i].NamespaceUrisCount - 1 DO
+                            // invalid namespace index
+                            IF ConnectionHandles[i].NamespaceIndexList[j] = 16#FFFF THEN
+                                tempError := TRUE;
+                                EXIT;
+                            END_IF;
+                        END_FOR;
+                        
+                        IF tempError THEN
+                            ConnectionHandles[i].Status := constErrors.InvalidNamespace;
+                            ConnectionHandles[i].Handle := 16#0000_0000;
+                            ConnectionHandles[i].State.Curr := constConnHandleStates.Error;
+                        ELSE
+                            ConnectionHandles[i].State.Curr := constConnHandleStates.Executing;
+                        END_IF;
+                        
+                        // Disconnect Request --> Transition to Disconnected
+                    ELSIF ConnectionInterface[i].Disconnect THEN
+                        ConnectionInterface[i].Disconnect := FALSE; // acknowledge request
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Disconnected;  
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    // IF #tempState.CurrentState <> #tempState.PreviousState THEN
+                    //     // code
+                    // END_IF;			
+				{endregion}
+                    
+     
+                
+                
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // Executing
+            ELSIF ConnectionHandles[i].State.Curr = constConnHandleStates.Executing THEN
+                
+                
+                {region "EXECUTING"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                        
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+                    ASCF_CC_OPCUACS_Scheduler(ConnectionHandles[i].ScheduleData);
+                    
+                    //------------------//tempTimeDiff := T_DIFF(IN1 := tempTimeNow, IN2 := statLastConnDiag[i]); 
+					
+						//recorde SYS-Time
+						tempTimeNow := SYS_TIME_Store_DTL(PointerSysTime	:= PointerSysTime);
+						
+						//time difference from now		   
+						DTL_VAR_1 := DeltaDTL(	In_1 	:= statLastConnDiag[i],					//_actual,		//past
+												In_2	:= tempTimeNow);			//now
+						
+						//convert DTL to TIME
+						tempTimeDiff := DTL_to_time(IN := DTL_VAR_1);	
+                    
+                    IF tempTimeDiff > UINT_TO_TIME(activeConnectionConfig[i].ConnectionDiagnoseCycle) THEN				//_actual
+						statLastConnDiag[i] := tempTimeNow;			//statLastConnDiag_actual := SYS_TIME_Store_DTL();   
+                        tempConnDiagReq := TRUE;
+                    END_IF;
+                          
+                    
+                    OPC_UA_ConnectionGetStatus_Calls[i]( Execute  := tempConnDiagReq,
+                                                         ConnectionHdl := ConnectionHandles[i].Handle,
+														 Timeout := UINT_TO_TIME(activeConnectionConfig[i].ConnectionTimeout),
+														 Done => tempDone,
+														 Error => tempError,
+														 ErrorID  => tempStatus,
+														 ConnectionStatus => ConnectionHandles[i].ConnectionStatus.Status,
+														 ServerState => ConnectionHandles[i].ConnectionStatus.ServerState,
+														 ServiceLevel => ConnectionHandles[i].ConnectionStatus.ServiceLevel);
+                    
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    
+                    // Connection Diagnose Failed --> Transition to Error
+                    IF tempError THEN
+                        ConnectionHandles[i].Status := tempStatus;
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Error;
+                        
+                        // Disconnect Request --> Transition to PreparingDisconnect
+                    ELSIF ConnectionInterface[i].Disconnect THEN
+                        ConnectionInterface[i].Disconnect := FALSE; // acknowledge request
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.PreparingDisconnect;
+                        
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    // IF #tempState.CurrentState <> #tempState.PreviousState THEN
+                    //     // code
+                    // END_IF;			
+				{endregion}
+                    
+
+                
+                
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // PreparingDisconnect
+            ELSIF ConnectionHandles[i].State.Curr = constConnHandleStates.PreparingDisconnect THEN
+                
+                
+                {region "PREPARING_DISCONNECT"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+                    tempDone := TRUE;
+                    
+                    // wait for all scheduled operations to finish
+                    IF ConnectionHandles[i].ScheduleData.ScheduleGetNodeHandles.Schedule[0] <> constConstants.OperationDoneID OR
+                        ConnectionHandles[i].ScheduleData.ScheduleReleaseNodeHandles.Schedule[0] <> constConstants.OperationDoneID THEN
+                        tempDone := FALSE;
+                    END_IF;
+                    
+                    FOR j := 0 TO 4 DO
+                        IF ConnectionHandles[i].ScheduleData.ScheduleRead.Schedule[j] <> constConstants.OperationDoneID
+                            OR ConnectionHandles[i].ScheduleData.ScheduleWrite.Schedule[j] <> constConstants.OperationDoneID THEN
+                            tempDone := FALSE;
+                            EXIT;
+                        END_IF;
+                    END_FOR;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    
+                    // all reader/writer done --> Transition to Disconnecting
+                    IF tempDone THEN
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Disconnecting;
+                        
+                        // Repeated Disconnect Request forces Disconnect --> Transition to PreparingDisconnect
+                    ELSIF ConnectionInterface[i].Disconnect THEN
+                        ConnectionInterface[i].Disconnect := FALSE; // acknowledge request
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Disconnecting;  
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    // IF #tempState.CurrentState <> #tempState.PreviousState THEN
+                    //     // code
+                    // END_IF;		
+				{endregion}
+                    
+
+                
+                
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // Disconnecting
+            ELSIF ConnectionHandles[i].State.Curr = constConnHandleStates.Disconnecting THEN
+                
+                
+                {region "DISCONNECTING"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                        
+                        // request for OPC_UA_Disconnect
+                        tempReq := TRUE;
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+                    
+                    // Disconnect
+                    OPC_UA_Disconnect_Calls[i]( Execute  := tempReq,
+                                                ConnectionHdl := ConnectionHandles[i].Handle,
+												Timeout := UINT_TO_TIME(activeConnectionConfig[i].ConnectionTimeout),
+												Done => tempDone,
+												Error => tempError,
+												ErrorID => tempStatus);
+		
+                    
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    
+                    // Disconnect Failed --> Transition to Error
+                    IF tempError THEN
+                        ConnectionHandles[i].Status := tempStatus;
+                       ConnectionHandles[i].State.Curr := constConnHandleStates.Error;
+                        
+                        // Disconnect Succeeded --> Transition to Disconnected
+                    ELSIF tempDone THEN
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Disconnected;
+                        
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        // reset handle of connection resource
+                        ConnectionHandles[i].Handle := 16#0000_0000;
+                    END_IF;			
+				{endregion}
+                    
+				
+                
+                
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // Error
+            ELSIF ConnectionHandles[i].State.Curr = constConnHandleStates.Error THEN
+                
+                {region "ERROR"}
+                    //-----------------------------------------------------------------------------
+                    // entering state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].State.Prev := ConnectionHandles[i].State.Curr;
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // continuous state action
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // state transition condition/action
+                    
+                    // Reset Request (Connected) --> Transition to Disconnecting
+                    IF ConnectionInterface[i].Reset AND ConnectionHandles[i].Handle <> 16#0000_0000 THEN
+                        ConnectionInterface[i].Reset := FALSE; // acknowledge request
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Disconnecting;
+                        
+                        // Reset Request (Not Connected) --> Transition to Disconnected
+                    ELSIF ConnectionInterface[i].Reset AND ConnectionHandles[i].Handle = 16#0000_0000 THEN
+                        ConnectionInterface[i].Reset := FALSE; // acknowledge request
+                        ConnectionHandles[i].State.Curr := constConnHandleStates.Disconnected;
+                        
+                    END_IF;
+                    
+                    
+                    //-----------------------------------------------------------------------------
+                    // leaving state action
+                    IF ConnectionHandles[i].State.Curr <> ConnectionHandles[i].State.Prev THEN
+                        ConnectionHandles[i].Status := constErrors.None;
+                    END_IF;			
+				{endregion}
+                    
+                
+            END_IF;		
+		{endregion}
+            
+
+        
+        
+        //#########################################################################################
+
+    END_FOR;
+	
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

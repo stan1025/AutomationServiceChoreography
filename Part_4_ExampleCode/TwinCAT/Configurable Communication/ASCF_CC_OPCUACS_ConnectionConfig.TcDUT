@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_ConnectionConfig" Id="{4b663b2f-ddca-474f-9ddf-c9dbc1ec8833}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_ConnectionConfig :
+STRUCT
+	ServerURL				: STRING				:= '';					//Server URL															//war vorher WString
+	SessionConnectInfo		: ST_UASessionConnectInfo := (	//SessionName := 							//OPC_UA_SessionConnectInfo;					//SessionConnectInfo
+															sApplicationName	:= '',
+															eSecurityMode		:= 1,
+															eSecurityPolicyUri	:= 1,
+															//ServerUri
+															//CheckServerCertificate
+															eTransportProfileUri	:= 1,
+															//stUserIdentTokenType	:= 0,
+															//UserTokenParam1
+															//UserTokenParam2
+															//CertificateID
+															tSessionTimeout			:= T#20S,
+															//MonitorConnection
+															//LocaleIDs
+															tConnectTimeout      := T#5S
+															);
+	NamespaceUrisCount		: USINT					:= 0;					//Number of used NamespaceUris
+	NamespaceUris			: ARRAY[0..4] OF STRING := ['','','','',''];	//NamespaceUris															//war vorher WString
+	ConnectionTimeout		: UINT					:= 5000;				//Maximum response time for OPC UA Connection specific operations
+	ConnectionDiagnoseCycle	: UINT					:= 3000;				//Cycle in which the active connections will be diagnosed
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

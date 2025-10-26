@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CL_54_LT" Id="{ab8968c6-efe2-486f-9479-3b1a24a56899}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CL_54_LT : WORD
+VAR_OUTPUT
+	Out							: ASCF_UnionType;				//Result of the computation (Type: VBool)
+END_VAR
+
+VAR_IN_OUT
+	Arguments					: ARRAY[0..3] OF ASCF_UnionType;	//Arguments for the function (Arguments: 2 , Type: VReal or VDINT or VDWord)
+END_VAR
+
+VAR
+	tempLoopVar					: DINT;
+	tempQC						: BYTE;
+	tempValueCount				: UINT;
+	tempValues					: ARRAY[0..1] OF REAL;
+	constDefaultUnionType		: ASCF_UnionType;				//Union type that holds only one of its possible data types at a time. The type can be selected via the "Typeselector". Independent of the selected type, every value has a quality code "VQC".
+	constUnionTypes				: ASCF_EnumUnionTypes;			//Enumeration type of the valid values for the "Typeselector" of a "GVR_unionType"-UDT.
+	constQualityCodes			: ASCF_QualityCodes;				//This enum encodes the defines quality codes for the MTP standard. The values are shown in HEX. The lowest value (1) has the highest priority.    | QC Name              | Value | Priority ||----------------------|:-----:|:--------:|| Failure              | 16#00 |    1     || Function Check       | 16#60 |    2     || Ma: INTenance Request  | 16#A4 |    3     || Out of Specification | 16#68 |    4     || OK                   | 16#80 |    5     || Out of Service       | 16#1C |    6     || No Status            | 16#FF |    7     |
+	constErrors					: ASCF_CL_EnumErrors;				//Enumeration type of the error codes of the Adaptive Logic.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "INITIALIZE VARIABLES"}
+    // #tempResult := 0.0;
+    tempQC := constQualityCodes.No_Status;
+    Out := constDefaultUnionType;
+{endregion}
+
+//#################################################################################################
+{region "PROCESS ARGUMENTS"}
+    FOR tempLoopVar := 0 TO 1 DO
+        
+        //-------------------------------------------------------------------------------------
+        // no type --> too few arguments
+        IF Arguments[tempLoopVar].Typeselector = constUnionTypes.None THEN
+            
+            ASCF_CL_54_LT := constErrors.TooFewArguments;
+            RETURN;
+            
+            //-------------------------------------------------------------------------------------
+            // VReal --> process
+        ELSIF Arguments[tempLoopVar].Typeselector = constUnionTypes.VReal THEN
+            
+            tempValues[tempValueCount] := Arguments[tempLoopVar].VReal;
+            tempQC := ASCF_CalcWQC(QC1 := tempQC, QC2 := Arguments[tempLoopVar].VQC);
+            tempValueCount := tempValueCount + 1;
+            
+            //-------------------------------------------------------------------------------------
+            // VDINT --> process
+        ELSIF Arguments[tempLoopVar].Typeselector = constUnionTypes.VDINT THEN
+            
+            tempValues[tempValueCount] := DINT_TO_REAL(Arguments[tempLoopVar].VDINT);
+            tempQC := ASCF_CalcWQC(QC1 := tempQC, QC2 := Arguments[tempLoopVar].VQC);
+            tempValueCount := tempValueCount + 1;
+            
+            //-------------------------------------------------------------------------------------
+            // VDWord --> process
+        ELSIF Arguments[tempLoopVar].Typeselector = constUnionTypes.VDWord THEN
+            
+            tempValues[tempValueCount] := DINT_TO_REAL(DWORD_TO_DINT(Arguments[tempLoopVar].VDWord));
+            tempQC := ASCF_CalcWQC(QC1 := tempQC, QC2 := Arguments[tempLoopVar].VQC);
+            tempValueCount := tempValueCount + 1;
+            
+            //-------------------------------------------------------------------------------------
+            // invalid type --> error
+        ELSE
+            ASCF_CL_54_LT := constErrors.InvalidType;
+            RETURN;
+            
+        END_IF;
+        
+    END_FOR;
+{endregion}
+    
+//#################################################################################################
+{region "OUTPUT"}
+    Out.Typeselector := constUnionTypes.VBool;
+    Out.VQC := tempQC;
+    Out.VBool := tempValues[0] < tempValues[1];
+    
+    ASCF_CL_54_LT := constErrors.None;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

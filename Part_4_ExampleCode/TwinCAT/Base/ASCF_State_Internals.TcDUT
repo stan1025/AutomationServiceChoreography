@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_State_Internals" Id="{5d7b554e-6574-43d6-850a-bf760749dd99}">
+    <Declaration><![CDATA[TYPE ASCF_State_Internals :
+STRUCT
+	Curr		: WORD		:= 16#0001;		//Current state of a state machine
+	Prev		: WORD		:= 16#FFFF;		//Previous state of a state machine
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

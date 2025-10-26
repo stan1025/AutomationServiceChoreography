@@ -1,0 +1,43 @@
+FUNCTION "ASCF_GetVBoolOutputList" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Index : UInt;
+   END_VAR
+
+   VAR_OUTPUT 
+      QC : Byte;
+      Value : Bool;
+   END_VAR
+
+   VAR_IN_OUT 
+      Outputs : Array[*] of "ASCF_CL_OutputType";
+   END_VAR
+
+   VAR_TEMP 
+      tempLowerBound : DInt;
+      tempUpperBound : DInt;
+      tempResult : Word;
+      tempUnionType : "ASCF_UnionType";
+      constErrors : "ASCF_CL_EnumErrors";
+      constUnionTypes : "ASCF_EnumUnionTypes";
+   END_VAR
+
+
+BEGIN
+	#tempResult := "ASCF_GetValueOutputList"(Index := #Index, Value => #tempUnionType, Outputs := #Outputs);
+	
+	IF #tempResult <> #constErrors.None THEN
+	    #ASCF_GetVBoolOutputList := #tempResult;
+	    RETURN;
+	END_IF;
+	
+	IF #tempUnionType.Typeselector <> #constUnionTypes.VBool THEN
+	    #ASCF_GetVBoolOutputList := #constErrors.TypesDoNotMatch;
+	    RETURN;
+	END_IF;
+	
+	#QC := #tempUnionType.VQC;
+	#Value := #tempUnionType.VBool;
+	#ASCF_GetVBoolOutputList := #constErrors.None;
+END_FUNCTION

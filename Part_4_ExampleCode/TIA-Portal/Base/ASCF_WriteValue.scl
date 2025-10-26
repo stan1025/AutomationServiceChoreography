@@ -1,0 +1,39 @@
+FUNCTION "ASCF_WriteValue" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Index : UInt;
+      Value : "ASCF_UnionType";
+   END_VAR
+
+   VAR_IN_OUT 
+      Inputs : Array[*] of "ASCF_UnionType";
+   END_VAR
+
+   VAR_TEMP 
+      tempLowerBound : DInt;   
+      tempUpperBound : DInt; 
+      constErrors : "ASCF_EnumErrors";
+   END_VAR
+
+
+BEGIN
+	REGION CHECK SIGNAL SPACE BOUNDARIES
+	    
+	    #tempLowerBound := LOWER_BOUND(ARR := #Inputs, DIM := 1);
+	    #tempUpperBound := UPPER_BOUND(ARR := #Inputs, DIM := 1);
+	    
+	    IF #Index < #tempLowerBound OR #Index > #tempUpperBound THEN
+	        #ASCF_WriteValue := #constErrors.IndexOutOfBounds;
+	        RETURN;
+	    END_IF;
+	    
+	END_REGION CHECK SIGNAL SPACE BOUNDARIES
+
+	REGION WRITE DATA
+	    
+	    #Inputs[#Index] := #Value;
+	    #ASCF_WriteValue := #constErrors.None;
+	    
+	END_REGION WRITE DATA
+END_FUNCTION

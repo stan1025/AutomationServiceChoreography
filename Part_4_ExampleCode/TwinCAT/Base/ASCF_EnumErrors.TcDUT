@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_EnumErrors" Id="{67b72cb5-d943-4f4a-8058-f73c1c31cb2a}">
+    <Declaration><![CDATA[TYPE ASCF_EnumErrors :
+STRUCT
+	None				: WORD		:= 16#0000;
+	IndexOutOfBounds	: WORD		:= 16#1001;
+	InvalidType			: WORD		:= 16#1002;
+	TypesDoNotMatch		: WORD		:= 16#1003;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

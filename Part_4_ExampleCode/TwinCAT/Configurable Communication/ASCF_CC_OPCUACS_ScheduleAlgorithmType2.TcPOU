@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CC_OPCUACS_ScheduleAlgorithmType2" Id="{7cd75f0e-b4c3-4fa3-9506-1152f4ac5733}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CC_OPCUACS_ScheduleAlgorithmType2
+VAR_INPUT
+	OperationsCount			: USINT;			//Number of operations
+	ScheduleSlots			: USINT;			//Number of slots in the schedule
+END_VAR
+
+VAR_IN_OUT
+	ScheduleData			: ASCF_CC_OPCUACS_ScheduleDataType2;
+END_VAR
+
+VAR
+	i						: USINT;			//loop variable
+	j						: USINT;			//loop variable
+	tempFoundID				: BOOL;				//true if next valid ID is found
+	constConstants			: ASCF_CC_OPCUACS_Constants;		//Constants used by the ConfigurableCommunication.
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "SCHEDULE ALGORITHM"}
+    // nothing to schedule --> return
+    IF OperationsCount <= 0 THEN
+        RETURN;
+        
+        // simple scheduling --> fill schedule continuously
+    ELSIF OperationsCount <= ScheduleSlots THEN
+        
+        FOR i := 0 TO OperationsCount - 1 DO
+            ScheduleData.Schedule[i] := i + 1;
+        END_FOR;
+        
+        // complex scheduling
+    ELSE
+        // The schedule algorithm looks for slots, where the operations is done and
+        // fills this slot with the NextID. Afterwards the algorithm determines the next
+        // ID to schedule, that is not already scheduled.
+        FOR i := 0 TO ScheduleSlots - 1 DO
+            
+            IF ScheduleData.Schedule[i] = constConstants.OperationDoneID THEN
+                // replace ID thats done with the next ID
+                ScheduleData.Schedule[i] := ScheduleData.NextID;
+                
+                // look for the next ID thats not currently in the schedule already
+                WHILE true DO
+                    ScheduleData.NextID := ScheduleData.NextID + 1;
+                    
+                    IF ScheduleData.NextID > OperationsCount THEN
+                        ScheduleData.NextID := 1;
+                    END_IF;
+                    
+                    tempFoundID := TRUE;
+                    FOR j := 0 TO ScheduleSlots - 1 DO
+                        IF ScheduleData.Schedule[j] = ScheduleData.NextID THEN
+                            tempFoundID := FALSE;
+                            EXIT;
+                        END_IF;
+                    END_FOR;
+                    
+                    IF tempFoundID THEN
+                        EXIT;
+                    END_IF;
+                    
+                END_WHILE;
+                
+            END_IF;
+        END_FOR;
+    END_IF;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

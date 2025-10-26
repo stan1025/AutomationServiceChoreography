@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="DTL" Id="{c7e5f488-5bce-455b-ac8b-e73e1bd056d4}">
+    <Declaration><![CDATA[TYPE DTL :
+STRUCT
+	YEAR		: INT			:= 2000;
+	MONTH		: INT			:= 01;
+	DAY			: INT			:= 01;
+	WEEKDAY		: INT			:= 0;
+	HOUR		: INT			:= 01;
+	MINUTE		: INT			:= 01;
+	SECOND		: INT			:= 01;
+	MILLISECOND	: INT			:= 100;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

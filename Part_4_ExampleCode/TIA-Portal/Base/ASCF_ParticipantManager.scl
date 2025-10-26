@@ -1,0 +1,355 @@
+FUNCTION_BLOCK "ASCF_ParticipantManager"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_IN_OUT 
+      Inputs : Array[*] of "ASCF_UnionType";
+      Logic : Array[*] of "ASCF_CL_FunctionType";
+      Outputs : Array[*] of "ASCF_CL_OutputType";
+   END_VAR
+
+   VAR 
+      MTP { S7_SetPoint := 'False'} : "MTPChoreographyParticipantManager" := (16#FF, (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), (), ());
+      AdaptiveLogic { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ASCF_ConfigurableLogic";
+      stLastViewCur { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;
+      stLastLogicIndexCur { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 999;
+      stLastOutputIndexCur { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt := 999;
+   END_VAR
+
+   VAR_TEMP 
+      i : USInt;
+      tmpRestoreDefault : Bool;
+      tmpExecuteErr : Bool;
+      defaultLogic : "ASCF_CL_FunctionType";
+      defaultOutput : "ASCF_CL_OutputType";
+   END_VAR
+
+   VAR CONSTANT 
+      MIN_IDX : UInt := 0;
+      VIEW_PREP_CONFIG : Bool := false;
+      VIEW_ACT_CONFIG : Bool := true;
+   END_VAR
+
+
+BEGIN
+	REGION RUN ADAPTIVE LOGIC
+	    
+	    #AdaptiveLogic(Inputs := #Inputs,
+	                   Logic := #Logic,
+	                   Outputs := #Outputs);
+	    
+	    
+	    
+	END_REGION
+	
+	
+	REGION SETUP
+	    
+	    #MTP.WQC := 16#FF;
+	    
+	    #MTP.ViewCur := #MTP.ViewSel;
+	    
+	    #MTP.Input_IndexMax := DINT_TO_UINT(UPPER_BOUND(ARR := #Inputs, DIM := 1));
+	    #MTP.Input_IndexCur := LIMIT(MN := #MIN_IDX, IN := #MTP.Input_IndexSel, MX := #MTP.Input_IndexMax);
+	    
+	    #MTP.Logic_IndexMax := DINT_TO_UINT(UPPER_BOUND(ARR := #Logic, DIM := 1));
+	    #MTP.Logic_IndexCur := LIMIT(MN := #MIN_IDX, IN := #MTP.Logic_IndexSel, MX := #MTP.Logic_IndexMax);
+	    
+	    #MTP.Output_IndexMax := DINT_TO_UINT(UPPER_BOUND(ARR := #Outputs, DIM := 1));
+	    #MTP.Output_IndexCur := LIMIT(MN := #MIN_IDX, IN := #MTP.Output_IndexSel, MX := #MTP.Output_IndexMax);
+	    
+	    #MTP.RestoreDefaultEn := true;
+	    
+	    IF #MTP.RestoreDefaultEn AND #MTP.RestoreDefault
+	    THEN
+	        #tmpRestoreDefault := true;
+	        
+	        FOR #i := #MIN_IDX TO #MTP.Logic_IndexMax DO
+	            #Logic[#i].PreparedConfig := #defaultLogic.PreparedConfig;
+	        END_FOR;
+	
+	        FOR #i := #MIN_IDX TO #MTP.Output_IndexMax DO
+	            #Outputs[#i].PreparedConfig := #defaultOutput.PreparedConfig;
+	        END_FOR;
+	
+	    END_IF;
+	    #MTP.RestoreDefault := false;
+	    
+	    #MTP.ExecuteEn := true;
+	    
+	    IF #MTP.ExecuteEn AND #MTP.ExecuteOn
+	    THEN
+	        #AdaptiveLogic.Execute := true;
+	    END_IF;
+	    #MTP.ExecuteOn := false;
+	    
+	    IF #MTP.ExecuteEn AND #MTP.ExecuteOff
+	    THEN
+	        #AdaptiveLogic.Execute := false;
+	    END_IF;
+	    #MTP.ExecuteOff := false;
+	    
+	    #MTP.ExecuteAct := #AdaptiveLogic.Execute;
+	    
+	    FOR #i := #MIN_IDX TO #MTP.Logic_IndexMax DO
+	        IF #Logic[#i].Ret <> 0
+	        THEN
+	            #tmpExecuteErr := true;
+	            EXIT;
+	        END_IF;
+	    END_FOR;
+	    
+	    IF NOT #tmpExecuteErr
+	    THEN
+	        FOR #i := #MIN_IDX TO #MTP.Output_IndexMax DO
+	            IF #Outputs[#i].Status <> 0
+	            THEN
+	                #tmpExecuteErr := true;
+	                EXIT;
+	            END_IF;
+	        END_FOR;
+	    END_IF;
+	    
+	    #MTP.ExecuteErr := #tmpExecuteErr;
+	    
+	END_REGION
+	
+	
+	REGION INPUTS
+	    
+	    #MTP.Input_VQC := #Inputs[#MTP.Input_IndexCur].VQC;
+	    #MTP.Input_DataType := #Inputs[#MTP.Input_IndexCur].Typeselector;
+	    #MTP.Input_VReal := #Inputs[#MTP.Input_IndexCur].VReal;
+	    #MTP.Input_VDInt := #Inputs[#MTP.Input_IndexCur].VDInt;
+	    #MTP.Input_VDWord := #Inputs[#MTP.Input_IndexCur].VDWord;
+	    #MTP.Input_VBool := #Inputs[#MTP.Input_IndexCur].VBool;
+	    #MTP.Input_VString := #Inputs[#MTP.Input_IndexCur].VString;
+	    
+	END_REGION
+	
+	
+	REGION LOGIC
+	    
+	    #MTP.Logic_Out_VQC := #Logic[#MTP.Logic_IndexCur].Out.VQC;
+	    #MTP.Logic_Out_DataType := #Logic[#MTP.Logic_IndexCur].Out.Typeselector;
+	    #MTP.Logic_Out_VReal := #Logic[#MTP.Logic_IndexCur].Out.VReal;
+	    #MTP.Logic_Out_VDInt := #Logic[#MTP.Logic_IndexCur].Out.VDInt;
+	    #MTP.Logic_Out_VDWord := #Logic[#MTP.Logic_IndexCur].Out.VDWord;
+	    #MTP.Logic_Out_VBool := #Logic[#MTP.Logic_IndexCur].Out.VBool;
+	    #MTP.Logic_Out_VString := #Logic[#MTP.Logic_IndexCur].Out.VString;
+	    #MTP.Logic_Ret := #Logic[#MTP.Logic_IndexCur].Ret;
+	    
+	    IF #MTP.ViewCur = #VIEW_ACT_CONFIG THEN
+	        
+	        #MTP.Logic_FuncTypeSel := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Selector;
+	        #MTP.Logic_In0_Source := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Source;
+	        #MTP.Logic_In0_Index := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Index;
+	        
+	        #MTP.Logic_In0_Const_VQC := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Const.VQC;
+	        #MTP.Logic_In0_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Const.Typeselector;
+	        #MTP.Logic_In0_Const_VReal := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Const.VReal;
+	        #MTP.Logic_In0_Const_VDInt := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Const.VDInt;
+	        #MTP.Logic_In0_Const_VDWord := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Const.VDWord;
+	        #MTP.Logic_In0_Const_VBool := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Const.VBool;
+	        #MTP.Logic_In0_Const_VString := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[0].Const.VString;
+	        
+	        #MTP.Logic_In1_Source := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Source;
+	        #MTP.Logic_In1_Index := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Index;
+	        #MTP.Logic_In1_Const_VQC := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Const.VQC;
+	        #MTP.Logic_In1_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Const.Typeselector;
+	        #MTP.Logic_In1_Const_VReal := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Const.VReal;
+	        #MTP.Logic_In1_Const_VDInt := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Const.VDInt;
+	        #MTP.Logic_In1_Const_VDWord := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Const.VDWord;
+	        #MTP.Logic_In1_Const_VBool := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Const.VBool;
+	        #MTP.Logic_In1_Const_VString := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[1].Const.VString;
+	        
+	        #MTP.Logic_In2_Source := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Source;
+	        #MTP.Logic_In2_Index := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Index;
+	        #MTP.Logic_In2_Const_VQC := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Const.VQC;
+	        #MTP.Logic_In2_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Const.Typeselector;
+	        #MTP.Logic_In2_Const_VReal := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Const.VReal;
+	        #MTP.Logic_In2_Const_VDInt := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Const.VDInt;
+	        #MTP.Logic_In2_Const_VDWord := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Const.VDWord;
+	        #MTP.Logic_In2_Const_VBool := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Const.VBool;
+	        #MTP.Logic_In2_Const_VString := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[2].Const.VString;
+	        
+	        #MTP.Logic_In3_Source := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Source;
+	        #MTP.Logic_In3_Index := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Index;
+	        #MTP.Logic_In3_Const_VQC := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Const.VQC;
+	        #MTP.Logic_In3_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Const.Typeselector;
+	        #MTP.Logic_In3_Const_VReal := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Const.VReal;
+	        #MTP.Logic_In3_Const_VDInt := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Const.VDInt;
+	        #MTP.Logic_In3_Const_VDWord := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Const.VDWord;
+	        #MTP.Logic_In3_Const_VBool := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Const.VBool;
+	        #MTP.Logic_In3_Const_VString := #Logic[#MTP.Logic_IndexCur].ActiveConfig.Arguments[3].Const.VString;
+	        
+	        #MTP.Logic_Out_VQC := #Logic[#MTP.Logic_IndexCur].Out.VQC;
+	        #MTP.Logic_Out_DataType := #Logic[#MTP.Logic_IndexCur].Out.Typeselector;
+	        #MTP.Logic_Out_VReal := #Logic[#MTP.Logic_IndexCur].Out.VReal;
+	        #MTP.Logic_Out_VDInt := #Logic[#MTP.Logic_IndexCur].Out.VDInt;
+	        #MTP.Logic_Out_VDWord := #Logic[#MTP.Logic_IndexCur].Out.VDWord;
+	        #MTP.Logic_Out_VBool := #Logic[#MTP.Logic_IndexCur].Out.VBool;
+	        #MTP.Logic_Out_VString := #Logic[#MTP.Logic_IndexCur].Out.VString;
+	        
+	        
+	    ELSIF #MTP.ViewCur = #VIEW_PREP_CONFIG
+	        AND (#stLastViewCur = #VIEW_ACT_CONFIG OR #MTP.Logic_IndexCur <> #stLastLogicIndexCur OR #tmpRestoreDefault) THEN
+	        
+	        #MTP.Logic_FuncTypeSel := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Selector;
+	        #MTP.Logic_In0_Source := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Source;
+	        #MTP.Logic_In0_Index := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Index;
+	        
+	        #MTP.Logic_In0_Const_VQC := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VQC;
+	        #MTP.Logic_In0_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.Typeselector;
+	        #MTP.Logic_In0_Const_VReal := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VReal;
+	        #MTP.Logic_In0_Const_VDInt := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VDInt;
+	        #MTP.Logic_In0_Const_VDWord := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VDWord;
+	        #MTP.Logic_In0_Const_VBool := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VBool;
+	        #MTP.Logic_In0_Const_VString := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VString;
+	        
+	        #MTP.Logic_In1_Source := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Source;
+	        #MTP.Logic_In1_Index := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Index;
+	        #MTP.Logic_In1_Const_VQC := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VQC;
+	        #MTP.Logic_In1_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.Typeselector;
+	        #MTP.Logic_In1_Const_VReal := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VReal;
+	        #MTP.Logic_In1_Const_VDInt := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VDInt;
+	        #MTP.Logic_In1_Const_VDWord := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VDWord;
+	        #MTP.Logic_In1_Const_VBool := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VBool;
+	        #MTP.Logic_In1_Const_VString := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VString;
+	        
+	        #MTP.Logic_In2_Source := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Source;
+	        #MTP.Logic_In2_Index := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Index;
+	        #MTP.Logic_In2_Const_VQC := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VQC;
+	        #MTP.Logic_In2_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.Typeselector;
+	        #MTP.Logic_In2_Const_VReal := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VReal;
+	        #MTP.Logic_In2_Const_VDInt := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VDInt;
+	        #MTP.Logic_In2_Const_VDWord := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VDWord;
+	        #MTP.Logic_In2_Const_VBool := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VBool;
+	        #MTP.Logic_In2_Const_VString := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VString;
+	        
+	        #MTP.Logic_In3_Source := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Source;
+	        #MTP.Logic_In3_Index := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Index;
+	        #MTP.Logic_In3_Const_VQC := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VQC;
+	        #MTP.Logic_In3_Const_DataTypeSel := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.Typeselector;
+	        #MTP.Logic_In3_Const_VReal := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VReal;
+	        #MTP.Logic_In3_Const_VDInt := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VDInt;
+	        #MTP.Logic_In3_Const_VDWord := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VDWord;
+	        #MTP.Logic_In3_Const_VBool := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VBool;
+	        #MTP.Logic_In3_Const_VString := #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VString;
+	        
+	        
+	    ELSIF #MTP.ViewCur = #VIEW_PREP_CONFIG THEN
+	        
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Selector := #MTP.Logic_FuncTypeSel;
+	        
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Source := #MTP.Logic_In0_Source;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Index := #MTP.Logic_In0_Index;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VQC := #MTP.Logic_In0_Const_VQC;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.Typeselector := #MTP.Logic_In0_Const_DataTypeSel;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VReal := #MTP.Logic_In0_Const_VReal;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VDInt := #MTP.Logic_In0_Const_VDInt;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VDWord := #MTP.Logic_In0_Const_VDWord;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VBool := #MTP.Logic_In0_Const_VBool;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[0].Const.VString := #MTP.Logic_In0_Const_VString;
+	        
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Source := #MTP.Logic_In1_Source;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Index := #MTP.Logic_In1_Index;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VQC := #MTP.Logic_In1_Const_VQC;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.Typeselector := #MTP.Logic_In1_Const_DataTypeSel;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VReal := #MTP.Logic_In1_Const_VReal;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VDInt := #MTP.Logic_In1_Const_VDInt;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VDWord := #MTP.Logic_In1_Const_VDWord;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VBool := #MTP.Logic_In1_Const_VBool;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[1].Const.VString := #MTP.Logic_In1_Const_VString;
+	        
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Source := #MTP.Logic_In2_Source;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Index := #MTP.Logic_In2_Index;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VQC := #MTP.Logic_In2_Const_VQC;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.Typeselector := #MTP.Logic_In2_Const_DataTypeSel;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VReal := #MTP.Logic_In2_Const_VReal;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VDInt := #MTP.Logic_In2_Const_VDInt;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VDWord := #MTP.Logic_In2_Const_VDWord;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VBool := #MTP.Logic_In2_Const_VBool;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[2].Const.VString := #MTP.Logic_In2_Const_VString;
+	        
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Source := #MTP.Logic_In3_Source;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Index := #MTP.Logic_In3_Index;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VQC := #MTP.Logic_In3_Const_VQC;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.Typeselector := #MTP.Logic_In3_Const_DataTypeSel;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VReal := #MTP.Logic_In3_Const_VReal;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VDInt := #MTP.Logic_In3_Const_VDInt;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VDWord := #MTP.Logic_In3_Const_VDWord;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VBool := #MTP.Logic_In3_Const_VBool;
+	        #Logic[#MTP.Logic_IndexCur].PreparedConfig.Arguments[3].Const.VString := #MTP.Logic_In3_Const_VString;
+	        
+	    END_IF;
+	    
+	END_REGION
+	
+	
+	REGION OUTPUT
+	    
+	    #MTP.Output_Value_VQC := #Outputs[#MTP.Output_IndexCur].Value.VQC;
+	    #MTP.Output_Value_DataTypeSel := #Outputs[#MTP.Output_IndexCur].Value.Typeselector;
+	    #MTP.Output_Value_VReal := #Outputs[#MTP.Output_IndexCur].Value.VReal;
+	    #MTP.Output_Value_VDInt := #Outputs[#MTP.Output_IndexCur].Value.VDInt;
+	    #MTP.Output_Value_VDWord := #Outputs[#MTP.Output_IndexCur].Value.VDWord;
+	    #MTP.Output_Value_VBool := #Outputs[#MTP.Output_IndexCur].Value.VBool;
+	    #MTP.Output_Value_VString := #Outputs[#MTP.Output_IndexCur].Value.VString;
+	    #MTP.Output_DataType := #Outputs[#MTP.Output_IndexCur].DataType;
+	    #MTP.Output_Ret := #Outputs[#MTP.Output_IndexCur].Status;
+	    
+	    IF #MTP.ViewCur = #VIEW_ACT_CONFIG THEN
+	        
+	        #MTP.Output_Source := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Source;
+	        #MTP.Output_Index := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Index;
+	        
+	        #MTP.Output_Const_VQC := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Const.VQC;
+	        #MTP.Output_Const_DataTypeSel := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Const.Typeselector;
+	        #MTP.Output_Const_VReal := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Const.VReal;
+	        #MTP.Output_Const_VDInt := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Const.VDInt;
+	        #MTP.Output_Const_VDWord := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Const.VDWord;
+	        #MTP.Output_Const_VBool := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Const.VBool;
+	        #MTP.Output_Const_VString := #Outputs[#MTP.Output_IndexCur].ActiveConfig.Const.VString;
+	        
+	        
+	    ELSIF #MTP.ViewCur = #VIEW_PREP_CONFIG
+	        AND (#stLastViewCur = #VIEW_ACT_CONFIG OR #MTP.Output_IndexCur <> #stLastOutputIndexCur) THEN
+	        
+	        #MTP.Output_Source := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Source;
+	        #MTP.Output_Index := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Index;
+	        
+	        #MTP.Output_Const_VQC := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VQC;
+	        #MTP.Output_Const_DataTypeSel := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.Typeselector;
+	        #MTP.Output_Const_VReal := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VReal;
+	        #MTP.Output_Const_VDInt := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VDInt;
+	        #MTP.Output_Const_VDWord := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VDWord;
+	        #MTP.Output_Const_VBool := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VBool;
+	        #MTP.Output_Const_VString := #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VString;
+	        
+	        
+	    ELSIF #MTP.ViewCur = #VIEW_PREP_CONFIG THEN
+	        
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Source := #MTP.Output_Source;
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Index := #MTP.Output_Index;
+	        
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VQC := #MTP.Output_Const_VQC;
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.Typeselector := #MTP.Output_Const_DataTypeSel;
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VReal := #MTP.Output_Const_VReal;
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VDInt := #MTP.Output_Const_VDInt;
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VDWord := #MTP.Output_Const_VDWord;
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VBool := #MTP.Output_Const_VBool;
+	        #Outputs[#MTP.Output_IndexCur].PreparedConfig.Const.VString := #MTP.Output_Const_VString;
+	        
+	    END_IF;
+	    
+	END_REGION
+	
+	
+	REGION FINISH
+	    
+	    #stLastViewCur := #MTP.ViewCur;
+	    #stLastLogicIndexCur := #MTP.Logic_IndexCur;
+	    #stLastOutputIndexCur := #MTP.Output_IndexCur;
+	    
+	END_REGION FINISH
+END_FUNCTION_BLOCK

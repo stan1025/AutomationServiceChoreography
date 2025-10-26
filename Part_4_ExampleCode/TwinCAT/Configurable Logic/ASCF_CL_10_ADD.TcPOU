@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CL_10_ADD" Id="{aeb1de70-af10-4a74-b998-0873c4c009f7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CL_10_ADD : WORD
+VAR_OUTPUT
+	Out		: ASCF_UnionType;		//Result of the computation (Type: VDINT or VReal)
+	Ret_ALFunc_10_ADD : WORD;
+END_VAR
+
+VAR_IN_OUT
+	Arguments		: ARRAY[0..3] OF ASCF_UnionType; 	//Arguments for the function (Arguments: 2 - 4, Type: VDINT or VReal)
+END_VAR
+
+VAR
+	tempLoopVar				: DINT;
+	tempDone				: BOOL;
+	tempQC					: BYTE;
+	tempQC1					: BYTE;
+	tempResult				: REAL;
+	tempRealFlag			: BOOL;
+	tempValidArgumentCount	: UINT;
+	constDefaultUnionType	: ASCF_UnionType;			//Union type that holds only one of its possible data types at a time. The type can be selected via the "Typeselector". Independent of the selected type, every value has a quality code "VQC".
+	constUnionTypes			: ASCF_EnumUnionTypes;		//Enumeration type of the valid values for the "Typeselector" of a "GVR_unionType"-UDT.
+	constQualityCodes		: ASCF_QualityCodes;			//This enum encodes the defines quality codes for the MTP standard. The values are shown in HEX. The lowest value (1) has the highest priority.    | QC Name              | Value | Priority ||----------------------|:-----:|:--------:|| Failure              | 16#00 |    1     || Function Check       | 16#60 |    2     || Ma: INTenance Request  | 16#A4 |    3     || Out of Specification | 16#68 |    4     || OK                   | 16#80 |    5     || Out of Service       | 16#1C |    6     || No Status            | 16#FF |    7     |
+	constErrors				: ASCF_CL_EnumErrors;			//Enumeration type of the error codes of the Adaptive Logic.	
+END_VAR
+
+VAR CONSTANT
+	MIN_ARGUMENTS_COUNT		: UINT		:= 2;	
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "INITIALIZE VARIABLES"}
+    // #tempResult := 0.0;
+    tempQC := constQualityCodes.No_Status;
+    Out := constDefaultUnionType;
+{endregion}
+
+//#################################################################################################
+{region "PROCESS ARGUMENTS"}  
+    FOR tempLoopVar := 0 TO 3 BY 1 DO
+        
+        //-----------------------------------------------------------------------------------------
+        // no type --> exit loop, argument processing is done
+        IF Arguments[tempLoopVar].Typeselector = constUnionTypes.None THEN
+            
+            tempDone := TRUE;
+            
+            //-----------------------------------------------------------------------------------------
+            // VReal --> process
+        ELSIF Arguments[tempLoopVar].Typeselector = constUnionTypes.VReal THEN
+            
+            tempResult := tempResult + Arguments[tempLoopVar].VReal;
+            tempQC := ASCF_CalcWQC(QC1 := tempQC, QC2 := Arguments[tempLoopVar].VQC);
+            tempValidArgumentCount := tempValidArgumentCount + 1;
+            tempRealFlag := TRUE;
+            
+            //-----------------------------------------------------------------------------------------
+            // VDINT --> process
+        ELSIF Arguments[tempLoopVar].Typeselector = constUnionTypes.VDINT THEN
+            
+            tempResult := tempResult + DINT_TO_REAL(Arguments[tempLoopVar].VDINT);
+            tempQC := ASCF_CalcWQC(QC1 := tempQC, QC2 :=  Arguments[tempLoopVar].VQC);
+            tempValidArgumentCount := tempValidArgumentCount + 1;
+            
+            //-----------------------------------------------------------------------------------------
+            // invalid type --> error
+        ELSE
+            Ret_ALFunc_10_ADD := constErrors.InvalidType;
+            RETURN;
+            
+        END_IF;
+        
+        // argument processing is done --> exit loop
+        IF tempDone THEN
+            EXIT;
+        END_IF;
+        
+    END_FOR;
+    
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // too few arguments
+    IF tempValidArgumentCount < MIN_ARGUMENTS_COUNT THEN
+        Ret_ALFunc_10_ADD := constErrors.TooFewArguments;
+        RETURN;
+    END_IF;
+{endregion}
+
+//#################################################################################################
+{region "REGION OUTPUT"}
+    IF tempRealFlag THEN
+        Out.Typeselector := constUnionTypes.VReal;
+        Out.VQC := tempQC;
+        Out.VReal := tempResult;
+    ELSE
+        Out.Typeselector := constUnionTypes.VDINT;
+        Out.VQC := tempQC;
+        Out.VDINT := REAL_TO_DINT(tempResult);
+    END_IF;
+    
+    Ret_ALFunc_10_ADD := constErrors.None;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

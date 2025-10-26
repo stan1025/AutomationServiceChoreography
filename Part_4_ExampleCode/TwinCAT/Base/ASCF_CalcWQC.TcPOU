@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_CalcWQC" Id="{bf3d354c-4cbf-4537-a6f9-3729f7386d5b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_CalcWQC : BYTE
+VAR_INPUT
+	QC1			: BYTE;		//Quality Codes 1 (according to VDI/VDE/NAMUR 2658 - 10) which will be aggregated by there priority
+	QC2			: BYTE;		//Quality Codes 2 (according to VDI/VDE/NAMUR 2658 - 10) which will be aggregated by there priority
+END_VAR
+
+VAR_OUTPUT
+END_VAR
+
+VAR
+	enumQC		: ASCF_QualityCodes;		//This enum encodes the defines quality codes for the MTP standard. The values are shown in HEX. The lowest value (1) has the highest priority.    | QC Name              | Value | Priority ||----------------------|:-----:|:--------:|| Failure              | 16#00 |    1     || Function Check       | 16#60 |    2     || Ma: INTenance Request  | 16#A4 |    3     || Out of Specification | 16#68 |    4     || OK                   | 16#80 |    5     || Out of Service       | 16#1C |    6     || No Status            | 16#FF |    7     |
+	test : BYTE;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+
+ASCF_CalcWQC := 16#FF;
+
+test := enumQC.Failure;
+
+IF ((QC1 <> enumQC.Failure AND QC1 <> enumQC.Function_Check AND QC1 <> enumQC.Maintenance_Request AND QC1 <> enumQC.Out_of_Specification AND QC1 <> enumQC.OK AND QC1 <> enumQC.Out_of_Service AND QC1 <> enumQC.No_Status) OR
+    (QC2 <> enumQC.Failure AND QC2 <> enumQC.Function_Check AND QC2 <> enumQC.Maintenance_Request AND QC2 <> enumQC.Out_of_Specification AND QC2 <> enumQC.OK AND QC2 <> enumQC.Out_of_Service AND QC2 <> enumQC.No_Status)) THEN
+    // Wrong QC Code --> Failure
+    ASCF_CalcWQC := enumQC.Failure;
+    
+ELSE
+    
+    IF (QC1 = enumQC.Failure OR QC2 = enumQC.Failure) THEN
+        ASCF_CalcWQC := enumQC.Failure;
+    ELSIF (QC1 = enumQC.Function_Check OR QC2 = enumQC.Function_Check) THEN
+        ASCF_CalcWQC := enumQC.Function_Check;
+    ELSIF (QC1 = enumQC.Maintenance_Request OR QC2 = enumQC.Maintenance_Request) THEN
+        ASCF_CalcWQC := enumQC.Maintenance_Request;
+    ELSIF (QC1 = enumQC.Out_of_Specification OR QC2 = enumQC.Out_of_Specification) THEN
+        ASCF_CalcWQC := enumQC.Out_of_Specification;
+    ELSIF (QC1 = enumQC.OK OR QC2 = enumQC.OK) THEN
+        ASCF_CalcWQC := enumQC.OK;
+    ELSIF (QC1 = enumQC.Out_of_Service OR QC2 = enumQC.Out_of_Service) THEN
+        ASCF_CalcWQC := enumQC.Out_of_Service;
+    ELSIF (QC1 = enumQC.No_Status OR QC2 = enumQC.No_Status) THEN
+        ASCF_CalcWQC := enumQC.No_Status;
+    END_IF;
+END_IF;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

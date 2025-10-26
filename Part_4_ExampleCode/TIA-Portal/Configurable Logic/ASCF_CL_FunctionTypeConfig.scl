@@ -1,0 +1,10 @@
+TYPE "ASCF_CL_FunctionTypeConfig"
+TITLE = AL_functionTypeConfig
+VERSION : 0.1
+
+   STRUCT
+      Selector : UInt := 0;   
+      Arguments { S7_SetPoint := 'False'} : Array[0..3] of "ASCF_CL_ArgumentType";  
+   END_STRUCT;
+
+END_TYPE

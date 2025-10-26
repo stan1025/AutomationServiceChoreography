@@ -1,0 +1,472 @@
+FUNCTION_BLOCK "ASCF_ConfigurableLogic"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Execute { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool; 
+   END_VAR
+
+   VAR_IN_OUT 
+      Inputs : Array[*] of "ASCF_UnionType";   
+      Logic : Array[*] of "ASCF_CL_FunctionType";   
+      Outputs : Array[*] of "ASCF_CL_OutputType";   
+   END_VAR
+
+   VAR 
+      reExecute {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+   END_VAR
+
+   VAR_TEMP 
+      constDefaultUnionType : "ASCF_UnionType";
+      tempArgumentValues : Array[0..3] of "ASCF_UnionType";
+      tempIndex : UInt;
+      tempError : Bool;
+      tempLoopVar_1 : DInt;
+      tempLoopVar_2 : DInt;
+      tempLowerBoundInputs : DInt;
+      tempUpperBoundInputs : DInt;
+      tempLowerBoundLogic : DInt;
+      tempUpperBoundLogic : DInt;
+      tempLowerBoundOutputs : DInt;
+      tempUpperBoundOutputs : DInt;
+      constSourceTypes : "ASCF_CL_EnumSourceTypes";
+      constUnionTypes : "ASCF_EnumUnionTypes";
+      constErrors : "ASCF_CL_EnumErrors";
+      constFunctionTypes : "ASCF_CL_EnumFunctionTypes";
+   END_VAR
+
+   VAR CONSTANT 
+      ARGUMENT_COUNT : Int := 4;
+   END_VAR
+
+
+BEGIN
+
+	
+	
+	REGION GET ARRAY BOUNDARIES
+	    
+
+	    #tempLowerBoundInputs := LOWER_BOUND(ARR := #Inputs, DIM := 1);
+	    #tempUpperBoundInputs := UPPER_BOUND(ARR := #Inputs, DIM := 1);
+	    
+
+	    #tempLowerBoundLogic := LOWER_BOUND(ARR := #Logic, DIM := 1);
+	    #tempUpperBoundLogic := UPPER_BOUND(ARR := #Logic, DIM := 1);
+	    
+
+	    #tempLowerBoundOutputs := LOWER_BOUND(ARR := #Outputs, DIM := 1);
+	    #tempUpperBoundOutputs := UPPER_BOUND(ARR := #Outputs, DIM := 1);
+	    
+	END_REGION GET ARRAY BOUNDARIES
+	
+	
+	
+	REGION EXECUTE LOGIC
+	    
+	    #reExecute(CLK:=#Execute);
+	    
+	    IF NOT #Execute THEN
+	        RETURN;
+	    END_IF;
+
+	    IF #reExecute.Q
+	    THEN
+	        
+	        FOR #tempLoopVar_1 := #tempLowerBoundLogic TO #tempUpperBoundLogic DO
+	            #Logic[#tempLoopVar_1].ActiveConfig := #Logic[#tempLoopVar_1].PreparedConfig;
+	        END_FOR;
+	        
+	        FOR #tempLoopVar_1 := #tempLowerBoundOutputs TO #tempUpperBoundOutputs DO
+	            #Outputs[#tempLoopVar_1].ActiveConfig := #Outputs[#tempLoopVar_1].PreparedConfig;
+	        END_FOR;
+	        
+	    END_IF;
+	    
+	    FOR #tempLoopVar_1 := #tempLowerBoundLogic TO #tempUpperBoundLogic DO
+	        
+
+	        IF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.NONE THEN
+	            #Logic[#tempLoopVar_1].Ret := #constErrors.NoFunctionSelected;
+	            CONTINUE;
+	        END_IF;
+	        
+
+	        FOR #tempLoopVar_2 := 0 TO #ARGUMENT_COUNT - 1 DO
+	            #tempArgumentValues[#tempLoopVar_2] := #constDefaultUnionType;
+	        END_FOR;
+	        
+	        #tempError := false;
+
+	        FOR #tempLoopVar_2 := 0 TO #ARGUMENT_COUNT - 1 DO
+	            
+	            #tempIndex := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[#tempLoopVar_2].Index;
+
+	            IF #Logic[#tempLoopVar_1].ActiveConfig.Arguments[#tempLoopVar_2].Source = #constSourceTypes.Constant THEN
+	                
+	                #tempArgumentValues[#tempLoopVar_2] := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[#tempLoopVar_2].Const;
+
+	            ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Arguments[#tempLoopVar_2].Source = #constSourceTypes.None THEN
+	                
+	                #tempArgumentValues[#tempLoopVar_2] := #constDefaultUnionType;
+
+	            ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Arguments[#tempLoopVar_2].Source = #constSourceTypes.Input THEN
+	                
+	                IF #tempIndex < #tempLowerBoundInputs OR #tempIndex > #tempUpperBoundInputs THEN
+	                    #Logic[#tempLoopVar_1].Ret := #constErrors.InvalidIndex;
+	                    #tempError := true;
+	                    EXIT;
+	                    
+	                ELSE
+	                    #tempArgumentValues[#tempLoopVar_2] := #Inputs[#tempIndex];
+	                    
+	                END_IF;
+
+	            ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Arguments[#tempLoopVar_2].Source = #constSourceTypes.Logic THEN
+	                
+	                IF #tempIndex < #tempLowerBoundLogic OR #tempIndex > #tempUpperBoundLogic THEN
+	                    #Logic[#tempLoopVar_1].Ret := #constErrors.InvalidIndex;
+	                    #tempError := true;
+	                    EXIT;
+	                    
+	                ELSE
+	                    
+	                    IF #Logic[#tempIndex].Ret <> #constErrors.None THEN
+	                        #Logic[#tempLoopVar_1].Ret := #constErrors.ErrorInArgument;
+	                        #tempError := true;
+	                        EXIT;
+	                        
+	                    ELSE
+	                        #tempArgumentValues[#tempLoopVar_2] := #Logic[#tempIndex].Out;
+	                        
+	                    END_IF;
+	                    
+	                END_IF;
+
+	            ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Arguments[#tempLoopVar_2].Source = #constSourceTypes.Output THEN
+	                
+	                IF #tempIndex < #tempLowerBoundOutputs OR #tempIndex > #tempUpperBoundOutputs THEN
+	                    #Logic[#tempLoopVar_1].Ret := #constErrors.InvalidIndex;
+	                    #tempError := true;
+	                    EXIT;
+	                    
+	                ELSE
+	                    
+	                    IF #Outputs[#tempIndex].Status <> #constErrors.None THEN
+	                        #Logic[#tempLoopVar_1].Ret := #constErrors.ErrorInArgument;
+	                        #tempError := true;
+	                        EXIT;
+	                        
+	                    ELSE
+	                        #tempArgumentValues[#tempLoopVar_2] := #Outputs[#tempIndex].Value;
+	                        
+	                    END_IF;
+	                    
+	                END_IF;
+	                
+
+	            ELSE
+	                
+	                #Logic[#tempLoopVar_1].Ret := #constErrors.InvalidSourceSelected;
+	                #tempError := true;
+	                EXIT;
+	                
+	            END_IF;
+	            
+	        END_FOR;
+	        
+
+	        IF #tempError THEN
+	            CONTINUE;
+	        END_IF;
+	        
+	        
+
+	        IF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.ADD THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_10_ADD"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.SUB THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_11_SUB"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.MUL THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_12_MUL"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes."DIV" THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_13_DIV"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes."MOD" THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_14_MOD"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes."NOT" THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_30_NOT"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes."AND" THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_31_AND"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes."OR" THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_32_OR"(Arguments := #tempArgumentValues,
+	                                                         Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.NAND THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_33_NAND"(Arguments := #tempArgumentValues,
+	                                                           Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.NOR THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_34_NOR"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes."XOR" THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_35_XOR"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.XNOR THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_36_XNOR"(Arguments := #tempArgumentValues,
+	                                                           Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.FE THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_37_FE"(Arguments := #tempArgumentValues,
+	                                                         Memory := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[0],
+	                                                         Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.RE THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_38_RE"(Arguments := #tempArgumentValues,
+	                                                         Memory := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[0],
+	                                                         Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.EE THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_50_EE"(Arguments := #tempArgumentValues,
+	                                                         Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.NE THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_51_NE"(Arguments := #tempArgumentValues,
+	                                                         Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.GT THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_52_GT"(Arguments := #tempArgumentValues,
+	                                                         Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.GTE THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_53_GTE"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.LT THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_54_LT"(Arguments := #tempArgumentValues,
+	                                                         Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.LTE THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_55_LTE"(Arguments := #tempArgumentValues,
+	                                                          Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.EE_BIT THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_56_EE_BIT"(Arguments := #tempArgumentValues,
+	                                                             Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant1 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_100_IF1"(Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant2 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_101_IF2"(Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant3 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_102_IF3"(Memory := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[0],
+	                                                                       Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant4 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_103_IF4"(Memory := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[0],
+	                                                                       Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant5 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_104_IF5"(Memory := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[0],
+	                                                                       Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant6 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_105_IF6"(Memory := #Logic[#tempLoopVar_1].ActiveConfig.Arguments[0],
+	                                                                       Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant7 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_106_IF7"(Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant8 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_107_IF8"(Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSIF #Logic[#tempLoopVar_1].ActiveConfig.Selector = #constFunctionTypes.IFTHEN_Variant9 THEN
+	            
+	            #Logic[#tempLoopVar_1].Ret := "ASCF_CL_108_IF9"(Arguments := #tempArgumentValues,
+	                                                                       Out => #Logic[#tempLoopVar_1].Out);
+	            
+
+	        ELSE
+	            
+	            #Logic[#tempLoopVar_1].Out := #constDefaultUnionType;
+	            #Logic[#tempLoopVar_1].Ret := #constErrors.InvalidFunctionSelected;
+	            
+	        END_IF;
+	        
+	    END_FOR;
+	    
+	END_REGION EXECUTE LOGIC
+	
+	
+	
+	REGION WRITE OUTPUTS
+	    
+	    FOR #tempLoopVar_1 := #tempLowerBoundOutputs TO #tempUpperBoundOutputs DO
+	        
+	        #tempIndex := #Outputs[#tempLoopVar_1].ActiveConfig.Index;
+	        
+
+	        IF #Outputs[#tempLoopVar_1].ActiveConfig.Source = #constSourceTypes.Constant THEN
+	            
+	            IF #Outputs[#tempLoopVar_1].DataType <> #Outputs[#tempLoopVar_1].ActiveConfig.Const.Typeselector THEN
+	                
+	                #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidType;
+	                
+	            ELSE
+	                
+	                #Outputs[#tempLoopVar_1].Value := #Outputs[#tempLoopVar_1].ActiveConfig.Const;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.None;
+	                
+	            END_IF;
+	            
+
+	        ELSIF #Outputs[#tempLoopVar_1].ActiveConfig.Source = #constSourceTypes.None THEN
+	            
+	            #Outputs[#tempLoopVar_1].Value := #Outputs[#tempLoopVar_1].Substitute;
+	            #Outputs[#tempLoopVar_1].Status := #constErrors.None;
+	            
+
+	        ELSIF #Outputs[#tempLoopVar_1].ActiveConfig.Source = #constSourceTypes.Input THEN
+	            
+	            IF #tempIndex < #tempLowerBoundInputs OR #tempIndex > #tempUpperBoundInputs THEN
+	                #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidIndex;
+	                
+	            ELSIF #Outputs[#tempLoopVar_1].DataType <> #Inputs[#tempIndex].Typeselector THEN
+	                #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidType;
+	                
+	            ELSE
+	                #Outputs[#tempLoopVar_1].Value := #Inputs[#tempIndex];
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.None;
+	                
+	            END_IF;
+	            
+
+	        ELSIF #Outputs[#tempLoopVar_1].ActiveConfig.Source = #constSourceTypes.Logic THEN
+	            
+	            IF #tempIndex < #tempLowerBoundLogic OR #tempIndex > #tempUpperBoundLogic THEN
+	                #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidIndex;
+	                
+	            ELSIF #Outputs[#tempLoopVar_1].DataType <> #Logic[#tempIndex].Out.Typeselector THEN
+	                #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidType;
+	                
+	            ELSE
+	                #Outputs[#tempLoopVar_1].Value := #Logic[#tempIndex].Out;
+	                #Outputs[#tempLoopVar_1].Status := #Logic[#tempIndex].Ret;
+	                
+	            END_IF;
+	            
+
+	        ELSIF #Outputs[#tempLoopVar_1].ActiveConfig.Source = #constSourceTypes.Output THEN
+	            
+	            IF #tempIndex < #tempLowerBoundOutputs OR #tempIndex > #tempUpperBoundOutputs THEN
+	                #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidIndex;
+	                
+	            ELSIF #Outputs[#tempLoopVar_1].DataType <> #Outputs[#tempIndex].Value.Typeselector THEN
+	                #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	                #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidType;
+	                
+	            ELSE
+	                #Outputs[#tempLoopVar_1].Value := #Outputs[#tempIndex].Value;
+	                #Outputs[#tempLoopVar_1].Status := #Outputs[#tempIndex].Status;
+	                
+	            END_IF;
+	            
+
+	        ELSE
+	            
+	            #Outputs[#tempLoopVar_1].Value := #constDefaultUnionType;
+	            #Outputs[#tempLoopVar_1].Status := #constErrors.InvalidSourceSelected;
+	            
+	        END_IF;
+	        
+	    END_FOR;
+	    
+	END_REGION WRITE OUTPUTS
+END_FUNCTION_BLOCK

@@ -1,0 +1,9 @@
+TYPE "ASCF_CC_OPCUACS_ConnectionStatus"
+VERSION : 0.1
+   STRUCT
+      Status : USInt;
+      ServerState : USInt;
+      ServiceLevel : USInt;
+   END_STRUCT;
+
+END_TYPE

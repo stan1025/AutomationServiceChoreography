@@ -1,0 +1,11 @@
+TYPE "ASCF_CL_OutputTypeConfig"
+TITLE = AL_outputTypeConfig
+VERSION : 0.1
+
+   STRUCT
+      Source : SInt;  
+      Index : UInt;   
+      "Const" { S7_SetPoint := 'False'} : "ASCF_UnionType"; 
+   END_STRUCT;
+
+END_TYPE

@@ -1,0 +1,394 @@
+FUNCTION_BLOCK "ASCF_CC_OPCUACS_Connections"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR 
+      ConnectionInterface { S7_SetPoint := 'False'} : Array[0..#CONNECTION_ARRAY_LIMIT] of "ASCF_CC_OPCUACS_ConnectionInterface" := [((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ()))), ((), (), (), (), ((), ((), (), (), (), (), (), (), (), (), (), (), (), (), [()]), (), [()], (), ()), ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ())))];
+      activeConnectionConfig { ExternalWritable := 'False'; S7_SetPoint := 'False'} : Array[0..#CONNECTION_ARRAY_LIMIT] of "ASCF_CC_OPCUACS_ConnectionConfig";
+      OPC_UA_Connect_Calls {InstructionName := 'OPC_UA_Connect'; LibVersion := '1.0'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : Array[0..#CONNECTION_ARRAY_LIMIT] of OPC_UA_Connect;
+      OPC_UA_Disconnect_Calls {InstructionName := 'OPC_UA_Disconnect'; LibVersion := '1.0'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : Array[0..#CONNECTION_ARRAY_LIMIT] of OPC_UA_Disconnect;
+      OPC_UA_NamespaceGetIndexList_Calls {InstructionName := 'OPC_UA_NamespaceGetIndexList'; LibVersion := '1.0'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : Array[0..#CONNECTION_ARRAY_LIMIT] of OPC_UA_NamespaceGetIndexList;
+      OPC_UA_ConnectionGetStatus_Calls {InstructionName := 'OPC_UA_ConnectionGetStatus'; LibVersion := '1.0'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : Array[0..#CONNECTION_ARRAY_LIMIT] of OPC_UA_ConnectionGetStatus;
+      statLastConnDiag {InstructionName := 'DTL'; LibVersion := '1.0'; ExternalWritable := 'False'} : Array[0..#CONNECTION_ARRAY_LIMIT] of DTL;
+   END_VAR
+
+   VAR_TEMP 
+      i : USInt;
+      j : USInt;
+      tempReq : Bool;
+      tempDone : Bool;
+      tempError : Bool;
+      tempStatus : DWord;
+      tempConnDiagReq : Bool;
+      tempTimeNow {InstructionName := 'DTL'; LibVersion := '1.0'} : DTL;
+      tempTimeDiff : Time;
+      constConstants : "ASCF_CC_OPCUACS_Constants";
+      constErrors : "ASCF_CC_OPCUACS_EnumErrors";
+      constConnHandleStates : "ASCF_CC_OPCUACS_EnumConnectionHandleStates";
+   END_VAR
+
+   VAR CONSTANT 
+      CONNECTION_ARRAY_LIMIT : USInt := 9;
+   END_VAR
+
+
+BEGIN
+	REGION LOOP
+	    
+	    FOR #i := 0 TO #CONNECTION_ARRAY_LIMIT DO
+	        
+	        IF NOT #ConnectionInterface[#i].Active THEN
+	            CONTINUE;
+	        END_IF;
+	        
+        REGION PREPARE LOOP
+            
+            #tempReq := false;
+            #tempDone := false;
+            #tempError := false;
+            #tempStatus := 16#0000_0000;
+            #tempConnDiagReq := false;
+            
+            #ConnectionInterface[#i].Handle.ReaderError := false;
+            #ConnectionInterface[#i].Handle.WriterError := false;
+            
+        END_REGION PREPARE LOOP	      
+
+        REGION STATE MACHINE
+            
+            IF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.Disconnected THEN	                
+                REGION DISCONNECTED
+                    
+                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+                        
+                        #ConnectionInterface[#i].Handle.ScheduleData.ReadersCount := 0;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.WritersCount := 0;
+	                        
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleGetNodeHandles.NextID := 1;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleReleaseNodeHandles.NextID := 1;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleRead.NextID := 1;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleWrite.NextID := 1;
+	                        
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleGetNodeHandles.Reader := true;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleGetNodeHandles.Writer := false;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleGetNodeHandles.Schedule[0] := #constConstants.OperationDoneID;
+	                        
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleReleaseNodeHandles.Reader := true;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleReleaseNodeHandles.Writer := false;
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleReleaseNodeHandles.Schedule[0] := #constConstants.OperationDoneID;
+	                        
+	                        FOR #j := 0 TO #constConstants.MaxEntriesPerSchedule - 1 DO
+	                            #ConnectionInterface[#i].Handle.ScheduleData.ScheduleRead.Schedule[#j] := #constConstants.OperationDoneID;
+	                            #ConnectionInterface[#i].Handle.ScheduleData.ScheduleWrite.Schedule[#j] := #constConstants.OperationDoneID;
+                        END_FOR;
+                        
+                        #ConnectionInterface[#i].Handle.ConnectionStatus.Status := 0;
+	                        #ConnectionInterface[#i].Handle.ConnectionStatus.ServerState := 0;
+	                        #ConnectionInterface[#i].Handle.ConnectionStatus.ServiceLevel := 0;
+	                        
+                    END_IF;
+                    
+                    
+                    
+                    IF #ConnectionInterface[#i].Connect THEN
+                        #ConnectionInterface[#i].Connect := false;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Initializing;
+	                        
+                    END_IF;
+                    
+                    
+                    
+                END_REGION DISCONNECTED
+                
+                
+            ELSIF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.Initializing THEN	                
+	                REGION INITIALIZING
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+	                        #activeConnectionConfig[#i] := #ConnectionInterface[#i].Config;
+	                        
+	                    END_IF;
+
+	                    #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Connecting;
+
+	                    
+	                END_REGION INITIALIZING
+	                
+
+	            ELSIF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.Connecting THEN
+	                
+	                
+	                REGION CONNECTING
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+
+	                        #tempReq := true;
+	                    END_IF;
+	                    
+
+	                    #OPC_UA_Connect_Calls[#i](REQ := #tempReq,
+	                                                         ServerEndpointUrl := #activeConnectionConfig[#i].ServerURL,
+	                                                         SessionConnectInfo := #activeConnectionConfig[#i].SessionConnectInfo,
+	                                                         Timeout := UINT_TO_TIME(#activeConnectionConfig[#i].ConnectionTimeout),
+	                                                         Done => #tempDone,
+	                                                         Error => #tempError,
+	                                                         Status => #tempStatus,
+	                                                         ConnectionHdl => #ConnectionInterface[#i].Handle.Handle);
+	                    
+	                    
+	                    IF #tempError THEN
+	                        #ConnectionInterface[#i].Handle.Status := #tempStatus;
+	                        #ConnectionInterface[#i].Handle.Handle := 16#0000_0000;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Error;
+	                        
+
+	                    ELSIF #tempDone THEN
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.GettingNamespaceIndexList;
+
+	                    ELSIF #ConnectionInterface[#i].Disconnect THEN
+	                        #ConnectionInterface[#i].Disconnect := false;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Disconnected;
+	                        
+	                    END_IF;
+	                    
+
+	                    
+	                END_REGION CONNECTING   
+	                
+
+	            ELSIF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.GettingNamespaceIndexList THEN
+	                
+	                
+	                REGION GETTING NAMESPACE INDEX LIST
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+	                        
+	                        #ConnectionInterface[#i].Handle.NamespaceIndexCount := #activeConnectionConfig[#i].NamespaceUrisCount;
+
+	                        #tempReq := true;
+	                    END_IF;
+	                    
+
+	                    #OPC_UA_NamespaceGetIndexList_Calls[#i](REQ := #tempReq,
+	                                                            ConnectionHdl := #ConnectionInterface[#i].Handle.Handle,
+	                                                                       NamespaceUrisCount := #activeConnectionConfig[#i].NamespaceUrisCount,
+	                                                                       NamespaceUris := #activeConnectionConfig[#i].NamespaceUris,
+	                                                                       Timeout := UINT_TO_TIME(#activeConnectionConfig[#i].ConnectionTimeout),
+	                                                                       Done => #tempDone,
+	                                                                       Error => #tempError,
+	                                                                       Status => #tempStatus,
+	                                                                       NamespaceIndexes := #ConnectionInterface[#i].Handle.NamespaceIndexList);
+	                    
+
+	                    IF #tempError THEN
+	                        #ConnectionInterface[#i].Handle.Status := #tempStatus;
+	                        #ConnectionInterface[#i].Handle.Handle := 16#0000_0000;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Error;
+	                        
+
+	                    ELSIF #tempDone THEN
+
+	                        FOR #j := 0 TO #activeConnectionConfig[#i].NamespaceUrisCount - 1 DO
+
+	                            IF #ConnectionInterface[#i].Handle.NamespaceIndexList[#j] = 16#FFFF THEN
+	                                #tempError := true;
+	                                EXIT;
+	                            END_IF;
+	                        END_FOR;
+	                        
+	                        IF #tempError THEN
+	                            #ConnectionInterface[#i].Handle.Status := #constErrors.InvalidNamespace;
+	                            #ConnectionInterface[#i].Handle.Handle := 16#0000_0000;
+	                            #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Error;
+	                        ELSE
+	                            #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Executing;
+	                        END_IF;
+	                        
+
+	                    ELSIF #ConnectionInterface[#i].Disconnect THEN
+	                        #ConnectionInterface[#i].Disconnect := false;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Disconnected;
+	                        
+	                    END_IF;
+	                    
+
+	                    
+	                END_REGION GETTING NAMESPACE INDEX LIST       
+	                
+	                
+
+	            ELSIF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.Executing THEN
+	                
+	                
+	                REGION EXECUTING
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+	                        
+	                    END_IF;
+	                    
+
+	                    "ASCF_CC_OPCUACS_Scheduler"(#ConnectionInterface[#i].Handle.ScheduleData);
+	                    
+	                    #tempStatus := INT_TO_DWORD(IN := RD_SYS_T(OUT => #tempTimeNow));
+	                    #tempTimeDiff := T_DIFF(IN1 := #tempTimeNow, IN2 := #statLastConnDiag[#i]);
+	                    
+	                    IF #tempTimeDiff > UINT_TO_TIME(#activeConnectionConfig[#i].ConnectionDiagnoseCycle) THEN
+	                        #statLastConnDiag[#i] := #tempTimeNow;
+	                        #tempConnDiagReq := true;
+	                    END_IF;
+	                          
+	                    
+	                    #OPC_UA_ConnectionGetStatus_Calls[#i](REQ := #tempConnDiagReq,
+	                                                          ConnectionHdl := #ConnectionInterface[#i].Handle.Handle,
+	                                                                     Timeout := UINT_TO_TIME(#activeConnectionConfig[#i].ConnectionTimeout),
+	                                                                     Done => #tempDone,
+	                                                                     Error => #tempError,
+	                                                                     Status => #tempStatus,
+	                                                                     ConnectionStatus => #ConnectionInterface[#i].Handle.ConnectionStatus.Status,
+	                                                                     ServerState => #ConnectionInterface[#i].Handle.ConnectionStatus.ServerState,
+	                                                                     ServiceLevel => #ConnectionInterface[#i].Handle.ConnectionStatus.ServiceLevel);
+	                    
+
+	                    IF #tempError THEN
+	                        #ConnectionInterface[#i].Handle.Status := #tempStatus;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Error;
+	                        
+
+	                    ELSIF #ConnectionInterface[#i].Disconnect THEN
+	                        #ConnectionInterface[#i].Disconnect := false; 
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.PreparingDisconnect;
+	                        
+	                    END_IF;
+
+	                    
+	                END_REGION EXECUTING 
+	                
+
+	            ELSIF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.PreparingDisconnect THEN
+	                
+	                
+	                REGION PREPARING_DISCONNECT
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+	                    END_IF;
+
+	                    #tempDone := true;
+	                    
+	                    IF #ConnectionInterface[#i].Handle.ScheduleData.ScheduleGetNodeHandles.Schedule[0] <> #constConstants.OperationDoneID OR
+	                        #ConnectionInterface[#i].Handle.ScheduleData.ScheduleReleaseNodeHandles.Schedule[0] <> #constConstants.OperationDoneID THEN
+	                        #tempDone := false;
+	                    END_IF;
+	                    
+	                    FOR #j := 0 TO 4 DO
+	                        IF #ConnectionInterface[#i].Handle.ScheduleData.ScheduleRead.Schedule[#j] <> #constConstants.OperationDoneID
+	                            OR #ConnectionInterface[#i].Handle.ScheduleData.ScheduleWrite.Schedule[#j] <> #constConstants.OperationDoneID THEN
+	                            #tempDone := false;
+	                            EXIT;
+	                        END_IF;
+	                    END_FOR;
+	                    
+
+	                    IF #tempDone THEN
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Disconnecting;
+
+	                    ELSIF #ConnectionInterface[#i].Disconnect THEN
+	                        #ConnectionInterface[#i].Disconnect := false; 
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Disconnecting;
+	                        
+	                    END_IF;
+	                    
+	                    
+	                END_REGION PREPARING_DISCONNECT
+	                
+
+	            ELSIF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.Disconnecting THEN
+	                
+	                
+	                REGION DISCONNECTING
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+
+	                        #tempReq := true;
+	                    END_IF;
+
+	                    #OPC_UA_Disconnect_Calls[#i](REQ := #tempReq,
+	                                                 ConnectionHdl := #ConnectionInterface[#i].Handle.Handle,
+	                                                            Timeout := UINT_TO_TIME(#activeConnectionConfig[#i].ConnectionTimeout),
+	                                                            Done => #tempDone,
+	                                                            Error => #tempError,
+	                                                            Status => #tempStatus);
+	                    
+	                    
+
+	                    IF #tempError THEN
+	                        #ConnectionInterface[#i].Handle.Status := #tempStatus;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Error;
+
+	                    ELSIF #tempDone THEN
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Disconnected;
+	                        
+	                    END_IF;
+	                    
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.Handle := 16#0000_0000;
+	                    END_IF;
+	                    
+	                END_REGION DISCONNECTING
+	                
+
+	            ELSIF #ConnectionInterface[#i].Handle.State.Curr = #constConnHandleStates.Error THEN
+	                
+	                REGION ERROR
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.State.Prev := #ConnectionInterface[#i].Handle.State.Curr;
+	                    END_IF;
+
+	                    IF #ConnectionInterface[#i].Reset AND #ConnectionInterface[#i].Handle.Handle <> 16#0000_0000 THEN
+	                        #ConnectionInterface[#i].Reset := false;
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Disconnecting;
+
+	                    ELSIF #ConnectionInterface[#i].Reset AND #ConnectionInterface[#i].Handle.Handle = 16#0000_0000 THEN
+	                        #ConnectionInterface[#i].Reset := false; 
+	                        #ConnectionInterface[#i].Handle.State.Curr := #constConnHandleStates.Disconnected;
+	                        
+	                    END_IF;
+	                    
+
+	                    IF #ConnectionInterface[#i].Handle.State.Curr <> #ConnectionInterface[#i].Handle.State.Prev THEN
+	                        #ConnectionInterface[#i].Handle.Status := #constErrors.None;
+	                    END_IF;
+	                    
+	                END_REGION ERROR
+	                
+	                
+	            END_IF;
+	            
+	            
+	        END_REGION STATE MACHINE
+	        
+	        
+	        REGION FINISH LOOP
+
+	            #ConnectionInterface[#i] := #ConnectionInterface[#i];
+	            
+	        END_REGION FINISH LOOP
+	        
+	    END_FOR;
+	    
+	END_REGION LOOP
+END_FUNCTION_BLOCK

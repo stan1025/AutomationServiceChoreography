@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CL_EnumFunctionTypes" Id="{592a8bba-ccb7-4fc5-97e0-cb4beb54f67c}">
+    <Declaration><![CDATA[TYPE ASCF_CL_EnumFunctionTypes :
+STRUCT
+	_NONE				: INT		:= 0;		//Function: None
+	_ADD				: INT		:= 10;		//Function: Add
+	_SUB				: INT		:= 11;		//Function: Subtract
+	_MUL				: INT		:= 12;		//Function: Multiply
+	_DIV				: INT		:= 13;		//Function: Divide
+	_MOD				: INT		:= 14;		//Function: Modulo
+	_NOT				: INT		:= 30;		//Function: NOT
+	_AND				: INT		:= 31;		//Function: AND
+	_OR					: INT		:= 32;		//Function: OR
+	_NAND				: INT		:= 33;		//Function: NAND
+	_NOR				: INT		:= 34;		//Function: NOR
+	_XOR				: INT		:= 35;		//Function: XOR
+	_XNOR				: INT		:= 36;		//Function: XNOR
+	_FE					: INT		:= 37;		//Function: Falling Edge
+	_RE					: INT		:= 38;		//Function: Risiing Edge
+	_EE					: INT		:= 50;		//Function: Equal
+	_NE					: INT		:= 51;		//Function: Not Equal
+	_GT					: INT		:= 52;		//Function: Greater Than
+	_GTE				: INT		:= 53;		//Function: Greater Than or Equal
+	_LT					: INT		:= 54;		//Function: Less Than
+	_LTE				: INT		:= 55;		//Function: Less Than or Equal
+	_EE_BIT				: INT		:= 56;		//Function: Equal Bit
+	_IFTHEN_Variant1	: INT		:= 100;		//Function: If Then (Variant1)
+	_IFTHEN_Variant2	: INT		:= 101;		//Function: If Then (Variant2)
+	_IFTHEN_Variant3	: INT		:= 102;		//Function: If Then (Variant3)
+	_IFTHEN_Variant4	: INT		:= 103;		//Function: If Then (Variant4)
+	_IFTHEN_Variant5	: INT		:= 104;		//Function: If Then (Variant5)
+	_IFTHEN_Variant6	: INT		:= 105;		//Function: If Then (Variant6)
+	_IFTHEN_Variant7	: INT		:= 106;		//Function: If Then (Variant7)
+	_IFTHEN_Variant8	: INT		:= 107;		//Function: If Then (Variant8)
+	_IFTHEN_Variant9	: INT		:= 108;		//Function: If Then (Variant9)
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

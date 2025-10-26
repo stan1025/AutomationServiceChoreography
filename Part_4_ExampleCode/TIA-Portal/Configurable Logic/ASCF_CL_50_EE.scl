@@ -1,0 +1,81 @@
+
+FUNCTION "ASCF_CL_50_EE" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_OUTPUT 
+      Out : "ASCF_UnionType"; 
+   END_VAR
+
+   VAR_IN_OUT 
+      Arguments : Array[0..3] of "ASCF_UnionType";   
+   END_VAR
+
+   VAR_TEMP 
+      tempLoopVar : DInt;
+      tempQC : Byte;
+      tempValueCount : UInt;
+      tempValues : Array[0..1] of Real;
+      constDefaultUnionType : "ASCF_UnionType";
+      constUnionTypes : "ASCF_EnumUnionTypes";
+      constQualityCodes : "ASCF_QualityCodes";
+      constErrors : "ASCF_CL_EnumErrors";
+   END_VAR
+
+
+BEGIN
+
+	REGION INITIALIZE VARIABLES
+
+	    #tempQC := #constQualityCodes."No Status";
+	    #Out := #constDefaultUnionType;
+	    
+	END_REGION INITIALIZE VARIABLES
+	
+	REGION PROCESS ARGUMENTS    
+	    
+	    FOR #tempLoopVar := 0 TO 1 DO
+	        
+	        IF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.None THEN
+	            
+	            #ASCF_CL_50_EE := #constErrors.TooFewArguments;
+	            RETURN;
+
+	        ELSIF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.VReal THEN
+	            
+	            #tempValues[#tempValueCount] := #Arguments[#tempLoopVar].VReal;
+	            #tempQC := "ASCF_CalcWQC"(QC1 := #tempQC, QC2 := #Arguments[#tempLoopVar].VQC);
+	            #tempValueCount := #tempValueCount + 1;
+
+	        ELSIF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.VDInt THEN
+	            
+	            #tempValues[#tempValueCount] := DINT_TO_REAL(#Arguments[#tempLoopVar].VDInt);
+	            #tempQC := "ASCF_CalcWQC"(QC1 := #tempQC, QC2 := #Arguments[#tempLoopVar].VQC);
+	            #tempValueCount := #tempValueCount + 1;
+	            
+	        ELSIF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.VDWord THEN
+	            
+	            #tempValues[#tempValueCount] := DINT_TO_REAL(DWORD_TO_DINT(#Arguments[#tempLoopVar].VDWord));
+	            #tempQC := "ASCF_CalcWQC"(QC1 := #tempQC, QC2 := #Arguments[#tempLoopVar].VQC);
+	            #tempValueCount := #tempValueCount + 1;
+
+	        ELSE
+	            #ASCF_CL_50_EE := #constErrors.InvalidType;
+	            RETURN;
+	            
+	        END_IF;
+	        
+	    END_FOR;
+	    
+	END_REGION PROCESS ARGUMENTS
+	
+
+	REGION OUTPUT    
+	    
+	    #Out.Typeselector := #constUnionTypes.VBool;
+	    #Out.VQC := #tempQC;
+	    #Out.VBool := #tempValues[0] = #tempValues[1];
+	    
+	    #ASCF_CL_50_EE := #constErrors.None;
+	    
+	END_REGION EXECUTE AND OUTPUT
+END_FUNCTION

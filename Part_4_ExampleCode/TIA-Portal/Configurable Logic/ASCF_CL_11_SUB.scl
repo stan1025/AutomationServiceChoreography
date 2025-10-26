@@ -1,0 +1,118 @@
+FUNCTION "ASCF_CL_11_SUB" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_OUTPUT 
+      Out : "ASCF_UnionType";  
+   END_VAR
+
+   VAR_IN_OUT 
+      Arguments : Array[0..3] of "ASCF_UnionType";  
+   END_VAR
+
+   VAR_TEMP 
+      tempLoopVar : DInt;
+      tempDone : Bool;
+      tempQC : Byte;
+      tempResult : Real;
+      tempRealFlag : Bool;
+      tempValidArgumentCount : UInt;
+      constDefaultUnionType : "ASCF_UnionType";
+      constUnionTypes : "ASCF_EnumUnionTypes";
+      constQualityCodes : "ASCF_QualityCodes";
+      constErrors : "ASCF_CL_EnumErrors";
+   END_VAR
+
+   VAR CONSTANT 
+      MIN_ARGUMENTS_COUNT : UInt := 2;
+   END_VAR
+
+
+BEGIN
+
+
+	
+
+	REGION INITIALIZE VARIABLES
+	
+	    #tempQC := #constQualityCodes."No Status";
+	    #Out := #constDefaultUnionType;
+	    
+	END_REGION INITIALIZE VARIABLES
+	
+	
+	
+	REGION PROCESS ARGUMENTS    
+	    
+	    FOR #tempLoopVar := 0 TO 3 DO
+	        
+
+	        IF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.None THEN
+	            
+	            #tempDone := true;
+	            
+
+	        ELSIF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.VReal THEN
+	            
+
+	            IF #tempLoopVar = 0 THEN
+	                #tempResult := #Arguments[#tempLoopVar].VReal;
+	            ELSE
+	                #tempResult := #tempResult - #Arguments[#tempLoopVar].VReal;
+	            END_IF;
+	            
+	            #tempQC := "ASCF_CalcWQC"(QC1 := #tempQC, QC2 := #Arguments[#tempLoopVar].VQC);
+	            #tempValidArgumentCount := #tempValidArgumentCount + 1;
+	            #tempRealFlag := true;
+	            
+
+	        ELSIF #Arguments[#tempLoopVar].Typeselector = #constUnionTypes.VDInt THEN
+	            
+
+	            IF #tempLoopVar = 0 THEN
+	                #tempResult := #Arguments[#tempLoopVar].VDInt;
+	            ELSE
+	                #tempResult := #tempResult - DINT_TO_REAL(#Arguments[#tempLoopVar].VDInt);
+	            END_IF;
+	            
+	            #tempQC := "ASCF_CalcWQC"(QC1 := #tempQC, QC2 := #Arguments[#tempLoopVar].VQC);
+	            #tempValidArgumentCount := #tempValidArgumentCount + 1;
+	            
+
+	        ELSE
+	            #ASCF_CL_11_SUB := #constErrors.InvalidType;
+	            RETURN;
+	            
+	        END_IF;
+
+	        IF #tempDone THEN
+	            EXIT;
+	        END_IF;
+	        
+	    END_FOR;
+	    
+
+	    IF #tempValidArgumentCount < #MIN_ARGUMENTS_COUNT THEN
+	        #ASCF_CL_11_SUB := #constErrors.TooFewArguments;
+	        RETURN;
+	    END_IF;
+	    
+	END_REGION PROCESS ARGUMENTS
+	
+	
+
+	REGION OUTPUT    
+	    
+	    IF #tempRealFlag THEN
+	        #Out.Typeselector := #constUnionTypes.VReal;
+	        #Out.VQC := #tempQC;
+	        #Out.VReal := #tempResult;
+	    ELSE
+	        #Out.Typeselector := #constUnionTypes.VDInt;
+	        #Out.VQC := #tempQC;
+	        #Out.VDInt := REAL_TO_DINT(#tempResult);
+	    END_IF;
+	    
+	    #ASCF_CL_11_SUB := #constErrors.None;
+	    
+	END_REGION EXECUTE AND OUTPUT
+END_FUNCTION

@@ -1,0 +1,10 @@
+TYPE "ASCF_CC_OPCUACS_ReaderStatus"
+VERSION : 0.1
+   STRUCT
+      State : Word;   
+      Cycle : Time;  
+      Status : DWord;  
+      Error : Bool;  
+   END_STRUCT;
+
+END_TYPE

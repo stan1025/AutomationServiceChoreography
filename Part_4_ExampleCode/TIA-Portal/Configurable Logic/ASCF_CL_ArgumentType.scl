@@ -1,0 +1,11 @@
+TYPE "ASCF_CL_ArgumentType"
+TITLE = AL_argumentType
+VERSION : 0.1
+
+   STRUCT
+      Source : SInt := 0;   
+      Index : UInt := 0;   
+      "Const" { S7_SetPoint := 'False'} : "ASCF_UnionType"; 
+   END_STRUCT;
+
+END_TYPE

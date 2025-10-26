@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_EnumErrors" Id="{1e4da594-05bf-47e3-ac14-18c7f283468f}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_EnumErrors :
+STRUCT
+	None					: DWORD		:= 16#0000;
+	HandleIndexOutOfBounds	: DWORD		:= 16#3001;
+	DataIndexOutOfBounds	: DWORD		:= 16#3002;
+	NoTypeSelected			: DWORD		:= 16#3003;
+	InvalidType				: DWORD		:= 16#3004;
+	InvalidNodeHandle		: DWORD		:= 16#3005;
+	EmptyServerUrl			: DWORD		:= 16#3006;
+	InvalidNamespaceCount	: DWORD		:= 16#3007;
+	InvalidNamespace		: DWORD		:= 16#3008;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

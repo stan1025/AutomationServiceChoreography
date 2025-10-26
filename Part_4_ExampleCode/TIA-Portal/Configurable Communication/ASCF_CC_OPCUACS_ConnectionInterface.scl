@@ -1,0 +1,14 @@
+TYPE "ASCF_CC_OPCUACS_ConnectionInterface"
+TITLE = CC_connectionInterface
+VERSION : 0.1
+
+   STRUCT
+      Active : Bool;
+      Connect : Bool;  
+      Disconnect : Bool;  
+      Reset : Bool;  
+      Config { S7_SetPoint := 'False'} : "ASCF_CC_OPCUACS_ConnectionConfig";  
+      Handle { ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ASCF_CC_OPCUACS_ConnectionHandle" := ((), (), (), (), (), (), [()], ((), (), ((), (), (), [-1]), ((), (), (), [-1]), ((), [-1]), ((), [-1])), ((), (), ())); 
+   END_STRUCT;
+
+END_TYPE

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_WriterConfig" Id="{64426b01-a382-406f-850a-378a1fb5b7d5}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_WriterConfig :
+STRUCT
+	ConnectionIndex		: INT		:= -1;				//Connection the Reader should use
+	ValueRegistryIndex	: UINT		:= 0;
+	DataTypeSelector	: BYTE		:= 16#00;
+	Timeout				: TIME		:= T#5S;			//Timout for the used OPC UA operations
+	MaxTryCount			: USINT		:= 5;				//Number of tries for an OPC UA operation until the Reader transitions : INTo the error state
+	TargetCycle			: TIME		:= T#100MS;			//Target cycle for the read operation
+	Nodes				: ARRAY[1..nMaxNodeIDsInList] OF ST_UANodeID;	//NodeIDs of the nodes to read, QC then Value
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

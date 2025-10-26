@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_ReaderStatus" Id="{f1b477e1-8a40-4491-8dad-9c77d43c571a}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_ReaderStatus :
+STRUCT
+	State		: WORD		:= 16#0;		//Current state of the Reader
+	Error		: BOOL		:= FALSE;		//True if the Reader is in the error state
+	Status		: DWORD		:= 16#0;		//Status of the Reader  (e.g. status codes of OPC UA operations in case of an error)
+	Cycle		: TIME		:= T#0MS;		//Actual read cycle
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

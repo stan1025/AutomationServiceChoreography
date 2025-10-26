@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_UnionType" Id="{12b1979a-7067-4aed-a0cc-ca0fe89967d2}">
+    <Declaration><![CDATA[TYPE ASCF_UnionType :
+STRUCT
+	VQC 			: BYTE			:= 16#FF;			//Quality Code
+	Typeselector	: BYTE			:= 16#0;			//Used to select the type (0 : None, 1: VReal, 2: VDInt, 3: VDWord, 4: VBool, 5: VString)
+	VReal			: REAL			:= 0.0;				//Real (Type:1)
+	VDInt			: DINT			:= 0;				//VDInt (Type:2)
+	VDWord			: DWORD			:= 16#0;			//VDWord (Type:3)
+	VBool			: BOOL			:= FALSE;			//VBool (Type:4)
+	VString			: STRING[254]	:= '';				//VSting (Type:5)
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,19 @@
+TYPE "ASCF_CL_EnumErrors"
+TITLE = AL_enumErrors
+VERSION : 0.1
+
+   STRUCT
+      None { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#0000;
+      InvalidIndex { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2001;
+      NoSourceSelected { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2002;
+      InvalidSourceSelected { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2003;
+      NoFunctionSelected { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2004;
+      InvalidFunctionSelected { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2005;
+      ErrorInArgument { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2006;
+      InvalidType { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2007;
+      DivisionByZero { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2008;
+      TooFewArguments { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#2009;
+      TypesDoNotMatch { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Word := 16#200a;
+   END_STRUCT;
+
+END_TYPE

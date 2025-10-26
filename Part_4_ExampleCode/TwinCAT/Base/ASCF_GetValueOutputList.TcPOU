@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_GetValueOutputList" Id="{cea0a6e0-6ac3-4ba9-a8bd-0e7a930ae340}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_GetValueOutputList : Word
+VAR_INPUT
+	Index		: INT;
+END_VAR
+
+VAR_OUTPUT
+	Value		: ASCF_UnionType;		//Union type that holds only one of its possible data types at a time. The type can be selected via the "Typeselector". Independent of the selected type, every value has a quality code "VQC".
+END_VAR
+
+VAR_IN_OUT
+	OutputList	: ARRAY[*] OF ASCF_CL_OutputType;	//Output-Element of the Adaptive Logic.
+END_VAR
+
+VAR
+	tempLowerBound	: DINT;
+	tempUpperBound	: DINT;
+	constErrors		: ASCF_CL_EnumErrors;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+
+tempLowerBound := LOWER_BOUND(OutputList, 1);
+tempUpperBound := UPPER_BOUND(OutputList, 1);
+
+IF Index < tempLowerBound OR Index > tempUpperBound THEN
+    ASCF_GetValueOutputList := constErrors.InvalidIndex;
+    RETURN;
+END_IF;
+
+Value := OutputList[Index].Value;
+ASCF_GetValueOutputList := constErrors.None;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

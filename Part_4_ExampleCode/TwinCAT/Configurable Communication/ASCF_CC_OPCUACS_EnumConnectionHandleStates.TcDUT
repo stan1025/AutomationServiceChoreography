@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_EnumConnectionHandleStates" Id="{5345860c-95d5-4101-a71c-2e88935f11de}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_EnumConnectionHandleStates :
+STRUCT
+	Disconnected					: WORD		:= 16#0001;
+	Initializing					: WORD		:= 16#0002;
+	Connecting						: WORD		:= 16#0003;
+	GettingNamespaceIndexList		: WORD		:= 16#0004;
+	GettingNodeHandles				: WORD		:= 16#0005;
+	Executing						: WORD		:= 16#0006;
+	PreparingDisconnect				: WORD		:= 16#0007;
+	Disconnecting					: WORD		:= 16#0008;
+	Error							: WORD		:= 16#0009;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

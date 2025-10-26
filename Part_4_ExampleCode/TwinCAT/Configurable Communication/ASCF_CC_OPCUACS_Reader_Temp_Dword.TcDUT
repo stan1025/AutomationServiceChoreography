@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Reader_Temp_Dword" Id="{6de666b7-9686-4830-9bc7-0826ad8c1afa}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '1'} 
+TYPE ASCF_CC_OPCUACS_Reader_Temp_Dword :
+STRUCT
+	stReadListReturnInfo	: ARRAY [1..2] OF ST_UAReadListReturnInfo;
+	QC		: BYTE	:= 16#0;
+	Value	: DWORD	:= 16#0;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

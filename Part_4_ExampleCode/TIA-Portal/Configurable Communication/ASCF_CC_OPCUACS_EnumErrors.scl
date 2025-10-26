@@ -1,0 +1,18 @@
+
+TYPE "ASCF_CC_OPCUACS_EnumErrors"
+TITLE = CC_enumErrors
+VERSION : 0.1
+
+   STRUCT
+      None { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#0000;
+      HandleIndexOutOfBounds { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3001;
+      DataIndexOutOfBounds { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3002;
+      NoTypeSelected { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3003;
+      InvalidType { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3004;
+      InvalidNodeHandle { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3005;
+      EmptyServerUrl { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3006;
+      InvalidNamespaceCount { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3007;
+      InvalidNamespace { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DWord := 16#3008;
+   END_STRUCT;
+
+END_TYPE

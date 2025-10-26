@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <POU Name="ASCF_WriteValue" Id="{d24f23c3-ba20-4791-8e83-6b5d461b9905}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ASCF_WriteValue : Word
+VAR_INPUT
+	Index		: UINT;
+	Value		: ASCF_UnionType;	
+END_VAR
+
+VAR_IN_OUT
+	InputList	: ARRAY[*] OF ASCF_UnionType;	
+END_VAR
+
+VAR
+	tempLowerBound	: DINT;								//Lower bound of the signal space
+	tempUpperBound	: DINT;								//Upper bound of the signal space
+	constGVRErrors	: ASCF_EnumErrors;					//Enumeration type of the error codes of the Global Value Registry.
+END_VAR
+		]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+//#################################################################################################
+{region "CHECK SIGNAL SPACE BOUNDARIES"}
+    tempLowerBound := LOWER_BOUND(InputList, 1);
+    tempUpperBound := UPPER_BOUND(InputList, 1);
+    
+    IF Index < tempLowerBound OR Index > tempUpperBound THEN
+        ASCF_WriteValue := constGVRErrors.IndexOutOfBounds;
+        RETURN;
+    END_IF;
+{endregion}
+    
+
+
+
+//#################################################################################################
+{region "WRITE DATA"}
+    InputList[Index] := Value;
+    ASCF_WriteValue := constGVRErrors.None;
+{endregion}]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,12 @@
+TYPE "ASCF_EnumUnionTypes"
+TITLE = GVR_enumUnionType
+VERSION : 0.1
+   STRUCT
+      None : Byte := 0;
+      VReal : Byte := 1;
+      VDInt : Byte := 2;
+      VDWord : Byte := 3;
+      VBool : Byte := 4;
+      VString : Byte := 5;
+   END_STRUCT;
+END_TYPE

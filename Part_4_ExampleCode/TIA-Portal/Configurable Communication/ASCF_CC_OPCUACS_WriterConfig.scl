@@ -1,0 +1,13 @@
+TYPE "ASCF_CC_OPCUACS_WriterConfig"
+VERSION : 0.1
+   STRUCT
+      ConnectionIndex : Int := -1;   
+      ValueRegistryIndex : UInt := 0;
+      DataTypeSelector : Byte := 16#00;
+      Timeout : Time := T#5s;   
+      MaxTryCount : USInt := 5;   
+      TargetCycle : Time := T#100ms;  
+      Nodes {InstructionName := 'OPC_UA_NodeId'; LibVersion := '1.0'; S7_SetPoint := 'False'} : Array[1..2] of OPC_UA_NodeId; 
+   END_STRUCT;
+
+END_TYPE

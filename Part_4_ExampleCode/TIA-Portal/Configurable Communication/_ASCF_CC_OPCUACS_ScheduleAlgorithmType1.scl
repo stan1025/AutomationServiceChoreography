@@ -1,0 +1,62 @@
+FUNCTION "ASCF_CC_OPCUACS_ScheduleAlgorithmType1" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      ReadersCount : USInt;   
+      WritersCount : USInt;  
+   END_VAR
+
+   VAR_IN_OUT 
+      Schedule : "ASCF_CC_OPCUACS_ScheduleDataType1";
+   END_VAR
+
+   VAR_TEMP 
+      constConstants : "ASCF_CC_OPCUACS_Constants";
+   END_VAR
+
+
+BEGIN
+
+	REGION SCHEDULE ALGORITHM           
+	    
+
+	    IF #Schedule.Reader = #Schedule.Writer THEN
+	        #Schedule.Reader := true;
+	        #Schedule.Writer := false;
+	    END_IF;
+
+	    IF #ReadersCount = 0 AND #WritersCount = 0 THEN
+	        #Schedule.NextID := 1;
+	        #Schedule.Schedule[0] := -1;
+	        RETURN;
+	    END_IF;
+
+	    IF #Schedule.Schedule[0] <> #constConstants.OperationDoneID THEN
+	        RETURN;
+	    END_IF;
+
+	    WHILE TRUE DO
+	        
+	        IF #Schedule.Reader AND #Schedule.NextID > #ReadersCount THEN
+	            #Schedule.Reader := false;
+	            #Schedule.Writer := true;
+	            
+	            #Schedule.NextID := 1;
+	            
+	        ELSIF #Schedule.Writer AND #Schedule.NextID > #WritersCount THEN
+	            #Schedule.Reader := true;
+	            #Schedule.Writer := false;
+	            
+	            #Schedule.NextID := 1;
+	            
+	        ELSE
+	            #Schedule.Schedule[0] := #Schedule.NextID;
+	            #Schedule.NextID := #Schedule.NextID + 1;
+	            RETURN;
+	            
+	        END_IF;
+	        
+	    END_WHILE;
+	    	    
+	END_REGION SCHEDULE ALGORITHM   
+END_FUNCTION

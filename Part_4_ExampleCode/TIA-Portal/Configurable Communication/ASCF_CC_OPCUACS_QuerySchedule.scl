@@ -1,0 +1,44 @@
+FUNCTION "ASCF_CC_OPCUACS_QuerySchedule" : Bool
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      ID : USInt;   
+   END_VAR
+
+   VAR_OUTPUT 
+      Index : USInt;  
+   END_VAR
+
+   VAR_IN_OUT 
+      Schedule : Array[*] of Int;
+   END_VAR
+
+   VAR_TEMP 
+      tempLowerBound : DInt;
+      tempUpperBound : DInt;
+      tempLoopVar : DInt;
+      constConstants : "ASCF_CC_OPCUACS_Constants";
+   END_VAR
+
+
+BEGIN
+
+
+	REGION QUERY #Schedule
+	    #tempLowerBound := LOWER_BOUND(ARR := #Schedule, DIM := 1);
+	    #tempUpperBound := UPPER_BOUND(ARR := #Schedule, DIM := 1);
+	    
+	    FOR #tempLoopVar := #tempLowerBound TO #tempUpperBound DO
+	        IF #Schedule[#tempLoopVar] = #ID THEN
+	            #Index := DINT_TO_USINT(#tempLoopVar);
+	            #ASCF_CC_OPCUACS_QuerySchedule := true;
+	            RETURN;
+	        END_IF;
+	    END_FOR;
+	    
+	    #ASCF_CC_OPCUACS_QuerySchedule := FALSE;
+	    
+	END_REGION QUERY #Schedule
+	
+	
+END_FUNCTION

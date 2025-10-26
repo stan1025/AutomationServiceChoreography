@@ -1,0 +1,31 @@
+FUNCTION "ASCF_CL_33_NAND" : Word
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_OUTPUT 
+      Out : "ASCF_UnionType";   
+   END_VAR
+
+   VAR_IN_OUT 
+      Arguments : Array[0..3] of "ASCF_UnionType"; 
+   END_VAR
+
+   VAR_TEMP 
+      tempRet : Word;
+      constErrors : "ASCF_CL_EnumErrors";
+   END_VAR
+
+
+BEGIN
+	
+	REGION EXECUTE AND OUTPUT
+	    
+	    #tempRet := "ASCF_CL_31_AND"(Arguments := #Arguments, Out => #Out);
+
+	    IF #tempRet = #constErrors.None THEN
+	        #Out.VBool := NOT #Out.VBool;
+	    END_IF;
+	    
+	    #ASCF_CL_33_NAND := #tempRet;
+	    
+	END_REGION EXECUTE AND OUTPUT
+END_FUNCTION

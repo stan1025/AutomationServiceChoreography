@@ -1,0 +1,45 @@
+FUNCTION "ASCF_CalcWQC" : Byte
+TITLE = QCs2WQC
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+   VAR_INPUT 
+      QC1 : Byte;   
+      QC2 : Byte;
+   END_VAR
+
+   VAR_TEMP 
+      enumQC : "ASCF_QualityCodes";
+   END_VAR
+
+
+BEGIN
+	#ASCF_CalcWQC := 16#FF;
+	
+	IF ((#QC1 <> #enumQC.Failure AND #QC1 <> #enumQC."Function Check" AND #QC1 <> #enumQC."Maintenance Request" AND #QC1 <> #enumQC."Out of Specification" AND #QC1 <> #enumQC.OK AND #QC1 <> #enumQC."Out of Service" AND #QC1 <> #enumQC."No Status") OR
+	    (#QC2 <> #enumQC.Failure AND #QC2 <> #enumQC."Function Check" AND #QC2 <> #enumQC."Maintenance Request" AND #QC2 <> #enumQC."Out of Specification" AND #QC2 <> #enumQC.OK AND #QC2 <> #enumQC."Out of Service" AND #QC2 <> #enumQC."No Status")) THEN
+	    // Wrong QC Code --> Failure
+	    #ASCF_CalcWQC := #enumQC.Failure;
+	    
+	ELSE
+	    
+	    IF (#QC1 = #enumQC.Failure OR #QC2 = #enumQC.Failure) THEN
+	        #ASCF_CalcWQC := #enumQC.Failure;
+	    ELSIF (#QC1 = #enumQC."Function Check" OR #QC2 = #enumQC."Function Check") THEN
+	        #ASCF_CalcWQC := #enumQC."Function Check";
+	    ELSIF (#QC1 = #enumQC."Maintenance Request" OR #QC2 = #enumQC."Maintenance Request") THEN
+	        #ASCF_CalcWQC := #enumQC."Maintenance Request";
+	    ELSIF (#QC1 = #enumQC."Out of Specification" OR #QC2 = #enumQC."Out of Specification") THEN
+	        #ASCF_CalcWQC := #enumQC."Out of Specification";
+	    ELSIF (#QC1 = #enumQC.OK OR #QC2 = #enumQC.OK) THEN
+	        #ASCF_CalcWQC := #enumQC.OK;
+	    ELSIF (#QC1 = #enumQC."Out of Service" OR #QC2 = #enumQC."Out of Service") THEN
+	        #ASCF_CalcWQC := #enumQC."Out of Service";
+	    ELSIF (#QC1 = #enumQC."No Status" OR #QC2 = #enumQC."No Status") THEN
+	        #ASCF_CalcWQC := #enumQC."No Status";
+	    END_IF;
+	END_IF;
+END_FUNCTION
+
+
+

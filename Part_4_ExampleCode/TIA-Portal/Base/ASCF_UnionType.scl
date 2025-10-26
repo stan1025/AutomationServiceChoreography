@@ -1,0 +1,15 @@
+TYPE "ASCF_UnionType"
+TITLE = GVR_unionType
+VERSION : 0.1
+
+   STRUCT
+      VQC : Byte := 16#FF;   
+      Typeselector : Byte := 16#0;  
+      VReal : Real := 0.0;   
+      VDInt : DInt := 0;  
+      VDWord : DWord := 16#0;   
+      VBool : Bool := false; 
+      VString : String[254] := '';  
+   END_STRUCT;
+
+END_TYPE

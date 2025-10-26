@@ -1,0 +1,12 @@
+TYPE "ASCF_CL_FunctionType"
+TITLE = AL_functionType
+VERSION : 0.1
+
+   STRUCT
+      PreparedConfig { S7_SetPoint := 'False'} : "ASCF_CL_FunctionTypeConfig";  
+      ActiveConfig { ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ASCF_CL_FunctionTypeConfig";   
+      Out { ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ASCF_UnionType";   
+      Ret { ExternalWritable := 'False'} : Word; 
+   END_STRUCT;
+
+END_TYPE

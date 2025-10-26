@@ -1,0 +1,16 @@
+TYPE "ASCF_QualityCodes"
+TITLE = constWQC
+VERSION : 0.1
+   STRUCT
+      Failure { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte := 16#00;
+      "Function Check" { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte := 16#60;
+      "Maintenance Request" { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte := 16#A4;
+      "Out of Specification" { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte := 16#68;
+      OK { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte := 16#80;
+      "Out of Service" { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte := 16#1C;
+      "No Status" { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Byte := 16#FF;
+   END_STRUCT;
+
+END_TYPE
+
+

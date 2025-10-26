@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_ScheduleData" Id="{87c5739a-bb1d-45c6-b27d-307d1c5430c4}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_ScheduleData :
+STRUCT
+	ReadersCount				: USINT			:= 0;				//total number of readers connected
+	WritersCount				: USINT			:= 0;				//total numbers of writers connected
+	ScheduleGetNodeHandles		: ASCF_CC_OPCUACS_ScheduleDataType1;//GetNodeHandles;		//schedule for "OPC_UA_NodeGetHandleList" --> can be active 1x per connection		//könnte noch falsch sein, diese bis unten
+	ScheduleReleaseNodeHandles	: ASCF_CC_OPCUACS_ScheduleDataType1;//ReleaseNodeHandles;	//schedule for "OPC_UA_NodeReleaseHandleList" --> can be active 1x per connection
+	ScheduleRead				: ASCF_CC_OPCUACS_ScheduleDataType2;//Read;				//schedule for "OPC_UA_ReadList" --> can be active 5x per connection
+	ScheduleWrite				: ASCF_CC_OPCUACS_ScheduleDataType2;//Write;			//schedule for "OPC_UA_WriteList" --> can be active 5x per connection
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

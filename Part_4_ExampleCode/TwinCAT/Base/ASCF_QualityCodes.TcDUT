@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_QualityCodes" Id="{c26e1169-713b-4042-a1fb-4c1aece3f7e3}">
+    <Declaration><![CDATA[TYPE ASCF_QualityCodes :
+STRUCT
+	Failure					: BYTE		:= 16#00;		//Failure quality code of VDI/VDE/NAMUR 2658 - 10
+	Function_Check			: BYTE		:= 16#60;		//Check Function quality code of VDI/VDE/NAMUR 2658 - 10
+	Maintenance_Request		: BYTE		:= 16#A4;		//Maintenance Request quality code of VDI/VDE/NAMUR 2658 - 10
+	Out_of_Specification	: BYTE		:= 16#68;		//Out of Specification quality code of VDI/VDE/NAMUR 2658 - 10
+	OK						: BYTE		:= 16#80;		//OK quality code of VDI/VDE/NAMUR 2658 - 10
+	Out_of_Service			: BYTE		:= 16#1C;		//Out of Service quality code of VDI/VDE/NAMUR 2658 - 10
+	No_Status				: BYTE		:= 16#FF;		//No Status quality code of VDI/VDE/NAMUR 2658 - 10
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

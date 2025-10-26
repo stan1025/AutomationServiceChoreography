@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.4">
+  <DUT Name="ASCF_CC_OPCUACS_Writer_Internals" Id="{ab4b5cae-bed2-4ff5-a32a-b86f600b016e}">
+    <Declaration><![CDATA[TYPE ASCF_CC_OPCUACS_Writer_Internals :
+STRUCT
+	STATE					: ASCF_State_Internals;							//State of the statemachine
+	status					: DWORD			:= 16#0;
+	writerID				: USINT			:= 0;
+	scheduleIndex			: USINT			:= 0;
+	tryCount				: USINT			:= 0;
+	lastCycle				: DTL;			
+	WriterInput				: ASCF_CC_OPCUACS_Writer_Temp;
+	activeConfig			: ASCF_CC_OPCUACS_WriterConfig;
+	nodeHandles				: ARRAY[1..nMaxNodeIDsInList] OF DWORD  := [16#0, 16#0];											//1..E_CC_Reader.NODE_COUNT] OF DWORD  := [16#0, 16#0];
+	nodeStatusList			: ARRAY[1..nMaxNodeIDsInList] OF DWORD  := [16#0, 16#0];											//1..E_CC_Reader.NODE_COUNT] OF DWORD  := [16#0, 16#0];
+	nodeTimestamps			: ARRAY[1..nMaxNodeIDsInList] OF DTL;																//[1..E_CC_Reader.NODE_COUNT]																//[1..E_CC_Reader.NODE_COUNT]
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
