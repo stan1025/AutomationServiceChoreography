@@ -6,15 +6,15 @@ This page lists all source code files of the exemplary TwinCAT implementation of
 
     The source code provided here is intended solely for illustration and to improve the comprehensibility of the mechanisms, concepts, and approaches described in the dissertation. It is explicitly not designed as production-ready or usable software library and should not be used in productive environments or safety-critical applications.  
 
-    For further details, please refer to the license: [Link to license](../../license.md)
+    For further details, please refer to the license: <a href="../../license.md" target="_blank">Link to license</a>
 
 
 ## Active Choreography Participant - Implementation
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_ParticipantManager | [ASCF_ParticipantManager.TcPOU](../../../Part_4_ExampleCode/TwinCAT/ASCF_ParticipantManager.TcPOU) | Core participant manager for choreography coordination |
-| MTPChoreographyParticipantManager | [MTPChoreographyParticipantManager.TcDUT](../../../Part_4_ExampleCode/TwinCAT/MTPChoreographyParticipantManager.TcDUT) | MTP-specific choreography participant data structure |
+| ASCF_ParticipantManager | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/ASCF_ParticipantManager.TcPOU" target="_blank">View</a> | Core participant manager for choreography coordination |
+| MTPChoreographyParticipantManager | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/MTPChoreographyParticipantManager.TcDUT" target="_blank">View</a> | MTP-specific choreography participant data structure |
 
 
 
@@ -26,50 +26,50 @@ This page lists all source code files of the exemplary TwinCAT implementation of
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_OpcUaClientServerManager | [ASCF_OpcUaClientServerManager.TcPOU](../../../Part_4_ExampleCode/TwinCAT/ASCF_OpcUaClientServerManager.TcPOU) | OPC UA client-server communication manager |
-| MTPOpcUaClientServerManager | [MTPOpcUaClientServerManager.TcDUT](../../../Part_4_ExampleCode/TwinCAT/MTPOpcUaClientServerManager.TcDUT) | MTP OPC UA client-server data structure |
+| ASCF_OpcUaClientServerManager | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/ASCF_OpcUaClientServerManager.TcPOU" target="_blank">View</a> | OPC UA client-server communication manager |
+| MTPOpcUaClientServerManager | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/MTPOpcUaClientServerManager.TcDUT" target="_blank">View</a> | MTP OPC UA client-server data structure |
 
 #### Internal Implementation
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_CC_OPCUACS_ConnectionConfig | [Configurable Communication/ASCF_CC_OPCUACS_ConnectionConfig.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionConfig.TcDUT) | OPC UA connection configuration |
-| ASCF_CC_OPCUACS_ConnectionHandle | [Configurable Communication/ASCF_CC_OPCUACS_ConnectionHandle.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionHandle.TcDUT) | OPC UA connection handle |
-| ASCF_CC_OPCUACS_ConnectionInterface | [Configurable Communication/ASCF_CC_OPCUACS_ConnectionInterface.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionInterface.TcDUT) | OPC UA connection interface |
-| ASCF_CC_OPCUACS_Connections | [Configurable Communication/ASCF_CC_OPCUACS_Connections.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Connections.TcPOU) | OPC UA connections manager |
-| ASCF_CC_OPCUACS_ConnectionStatus | [Configurable Communication/ASCF_CC_OPCUACS_ConnectionStatus.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionStatus.TcDUT) | OPC UA connection status |
-| ASCF_CC_OPCUACS_Constants | [Configurable Communication/ASCF_CC_OPCUACS_Constants.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Constants.TcDUT) | OPC UA constants |
-| ASCF_CC_OPCUACS_EnumConnectionHandleStates | [Configurable Communication/ASCF_CC_OPCUACS_EnumConnectionHandleStates.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_EnumConnectionHandleStates.TcDUT) | Connection handle state enumeration |
-| ASCF_CC_OPCUACS_EnumErrors | [Configurable Communication/ASCF_CC_OPCUACS_EnumErrors.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_EnumErrors.TcDUT) | OPC UA error enumeration |
-| ASCF_CC_OPCUACS_QuerySchedule | [Configurable Communication/ASCF_CC_OPCUACS_QuerySchedule.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_QuerySchedule.TcPOU) | Query schedule function |
-| ASCF_CC_OPCUACS_Reader | [Configurable Communication/ASCF_CC_OPCUACS_Reader.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader.TcPOU) | OPC UA reader function |
-| ASCF_CC_OPCUACS_ReaderConfig | [Configurable Communication/ASCF_CC_OPCUACS_ReaderConfig.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderConfig.TcDUT) | Reader configuration |
-| ASCF_CC_OPCUACS_ReaderStatus | [Configurable Communication/ASCF_CC_OPCUACS_ReaderStatus.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderStatus.TcDUT) | Reader status |
-| ASCF_CC_OPCUACS_Reader_Interface | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Interface.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Interface.TcDUT) | Reader interface |
-| ASCF_CC_OPCUACS_Reader_Internals | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Internals.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Internals.TcDUT) | Reader internal data |
-| ASCF_CC_OPCUACS_Reader_Temp | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Temp.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp.TcDUT) | Reader temporary data |
-| ASCF_CC_OPCUACS_Reader_Temp_Bool | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Temp_Bool.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Bool.TcDUT) | Boolean reader temporary data |
-| ASCF_CC_OPCUACS_Reader_Temp_Dint | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Temp_Dint.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Dint.TcDUT) | Double integer reader temporary data |
-| ASCF_CC_OPCUACS_Reader_Temp_Dword | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Temp_Dword.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Dword.TcDUT) | Double word reader temporary data |
-| ASCF_CC_OPCUACS_Reader_Temp_Real | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Temp_Real.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Real.TcDUT) | Real reader temporary data |
-| ASCF_CC_OPCUACS_Reader_Temp_String | [Configurable Communication/ASCF_CC_OPCUACS_Reader_Temp_String.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_String.TcDUT) | String reader temporary data |
-| ASCF_CC_OPCUACS_ScheduleAlgorithmType1 | [Configurable Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType1.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType1.TcPOU) | Schedule algorithm type 1 |
-| ASCF_CC_OPCUACS_ScheduleAlgorithmType2 | [Configurable Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType2.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType2.TcPOU) | Schedule algorithm type 2 |
-| ASCF_CC_OPCUACS_ScheduleData | [Configurable Communication/ASCF_CC_OPCUACS_ScheduleData.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleData.TcDUT) | Schedule data structure |
-| ASCF_CC_OPCUACS_ScheduleDataType1 | [Configurable Communication/ASCF_CC_OPCUACS_ScheduleDataType1.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType1.TcDUT) | Schedule data type 1 |
-| ASCF_CC_OPCUACS_ScheduleDataType2 | [Configurable Communication/ASCF_CC_OPCUACS_ScheduleDataType2.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType2.TcDUT) | Schedule data type 2 |
-| ASCF_CC_OPCUACS_Scheduler | [Configurable Communication/ASCF_CC_OPCUACS_Scheduler.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Scheduler.TcPOU) | OPC UA scheduler |
-| ASCF_CC_OPCUACS_Writer | [Configurable Communication/ASCF_CC_OPCUACS_Writer.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer.TcPOU) | OPC UA writer function |
-| ASCF_CC_OPCUACS_WriterConfig | [Configurable Communication/ASCF_CC_OPCUACS_WriterConfig.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_WriterConfig.TcDUT) | Writer configuration |
-| ASCF_CC_OPCUACS_WriterStatus | [Configurable Communication/ASCF_CC_OPCUACS_WriterStatus.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_WriterStatus.TcDUT) | Writer status |
-| ASCF_CC_OPCUACS_Writer_Interface | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Interface.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Interface.TcDUT) | Writer interface |
-| ASCF_CC_OPCUACS_Writer_Internals | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Internals.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Internals.TcDUT) | Writer internal data |
-| ASCF_CC_OPCUACS_Writer_Temp | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Temp.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp.TcDUT) | Writer temporary data |
-| ASCF_CC_OPCUACS_Writer_Temp_Bool | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Temp_Bool.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Bool.TcDUT) | Boolean writer temporary data |
-| ASCF_CC_OPCUACS_Writer_Temp_Dint | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Temp_Dint.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Dint.TcDUT) | Double integer writer temporary data |
-| ASCF_CC_OPCUACS_Writer_Temp_Dword | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Temp_Dword.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Dword.TcDUT) | Double word writer temporary data |
-| ASCF_CC_OPCUACS_Writer_Temp_Real | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Temp_Real.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Real.TcDUT) | Real writer temporary data |
-| ASCF_CC_OPCUACS_Writer_Temp_String | [Configurable Communication/ASCF_CC_OPCUACS_Writer_Temp_String.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_String.TcDUT) | String writer temporary data |
+| ASCF_CC_OPCUACS_ConnectionConfig | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionConfig.TcDUT" target="_blank">View</a> | OPC UA connection configuration |
+| ASCF_CC_OPCUACS_ConnectionHandle | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionHandle.TcDUT" target="_blank">View</a> | OPC UA connection handle |
+| ASCF_CC_OPCUACS_ConnectionInterface | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionInterface.TcDUT" target="_blank">View</a> | OPC UA connection interface |
+| ASCF_CC_OPCUACS_Connections | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Connections.TcPOU" target="_blank">View</a> | OPC UA connections manager |
+| ASCF_CC_OPCUACS_ConnectionStatus | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionStatus.TcDUT" target="_blank">View</a> | OPC UA connection status |
+| ASCF_CC_OPCUACS_Constants | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Constants.TcDUT" target="_blank">View</a> | OPC UA constants |
+| ASCF_CC_OPCUACS_EnumConnectionHandleStates | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_EnumConnectionHandleStates.TcDUT" target="_blank">View</a> | Connection handle state enumeration |
+| ASCF_CC_OPCUACS_EnumErrors | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_EnumErrors.TcDUT" target="_blank">View</a> | OPC UA error enumeration |
+| ASCF_CC_OPCUACS_QuerySchedule | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_QuerySchedule.TcPOU" target="_blank">View</a> | Query schedule function |
+| ASCF_CC_OPCUACS_Reader | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader.TcPOU" target="_blank">View</a> | OPC UA reader function |
+| ASCF_CC_OPCUACS_ReaderConfig | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderConfig.TcDUT" target="_blank">View</a> | Reader configuration |
+| ASCF_CC_OPCUACS_ReaderStatus | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderStatus.TcDUT" target="_blank">View</a> | Reader status |
+| ASCF_CC_OPCUACS_Reader_Interface | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Interface.TcDUT" target="_blank">View</a> | Reader interface |
+| ASCF_CC_OPCUACS_Reader_Internals | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Internals.TcDUT" target="_blank">View</a> | Reader internal data |
+| ASCF_CC_OPCUACS_Reader_Temp | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp.TcDUT" target="_blank">View</a> | Reader temporary data |
+| ASCF_CC_OPCUACS_Reader_Temp_Bool | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Bool.TcDUT" target="_blank">View</a> | Boolean reader temporary data |
+| ASCF_CC_OPCUACS_Reader_Temp_Dint | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Dint.TcDUT" target="_blank">View</a> | Double integer reader temporary data |
+| ASCF_CC_OPCUACS_Reader_Temp_Dword | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Dword.TcDUT" target="_blank">View</a> | Double word reader temporary data |
+| ASCF_CC_OPCUACS_Reader_Temp_Real | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Real.TcDUT" target="_blank">View</a> | Real reader temporary data |
+| ASCF_CC_OPCUACS_Reader_Temp_String | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_String.TcDUT" target="_blank">View</a> | String reader temporary data |
+| ASCF_CC_OPCUACS_ScheduleAlgorithmType1 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType1.TcPOU" target="_blank">View</a> | Schedule algorithm type 1 |
+| ASCF_CC_OPCUACS_ScheduleAlgorithmType2 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType2.TcPOU" target="_blank">View</a> | Schedule algorithm type 2 |
+| ASCF_CC_OPCUACS_ScheduleData | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleData.TcDUT" target="_blank">View</a> | Schedule data structure |
+| ASCF_CC_OPCUACS_ScheduleDataType1 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType1.TcDUT" target="_blank">View</a> | Schedule data type 1 |
+| ASCF_CC_OPCUACS_ScheduleDataType2 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType2.TcDUT" target="_blank">View</a> | Schedule data type 2 |
+| ASCF_CC_OPCUACS_Scheduler | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Scheduler.TcPOU" target="_blank">View</a> | OPC UA scheduler |
+| ASCF_CC_OPCUACS_Writer | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer.TcPOU" target="_blank">View</a> | OPC UA writer function |
+| ASCF_CC_OPCUACS_WriterConfig | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_WriterConfig.TcDUT" target="_blank">View</a> | Writer configuration |
+| ASCF_CC_OPCUACS_WriterStatus | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_WriterStatus.TcDUT" target="_blank">View</a> | Writer status |
+| ASCF_CC_OPCUACS_Writer_Interface | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Interface.TcDUT" target="_blank">View</a> | Writer interface |
+| ASCF_CC_OPCUACS_Writer_Internals | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Internals.TcDUT" target="_blank">View</a> | Writer internal data |
+| ASCF_CC_OPCUACS_Writer_Temp | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp.TcDUT" target="_blank">View</a> | Writer temporary data |
+| ASCF_CC_OPCUACS_Writer_Temp_Bool | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Bool.TcDUT" target="_blank">View</a> | Boolean writer temporary data |
+| ASCF_CC_OPCUACS_Writer_Temp_Dint | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Dint.TcDUT" target="_blank">View</a> | Double integer writer temporary data |
+| ASCF_CC_OPCUACS_Writer_Temp_Dword | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Dword.TcDUT" target="_blank">View</a> | Double word writer temporary data |
+| ASCF_CC_OPCUACS_Writer_Temp_Real | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Real.TcDUT" target="_blank">View</a> | Real writer temporary data |
+| ASCF_CC_OPCUACS_Writer_Temp_String | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_String.TcDUT" target="_blank">View</a> | String writer temporary data |
 
 ### Configurable Logic
 
@@ -77,92 +77,92 @@ This page lists all source code files of the exemplary TwinCAT implementation of
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_ConfigurableLogic | [Configurable Logic/ASCF_ConfigurableLogic.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_ConfigurableLogic.TcPOU) | Main configurable logic manager |
+| ASCF_ConfigurableLogic | <a href="./https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_ConfigurableLogic.TcPOU" target="_blank">View</a> | Main configurable logic manager |
 
 
 #### Internal Implementation - Arithmetic Operations
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_CL_10_ADD | [Configurable Logic/ASCF_CL_10_ADD.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_10_ADD.TcPOU) | Addition operation |
-| ASCF_CL_11_SUB | [Configurable Logic/ASCF_CL_11_SUB.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_11_SUB.TcPOU) | Subtraction operation |
-| ASCF_CL_12_MUL | [Configurable Logic/ASCF_CL_12_MUL.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_12_MUL.TcPOU) | Multiplication operation |
-| ASCF_CL_13_DIV | [Configurable Logic/ASCF_CL_13_DIV.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_13_DIV.TcPOU) | Division operation |
-| ASCF_CL_14_MOD | [Configurable Logic/ASCF_CL_14_MOD.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_14_MOD.TcPOU) | Modulo operation |
+| ASCF_CL_10_ADD | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_10_ADD.TcPOU" target="_blank">View</a> | Addition operation |
+| ASCF_CL_11_SUB | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_11_SUB.TcPOU" target="_blank">View</a> | Subtraction operation |
+| ASCF_CL_12_MUL | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_12_MUL.TcPOU" target="_blank">View</a> | Multiplication operation |
+| ASCF_CL_13_DIV | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_13_DIV.TcPOU" target="_blank">View</a> | Division operation |
+| ASCF_CL_14_MOD | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_14_MOD.TcPOU" target="_blank">View</a> | Modulo operation |
 
 #### Internal Implementation - Logical Operations
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_CL_30_NOT | [Configurable Logic/ASCF_CL_30_NOT.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_30_NOT.TcPOU) | Logical NOT operation |
-| ASCF_CL_31_AND | [Configurable Logic/ASCF_CL_31_AND.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_31_AND.TcPOU) | Logical AND operation |
-| ASCF_CL_32_OR | [Configurable Logic/ASCF_CL_32_OR.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_32_OR.TcPOU) | Logical OR operation |
-| ASCF_CL_33_NAND | [Configurable Logic/ASCF_CL_33_NAND.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_33_NAND.TcPOU) | Logical NAND operation |
-| ASCF_CL_34_NOR | [Configurable Logic/ASCF_CL_34_NOR.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_34_NOR.TcPOU) | Logical NOR operation |
-| ASCF_CL_35_XOR | [Configurable Logic/ASCF_CL_35_XOR.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_35_XOR.TcPOU) | Logical XOR operation |
-| ASCF_CL_36_XNOR | [Configurable Logic/ASCF_CL_36_XNOR.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_36_XNOR.TcPOU) | Logical XNOR operation |
+| ASCF_CL_30_NOT | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_30_NOT.TcPOU" target="_blank">View</a> | Logical NOT operation |
+| ASCF_CL_31_AND | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_31_AND.TcPOU" target="_blank">View</a> | Logical AND operation |
+| ASCF_CL_32_OR | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_32_OR.TcPOU" target="_blank">View</a> | Logical OR operation |
+| ASCF_CL_33_NAND | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_33_NAND.TcPOU" target="_blank">View</a> | Logical NAND operation |
+| ASCF_CL_34_NOR | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_34_NOR.TcPOU" target="_blank">View</a> | Logical NOR operation |
+| ASCF_CL_35_XOR | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_35_XOR.TcPOU" target="_blank">View</a> | Logical XOR operation |
+| ASCF_CL_36_XNOR | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_36_XNOR.TcPOU" target="_blank">View</a> | Logical XNOR operation |
 
 #### Internal Implementation - Comparison Operations
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_CL_37_FE | [Configurable Logic/ASCF_CL_37_FE.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_37_FE.TcPOU) | Falling edge detection |
-| ASCF_CL_38_RE | [Configurable Logic/ASCF_CL_38_RE.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_38_RE.TcPOU) | Rising edge detection |
-| ASCF_CL_50_EE | [Configurable Logic/ASCF_CL_50_EE.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_50_EE.TcPOU) | Equal comparison |
-| ASCF_CL_51_NE | [Configurable Logic/ASCF_CL_51_NE.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_51_NE.TcPOU) | Not equal comparison |
-| ASCF_CL_52_GT | [Configurable Logic/ASCF_CL_52_GT.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_52_GT.TcPOU) | Greater than comparison |
-| ASCF_CL_53_GTE | [Configurable Logic/ASCF_CL_53_GTE.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_53_GTE.TcPOU) | Greater than or equal comparison |
-| ASCF_CL_54_LT | [Configurable Logic/ASCF_CL_54_LT.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_54_LT.TcPOU) | Less than comparison |
-| ASCF_CL_55_LTE | [Configurable Logic/ASCF_CL_55_LTE.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_55_LTE.TcPOU) | Less than or equal comparison |
-| ASCF_CL_56_EE_BIT | [Configurable Logic/ASCF_CL_56_EE_BIT.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_56_EE_BIT.TcPOU) | Bitwise equal comparison |
+| ASCF_CL_37_FE | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_37_FE.TcPOU" target="_blank">View</a> | Falling edge detection |
+| ASCF_CL_38_RE | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_38_RE.TcPOU" target="_blank">View</a> | Rising edge detection |
+| ASCF_CL_50_EE | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_50_EE.TcPOU" target="_blank">View</a> | Equal comparison |
+| ASCF_CL_51_NE | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_51_NE.TcPOU" target="_blank">View</a> | Not equal comparison |
+| ASCF_CL_52_GT | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_52_GT.TcPOU" target="_blank">View</a> | Greater than comparison |
+| ASCF_CL_53_GTE | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_53_GTE.TcPOU" target="_blank">View</a> | Greater than or equal comparison |
+| ASCF_CL_54_LT | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_54_LT.TcPOU" target="_blank">View</a> | Less than comparison |
+| ASCF_CL_55_LTE | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_55_LTE.TcPOU" target="_blank">View</a> | Less than or equal comparison |
+| ASCF_CL_56_EE_BIT | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_56_EE_BIT.TcPOU" target="_blank">View</a> | Bitwise equal comparison |
 
 #### Internal Implementation - Control Structures
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_CL_100_IF1 | [Configurable Logic/ASCF_CL_100_IF1.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_100_IF1.TcPOU) | Conditional logic function IF1 |
-| ASCF_CL_101_IF2 | [Configurable Logic/ASCF_CL_101_IF2.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_101_IF2.TcPOU) | Conditional logic function IF2 |
-| ASCF_CL_102_IF3 | [Configurable Logic/ASCF_CL_102_IF3.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_102_IF3.TcPOU) | Conditional logic function IF3 |
-| ASCF_CL_103_IF4 | [Configurable Logic/ASCF_CL_103_IF4.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_103_IF4.TcPOU) | Conditional logic function IF4 |
-| ASCF_CL_104_IF5 | [Configurable Logic/ASCF_CL_104_IF5.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_104_IF5.TcPOU) | Conditional logic function IF5 |
-| ASCF_CL_105_IF6 | [Configurable Logic/ASCF_CL_105_IF6.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_105_IF6.TcPOU) | Conditional logic function IF6 |
-| ASCF_CL_106_IF7 | [Configurable Logic/ASCF_CL_106_IF7.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_106_IF7.TcPOU) | Conditional logic function IF7 |
-| ASCF_CL_107_IF8 | [Configurable Logic/ASCF_CL_107_IF8.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_107_IF8.TcPOU) | Conditional logic function IF8 |
-| ASCF_CL_108_IF9 | [Configurable Logic/ASCF_CL_108_IF9.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_108_IF9.TcPOU) | Conditional logic function IF9 |
+| ASCF_CL_100_IF1 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_100_IF1.TcPOU" target="_blank">View</a> | Conditional logic function IF1 |
+| ASCF_CL_101_IF2 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_101_IF2.TcPOU" target="_blank">View</a> | Conditional logic function IF2 |
+| ASCF_CL_102_IF3 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_102_IF3.TcPOU" target="_blank">View</a> | Conditional logic function IF3 |
+| ASCF_CL_103_IF4 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_103_IF4.TcPOU" target="_blank">View</a> | Conditional logic function IF4 |
+| ASCF_CL_104_IF5 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_104_IF5.TcPOU" target="_blank">View</a> | Conditional logic function IF5 |
+| ASCF_CL_105_IF6 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_105_IF6.TcPOU" target="_blank">View</a> | Conditional logic function IF6 |
+| ASCF_CL_106_IF7 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_106_IF7.TcPOU" target="_blank">View</a> | Conditional logic function IF7 |
+| ASCF_CL_107_IF8 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_107_IF8.TcPOU" target="_blank">View</a> | Conditional logic function IF8 |
+| ASCF_CL_108_IF9 | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_108_IF9.TcPOU" target="_blank">View</a> | Conditional logic function IF9 |
 
 #### Internal Implementation - Data Types and Enumerations
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_CL_ArgumentType | [Configurable Logic/ASCF_CL_ArgumentType.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_ArgumentType.TcDUT) | Argument type definition |
-| ASCF_CL_EnumErrors | [Configurable Logic/ASCF_CL_EnumErrors.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_EnumErrors.TcDUT) | Configurable logic error enumeration |
-| ASCF_CL_EnumFunctionTypes | [Configurable Logic/ASCF_CL_EnumFunctionTypes.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_EnumFunctionTypes.TcDUT) | Function type enumeration |
-| ASCF_CL_EnumSourceTypes | [Configurable Logic/ASCF_CL_EnumSourceTypes.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_EnumSourceTypes.TcDUT) | Source type enumeration |
-| ASCF_CL_FunctionType | [Configurable Logic/ASCF_CL_FunctionType.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_FunctionType.TcDUT) | Function type definition |
-| ASCF_CL_FunctionTypeConfig | [Configurable Logic/ASCF_CL_FunctionTypeConfig.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_FunctionTypeConfig.TcDUT) | Function type configuration |
-| ASCF_CL_OutputType | [Configurable Logic/ASCF_CL_OutputType.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_OutputType.TcDUT) | Output type definition |
-| ASCF_CL_OutputTypeConfig | [Configurable Logic/ASCF_CL_OutputTypeConfig.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_OutputTypeConfig.TcDUT) | Output type configuration |
+| ASCF_CL_ArgumentType | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_ArgumentType.TcDUT" target="_blank">View</a> | Argument type definition |
+| ASCF_CL_EnumErrors | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_EnumErrors.TcDUT" target="_blank">View</a> | Configurable logic error enumeration |
+| ASCF_CL_EnumFunctionTypes | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_EnumFunctionTypes.TcDUT" target="_blank">View</a> | Function type enumeration |
+| ASCF_CL_EnumSourceTypes | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_EnumSourceTypes.TcDUT" target="_blank">View</a> | Source type enumeration |
+| ASCF_CL_FunctionType | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_FunctionType.TcDUT" target="_blank">View</a> | Function type definition |
+| ASCF_CL_FunctionTypeConfig | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_FunctionTypeConfig.TcDUT" target="_blank">View</a> | Function type configuration |
+| ASCF_CL_OutputType | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_OutputType.TcDUT" target="_blank">View</a> | Output type definition |
+| ASCF_CL_OutputTypeConfig | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Configurable%20Logic/ASCF_CL_OutputTypeConfig.TcDUT" target="_blank">View</a> | Output type configuration |
 
 
 ### Base Components and Utilities
 
 | Name | Link | Description |
 |------|------|-------------|
-| ASCF_CalcWQC | [Base/ASCF_CalcWQC.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_CalcWQC.TcPOU) | Quality code calculation function |
-| ASCF_EnumErrors | [Base/ASCF_EnumErrors.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_EnumErrors.TcDUT) | Error code enumeration |
-| ASCF_EnumUnionTypes | [Base/ASCF_EnumUnionTypes.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_EnumUnionTypes.TcDUT) | Union type enumeration |
-| ASCF_GetValueOutputList | [Base/ASCF_GetValueOutputList.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_GetValueOutputList.TcPOU) | Generic value output list retrieval |
-| ASCF_GetVBoolOutputList | [Base/ASCF_GetVBoolOutputList.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVBoolOutputList.TcPOU) | Boolean value output list retrieval |
-| ASCF_GetVDIntOutputList | [Base/ASCF_GetVDIntOutputList.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVDIntOutputList.TcPOU) | Double integer value output list retrieval |
-| ASCF_GetVDWordOutputList | [Base/ASCF_GetVDWordOutputList.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVDWordOutputList.TcPOU) | Double word value output list retrieval |
-| ASCF_GetVRealOutputList | [Base/ASCF_GetVRealOutputList.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVRealOutputList.TcPOU) | Real value output list retrieval |
-| ASCF_GetVStringOutputList | [Base/ASCF_GetVStringOutputList.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVStringOutputList.TcPOU) | String value output list retrieval |
-| ASCF_QualityCodes | [Base/ASCF_QualityCodes.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_QualityCodes.TcDUT) | Quality code definitions |
-| ASCF_State_Internals | [Base/ASCF_State_Internals.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_State_Internals.TcDUT) | Internal state data structure |
-| ASCF_UnionType | [Base/ASCF_UnionType.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_UnionType.TcDUT) | Union type data structure |
-| ASCF_WriteValue | [Base/ASCF_WriteValue.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Base/ASCF_WriteValue.TcPOU) | Value writing function |
-| CreateDTL | [Utils/CreateDTL.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Utils/CreateDTL.TcPOU) | Date and time creation utility |
-| DeltaDTL | [Utils/DeltaDTL.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Utils/DeltaDTL.TcPOU) | Date and time delta calculation |
-| DTL | [Utils/DTL.TcDUT](../../../Part_4_ExampleCode/TwinCAT/Utils/DTL.TcDUT) | Date and time data structure |
-| DTL_to_TIME | [Utils/DTL_to_TIME.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Utils/DTL_to_TIME.TcPOU) | Date-time to time conversion |
-| SYS_TIME_Store_DTL | [Utils/SYS_TIME_Store_DTL.TcPOU](../../../Part_4_ExampleCode/TwinCAT/Utils/SYS_TIME_Store_DTL.TcPOU) | System time storage utility |
+| ASCF_CalcWQC | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_CalcWQC.TcPOU" target="_blank">View</a> | Quality code calculation function |
+| ASCF_EnumErrors | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_EnumErrors.TcDUT" target="_blank">View</a> | Error code enumeration |
+| ASCF_EnumUnionTypes | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_EnumUnionTypes.TcDUT" target="_blank">View</a> | Union type enumeration |
+| ASCF_GetValueOutputList | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_GetValueOutputList.TcPOU" target="_blank">View</a> | Generic value output list retrieval |
+| ASCF_GetVBoolOutputList | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVBoolOutputList.TcPOU" target="_blank">View</a> | Boolean value output list retrieval |
+| ASCF_GetVDIntOutputList | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVDIntOutputList.TcPOU" target="_blank">View</a> | Double integer value output list retrieval |
+| ASCF_GetVDWordOutputList | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVDWordOutputList.TcPOU" target="_blank">View</a> | Double word value output list retrieval |
+| ASCF_GetVRealOutputList | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVRealOutputList.TcPOU" target="_blank">View</a> | Real value output list retrieval |
+| ASCF_GetVStringOutputList | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_GetVStringOutputList.TcPOU" target="_blank">View</a> | String value output list retrieval |
+| ASCF_QualityCodes | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_QualityCodes.TcDUT" target="_blank">View</a> | Quality code definitions |
+| ASCF_State_Internals | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_State_Internals.TcDUT" target="_blank">View</a> | Internal state data structure |
+| ASCF_UnionType | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_UnionType.TcDUT" target="_blank">View</a> | Union type data structure |
+| ASCF_WriteValue | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Base/ASCF_WriteValue.TcPOU" target="_blank">View</a> | Value writing function |
+| CreateDTL | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Utils/CreateDTL.TcPOU" target="_blank">View</a> | Date and time creation utility |
+| DeltaDTL | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Utils/DeltaDTL.TcPOU" target="_blank">View</a> | Date and time delta calculation |
+| DTL | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Utils/DTL.TcDUT" target="_blank">View</a> | Date and time data structure |
+| DTL_to_TIME | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Utils/DTL_to_TIME.TcPOU" target="_blank">View</a> | Date-time to time conversion |
+| SYS_TIME_Store_DTL | <a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/Part_4_ExampleCode/TwinCAT/Utils/SYS_TIME_Store_DTL.TcPOU" target="_blank">View</a> | System time storage utility |

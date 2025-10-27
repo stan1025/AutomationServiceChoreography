@@ -29,8 +29,8 @@ nav:
     - Configuralbe Communication OPC UA PS: artifacts\configurable-communication-opcuaps.md
     - Configuralbe Communication OPC UA FX: artifacts\configurable-communication-opcuafx.md
   - Implementations: 
-    - SIMATIC TIA Portal: tia-portal-overview.md
-    - BECKHOFF TwinCat: twincat-overview.md 
+    - SIMATIC TIA Portal: implementations\tia-portal\tia-portal-overview.md
+    - BECKHOFF TwinCat: implementations\twincat\twincat-overview.md 
 
 
 
@@ -40,6 +40,7 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.snippets
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
