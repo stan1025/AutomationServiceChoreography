@@ -20,8 +20,8 @@ theme:
     - navigation.path
 nav:
   - PhD Thesis: index.md
+  - Research Methodology: methodology/design-science-research.md
   - Research Hypothesis: methodology\research-hypothesis.md
-  - Design Science Research: methodology/design-science-research.md
   - Publications: publications/publications.md
   - Design Science Artifacts: 
     - Framework: artifacts\automation-service-choreography-framework.md

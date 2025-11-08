@@ -9,6 +9,14 @@ Feel free to contact me for feedback, comments or questions regarding my researc
 - [LinkedIn](https://www.linkedin.com/in/andreas-stutz/)  
 - [ResearchGate](https://www.researchgate.net/profile/Andreas-Stutz)
 
+
+# Motivational Citation
+
+ Ideas in and of themselves have very little value. The value of an invention lies in its practical implementation.  
+--- Werner von Siemens to his brother Carl, January 27, 1865  
+
+
+
 # Abstract
 
 This dissertation examines the application of choreography principles in industrial automation to increase the flexibility, adaptability, and reusability of modular production systems.
