@@ -1,7 +1,7 @@
 
 # Exploration and Application of Choreography Principles in Industrial Automation
 
-Welcome to the additional appendix and summary for my submitted PhD thesis "Exploration and Application of Choreography Principles in Industrial Automation" at the Helmut Schmidt University / German Federal Armed Forces University Hamburg.  
+Welcome to the additional appendix and example code for my submitted PhD thesis "Exploration and Application of Choreography Principles in Industrial Automation" at the Helmut Schmidt University / University of the German Federal Armed Forces Hamburg.  
 
 My name is Andreas Stutz and I am a researcher and innovator for software-defined plant automation at Siemens Process Automation. With creativity and initiative, I shape the transformation while bringing people and technologies together.
 
