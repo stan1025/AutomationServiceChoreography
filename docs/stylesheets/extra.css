@@ -3,3 +3,8 @@
   --md-primary-fg-color--light: #C60851;
   --md-primary-fg-color--dark:  #C60851;
 }
+
+.md-typeset .admonition.highlight,
+.md-typeset details.highlight {
+  border-color: #C60851;
+}

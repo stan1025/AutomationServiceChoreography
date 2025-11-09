@@ -1,13 +1,18 @@
-# Design Pattern - External Lead
+# Artifact - External Lead
 
-## Pattern Fact Sheet
+## Artifact Description
 
-| **Field** | **Description** |
-|-----------|-----------------|
-| **Name** | External Lead |
-| **Artifact Type** | Design Pattern |
-| **User Group** | System Architects, Software Architects, PLC Programmers |
-| **Objective** | This design pattern describes a special design of a service that is conceived to consolidate information flows starting and ending at different choreography-participating services. It provides the ability to initiate these information flows through a Do-Request of a state and recapture them through a Done-Reply. This offers a way to provide the choreography state-correctly to the Process Orchestration Layer. |
+!!! highlight ""
+
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | External Lead |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | System Architects, Software Architects, PLC Programmers |
+    | **Objective** | This design pattern describes a special design of a service that is conceived to consolidate information flows starting and ending at different choreography-participating services. It provides the ability to initiate these information flows through a Do-Request of a state and recapture them through a Done-Reply. This offers a way to provide the choreography state-correctly to the Process Orchestration Layer. |
+
+## Relevant Publications
+
 
 ## Description
 

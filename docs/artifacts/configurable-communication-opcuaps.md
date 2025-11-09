@@ -1,23 +1,25 @@
-# Design Pattern - Configurable Communication with OPC UA PS
-
-This section introduces the design pattern for configurable communication based on OPC UA Publish/Subscribe. Parts of this section are published in [SKB+22].
+# Artifact - Configurable Communication with OPC UA PS
 
 ## Artifact Description
 
-### Pattern Fact Sheet
+!!! highlight ""
 
-| **Attribute** | **Description** |
-|---------------|-----------------|
-| **Name** | Configurable Communication with OPC UA Publish/Subscribe (PS) |
-| **Artifact Type** | Design Pattern |
-| **Target Users** | Software Architects, PLC Programmers |
-| **Objective** | This design pattern defines the concrete implementation for dynamically configurable OPC UA Publish/Subscribe transmission. It presents information models, implementation patterns, and the boundaries and application possibilities. |
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Configurable Communication with OPC UA Publish/Subscribe (PS) |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | Software Architects, PLC Programmers |
+    | **Objective** | This design pattern defines the concrete implementation for dynamically configurable OPC UA Publish/Subscribe transmission. It presents information models, implementation patterns, and the boundaries and application possibilities. |
 
-The design pattern *Configurable Communication with OPC UA PS* enables dynamic configuration of OPC UA PS transmissions. It defines publishers and subscribers that serialize information according to the OPC UA specification and transmit it via UDP. Both unicast and multicast addresses are supported. Processing occurs entirely within the user program, with serialized data packets transmitted/received via operating system-integrated UDP communication mechanisms.
+## Relevant Publications
+
+This section introduces the design pattern for configurable communication based on OPC UA Publish/Subscribe. Parts of this section are published in [SKB+22].
+
+<!-- The design pattern *Configurable Communication with OPC UA PS* enables dynamic configuration of OPC UA PS transmissions. It defines publishers and subscribers that serialize information according to the OPC UA specification and transmit it via UDP. Both unicast and multicast addresses are supported. Processing occurs entirely within the user program, with serialized data packets transmitted/received via operating system-integrated UDP communication mechanisms.
 
 Publishers send data from the output list. Subscribers receive data and transfer it to the input list. Connectionless communication requires additional mechanisms to check and mark outdated information as unsafe, making communication problems detectable.
 
-This design pattern enables Communication Pattern Variant 2 from the analysis in Section [artefakt_kommunikation_analyse].
+This design pattern enables Communication Pattern Variant 2 from the analysis in Section [artefakt_kommunikation_analyse]. -->
 
 ## Technological Framework
 

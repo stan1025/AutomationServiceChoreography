@@ -1,17 +1,21 @@
-# Abstract Design Pattern - Configurable Communication
+# Artifact - Configurable Communication
 
-## Pattern Description
+## Artifact Description
 
-### Pattern Fact Sheet
+!!! highlight ""
 
-| **Field** | **Details** |
-|-----------|-------------|
-| **Name** | Configurable Communication |
-| **Artifact Type** | Abstract Design Pattern |
-| **Target Group** | Software Architects, PLC Programmers |
-| **Objective** | This design pattern defines fundamental properties and requirements for concrete communication technologies to be implemented. Automation service choreographies with multiple participants require information exchange that is dynamically configurable. The underlying technology is secondary; therefore, this pattern describes requirements and basic considerations for configurable communication. |
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Configurable Communication |
+    | **Artifact Type** | Abstract Design Pattern |
+    | **Target Users** | Software Architects, PLC Programmers |
+    | **Objective** | This design pattern defines fundamental properties and requirements for concrete communication technologies to be implemented. Automation service choreographies with multiple participants require information exchange that is dynamically configurable. The underlying technology is secondary; therefore, this pattern describes requirements and basic considerations for configurable communication. |
 
-The abstract design pattern *Configurable Communication* establishes the foundations for information transfer between choreography participants. It is abstract because it defines general principles and building blocks that must be implemented in technology-specific patterns. The scope also includes an analysis of various communication patterns from which framework conditions for protocol-specific implementations are derived. For automation service choreographies, the technology used is secondary; what matters is adherence to the fundamental principles and building blocks described below.
+## Relevant Publications
+
+
+<!-- 
+The abstract design pattern *Configurable Communication* establishes the foundations for information transfer between choreography participants. It is abstract because it defines general principles and building blocks that must be implemented in technology-specific patterns. The scope also includes an analysis of various communication patterns from which framework conditions for protocol-specific implementations are derived. For automation service choreographies, the technology used is secondary; what matters is adherence to the fundamental principles and building blocks described below. -->
 
 ## Pattern Components
 

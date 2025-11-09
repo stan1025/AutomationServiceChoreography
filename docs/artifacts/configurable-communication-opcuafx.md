@@ -1,14 +1,17 @@
-# Design Pattern - Configurable Communication with OPC UA FX
+# Artifact - Configurable Communication with OPC UA FX
 
-## Pattern Fact Sheet
+## Artifact Description
 
-**Name:** Configurable Communication with OPC UA Field eXchange (FX)
+!!! highlight ""
 
-**Artifact Type:** Design Pattern
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Configurable Communication with OPC UA Field eXchange (FX) |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | Software Architects, PLC Programmers |
+    | **Objective** | This design pattern defines, in accordance with the OPC UA FX specification, the necessary information models and corresponding mirror data types for integration into control programs. OPC UA FX already describes a standard mechanism for direct information exchange between controllers. The pattern defines necessary components and describes their application. |
 
-**Target User Group:** Software architects, PLC programmers
-
-**Objective:** This design pattern defines, in accordance with the OPC UA FX specification, the necessary information models and corresponding mirror data types for integration into control programs. OPC UA FX already describes a standard mechanism for direct information exchange between controllers. The pattern defines necessary components and describes their application.
+## Relevant Publications
 
 ## Description
 

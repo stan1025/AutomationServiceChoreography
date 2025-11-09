@@ -1,18 +1,24 @@
-# Architecture Pattern - Choreography-enabled System Architecture
+# Artifact - Choreography-enabled System Architecture
 
 ## Artifact Description
 
-**Name:** Choreography-enabled System Architecture  
-**Artifact Type:** Architecture Pattern  
-**User Group:** System Architects  
-**Objective:** This architecture pattern describes the application of automation service choreographies in the context of a modular plant and central orchestration. It provides insights into changes and influences through the use of choreographies in combination with central orchestration. Rigid equipment-oriented structures and boundaries blur due to composed functions that are formed across equipment boundaries. The transformation from current to future system architectures is presented using three figures. Current architectures are based exclusively on central orchestration. Future architectures use both central orchestration and choreographies for system automation. The purpose of the architecture pattern is to clarify the changes to future system architects and introduce the next level of detail of the concept.
+!!! highlight ""
 
-The core of the artifact is the resulting future system architecture using automation service choreographies as well as central orchestration. The path to this resulting architecture begins with the consideration of a current system architecture, as shown in Figure 1. The function to be choreographed is already indicated as a blackbox of a composite unit (Figure 1, dashed rectangle).
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Choreography-enabled System Architecture  |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | System Architects |
+    | **Objective** | This architecture pattern describes the application of automation service choreographies in the context of a modular plant and central orchestration. It provides insights into changes and influences through the use of choreographies in combination with central orchestration. Rigid equipment-oriented structures and boundaries blur due to composed functions that are formed across equipment boundaries. The transformation from current to future system architectures is presented using three figures. Current architectures are based exclusively on central orchestration. Future architectures use both central orchestration and choreographies for system automation. The purpose of the architecture pattern is to clarify the changes to future system architects and introduce the next level of detail of the concept. |
+
+## Relevant Publications
+
+## Components of the Artifact
+
 
 ![System Architecture Overview](./Systemarchitektur_Uebersicht.drawio.png)
 *Figure 1: System architecture of a modular plant with a modular unit composed by choreography*
 
-## Components of the Artifact
 
 ### Modular Plant
 

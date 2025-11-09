@@ -1,15 +1,19 @@
-# Design Pattern - Active Choreography Participant
-
-This section introduces the design pattern of the active choreography participant. Contents of this section are published in [SFB+21], [SBM+22], [StMa21], [StMa22], and [Stu23].
+# Artifact - Active Choreography Participant
 
 ## Artifact Description
 
-**Name:** Active Choreography Participant  
-**Artifact Type:** Design Pattern  
-**User Group:** System Architects, Software Architects, PLC Programmers  
-**Objective:** This artifact describes the necessary components to enable a controller to take on the tasks of an active choreography participant. The necessary sub-artifacts and their relationships are described.
+!!! highlight ""
 
-The *Active Choreography Participant* design pattern describes the necessary concepts that a controller needs to become an active choreography participant within a choreography. As shown in the figure below, the design pattern consists of three main components: *Native Program*, *Configurable Logic*, and *Configurable Communication* for incoming and outgoing information.
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Active Choreography Participant  |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | System Architects, Software Architects, PLC Programmers |
+    | **Objective** | This artifact describes the necessary components to enable a controller to take on the tasks of an active choreography participant. The necessary sub-artifacts and their relationships are described. |
+
+## Relevant Publications
+
+This section introduces the design pattern of the active choreography participant. Contents of this section are published in [SFB+21], [SBM+22], [StMa21], [StMa22], and [Stu23].
 
 ## Artifact Components
 

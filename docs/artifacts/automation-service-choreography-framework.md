@@ -1,11 +1,18 @@
-# Automation Service Choreography Framework
+# Artifact - Automation Service Choreography Framework
 
 ## Artifact Description
 
-**Name:** Automation Service Choreography Framework  
-**Artifact Type:** Framework  
-**Target Users:** System Architects, Software Architects, PLC Programmers  
-**Objective:** Development of the *Automation Service Choreography Framework* to present the components necessary for developing and implementing automation services. It describes individual components as sub-artifacts and illustrates their mutual dependencies. The goal is to provide a comprehensive representation of all individual components as an entry point for future developers and users of automation service choreographies.
+!!! highlight ""
+
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Automation Service Choreography Framework |
+    | **Artifact Type** | Framework |
+    | **Target Users** | System Architects, Software Architects, PLC Programmers |
+    | **Objective** | Development of the *Automation Service Choreography Framework* to present the components necessary for developing and implementing automation services. It describes individual components as sub-artifacts and illustrates their mutual dependencies. The goal is to provide a comprehensive representation of all individual components as an entry point for future developers and users of automation service choreographies. |
+
+## Relevant Publications
+
 
 ## Overview
 

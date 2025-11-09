@@ -1,11 +1,18 @@
-# Design Pattern - Configurable Logic
+# Artifact - Configurable Logic
 
 ## Artifact Description
 
-**Name:** Configurable Logic  
-**Artifact Type:** Design Pattern  
-**User Group:** Software Architects, PLC Programmers  
-**Objective:** This artifact defines the models and functional features of configurable logic, a central element of an active choreography participant. It enables the execution of configurable behavioral rules that determine a participant's role within the choreography. The software structures and their interactions are described in detail.
+!!! highlight ""
+
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Configurable Logic |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | Software Architects, PLC Programmers |
+    | **Objective** | This artifact defines the models and functional features of configurable logic, a central element of an active choreography participant. It enables the execution of configurable behavioral rules that determine a participant's role within the choreography. The software structures and their interactions are described in detail. |
+
+## Relevant Publications
+
 
 ## Overview
 

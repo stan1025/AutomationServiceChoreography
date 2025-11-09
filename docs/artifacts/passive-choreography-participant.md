@@ -1,13 +1,19 @@
-# Design Pattern - Passive Choreography Participant
+# Artifact - Passive Choreography Participant
 
-## Pattern Fact Sheet
+## Artifact Description
 
-| **Attribute** | **Details** |
-|---|---|
-| **Name:** | Passive Choreography Participant |
-| **Artifact Type:** | Design Pattern |
-| **User Group:** | System Architects, Software Architects, PLC Programmers |
-| **Objective:** | This artifact describes the necessary components and approaches to integrate non-choreography-capable equipment into a choreography using another active choreography participant as a decentralized orchestrator. This enables existing equipment to be used in choreographies while preserving investment protection. |
+!!! highlight ""
+
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Passive Choreography Participant |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | System Architects, Software Architects, PLC Programmers |
+    | **Objective** | This artifact describes the necessary components and approaches to integrate non-choreography-capable equipment into a choreography using another active choreography participant as a decentralized orchestrator. This enables existing equipment to be used in choreographies while preserving investment protection. |
+
+## Relevant Publications
+
+
 
 ## Description
 

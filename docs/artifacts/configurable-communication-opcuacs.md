@@ -1,13 +1,17 @@
-# Design Pattern - Configurable Communication with OPC UA CS
+# Artifact - Configurable Communication with OPC UA CS
 
-## Pattern Fact Sheet
+## Artifact Description
 
-| **Attribute** | **Description** |
-|---------------|-----------------|
-| **Name** | Configurable Communication with OPC UA Client/Server (CS) |
-| **Artifact Type** | Design Pattern |
-| **Target User Group** | Software Architects, PLC Programmers |
-| **Objective** | This design pattern defines the concrete implementation for dynamically configurable OPC UA Client/Server communication. It describes information models, implementation patterns, limitations and possibilities. |
+!!! highlight ""
+
+    | Fact Sheet | |
+    | :--- | :--- |
+    | **Name** | Configurable Communication with OPC UA Client/Server (CS)  |
+    | **Artifact Type** | Design Pattern |
+    | **Target Users** | Software Architects, PLC Programmers |
+    | **Objective** | This design pattern defines the concrete implementation for dynamically configurable OPC UA Client/Server communication. It describes information models, implementation patterns, limitations and possibilities. |
+
+## Relevant Publications
 
 ## Pattern Description
 

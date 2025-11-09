@@ -23,14 +23,15 @@ nav:
   - Research Methodology: methodology/design-science-research.md
   - Research Hypothesis: methodology\research-hypothesis.md
   - Publications: publications/publications.md
-  - Design Science Artifacts: 
-    - Framework: artifacts\automation-service-choreography-framework.md
+  - Research Artifacts:
+    - Artifact Overview: artifacts\overview.md 
+    - Automation Service Choreography Framework: artifacts\automation-service-choreography-framework.md
     - Choreographed System Architecture: artifacts\choreography-enabled-system-architecture.md
     - Active Participant: artifacts\active-choreography-participant.md
     - Passive Participant: artifacts\passive-choreography-participant.md
     - External Lead: artifacts\external-lead.md
-    - Artficats: artifacts\configurable-logic.md
-    - Configurable Communication: artifacts\configurable-communication.md
+    - Configurable Logic: artifacts\configurable-logic.md
+    - Configurable Communication Abstract: artifacts\configurable-communication.md
     - Configuralbe Communication OPC UA CS: artifacts\configurable-communication-opcuacs.md
     - Configuralbe Communication OPC UA PS: artifacts\configurable-communication-opcuaps.md
     - Configuralbe Communication OPC UA FX: artifacts\configurable-communication-opcuafx.md
@@ -43,6 +44,8 @@ plugins:
 
 
 markdown_extensions:
+  - attr_list
+  - md_in_html
   - toc:
       baselevel: 2
   - admonition
