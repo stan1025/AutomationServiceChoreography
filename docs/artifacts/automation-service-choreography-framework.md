@@ -14,7 +14,9 @@
 ## Relevant Publications
 
 
-## Overview
+
+
+## Artifact Description
 
 The *Automation Service Choreography Framework* provides the development framework that encompasses the required components of the described concept and presents relationships following a top-down approach. The framework consists of one architectural pattern and eight design patterns, organized into four content areas:
 
@@ -26,7 +28,9 @@ The *Automation Service Choreography Framework* provides the development framewo
 ![Automation Service Choreography Framework Overview](./Abbildung_Framework_Overview.drawio.png)
 *Figure: Automation Service Choreography Framework and its Components*
 
-## Framework Components
+
+## Artifact Building Blocks
+
 
 ### Architectural Pattern
 
@@ -51,7 +55,8 @@ The *Automation Service Choreography Framework* provides the development framewo
 - **OPC UA Publish/Subscribe (PS)**: Technology-specific pattern using OPC UA Publish/Subscribe mechanisms for one-to-many communication with push principle.
 - **OPC UA Field Exchange (FX)**: Technology-specific pattern using OPC UA Field Exchange mechanism, specifically designed for the use case applied here.
 
-## Key Design Decisions
+## Artifact Decisions
+
 
 ### Dual Target Audience
 
@@ -64,7 +69,8 @@ The framework addresses both system architects and software architects/PLC progr
 
 Software components for configurable logic and communication are treated separately to enable flexible combination of multiple communication technologies. This supports targeted equipment of choreography participants with suitable communication mechanisms based on system strategy requirements.
 
-## Application
+
+## Artifact Application
 
 ### For System Architects
 
@@ -80,10 +86,14 @@ Software components for configurable logic and communication are treated separat
 - Flexible selection and combination of communication technologies
 - Runtime composition of distributed functions based on system design requirements
 
-## Benefits
 
-- **Flexibility**: Modular approach enables adaptation to various application scenarios
-- **Technology Independence**: Abstract patterns support different communication technologies
-- **Legacy Integration**: Support for existing systems through passive participant pattern
-- **Scalability**: Framework supports both simple and complex choreography scenarios
-- **Standardization**: Based on established OPC UA standards and PLCopen specifications
+
+
+
+
+
+
+
+
+
+

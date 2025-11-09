@@ -14,7 +14,13 @@
 ## Relevant Publications
 
 
-## Description
+- Content partially published in [SBM+22] and [BSF+22]
+- Based on MTP specification for automation services [VDI2658-4]
+- Virtual services concept from [GHI+19]
+
+
+
+## Artifact Description
 
 The **External Lead** design pattern describes a special implementation variant of an automation service that makes choreographies without a dedicated leader-capable service orchestrable for central orchestration. This service is not involved in the actual choreographed function in its role, but serves as an interface for transferring choreography information to a higher-level system.
 
@@ -22,7 +28,12 @@ The External Lead can trigger behavioral changes in follower services via Do-Req
 
 This design pattern is described based on MTP interface components but is not limited to their use. The External Lead principle can also be applied to other standardized or proprietary interface concepts.
 
-## Pattern Components
+## Artifact Technological Conditions
+
+
+
+## Artifact Building Blocks
+
 
 ![External Lead Components](./Abbildung_ExternalLead_Bestandteile.drawio.png)
 *Figure: Design pattern for External Lead with ServiceControl interface and four variables for the Do-Done interaction pattern*
@@ -57,13 +68,14 @@ The ServiceCommandStruct data type contains binary information for each state tr
 - 10 self-activating transitions
 - 12 trigger-activated transitions with 10 triggers
 
-## Design Decisions
+## Artifact Decisions
 
 ### Use of State-Oriented Do-Done Interaction Pattern
 
 The Do-Done interaction pattern enables the consolidation of two automation services that represent the beginning and end in a sequence. While the initial service is activated by the Do-Request, the end service is returned via the Done-Reply. Additional automation services can be chained in between. A Do and Done pair for each state enables configuration of procedural relationships and exception handling sequences.
 
-## Technical Details
+## Artifact Implementation Details
+
 
 ### State Machine
 
@@ -93,7 +105,8 @@ Configurable behavior rules can determine conditions from available information 
 
 Internal state transitions can be triggered from available information. Aborting and Aborted states of choreography-participating services are linked via OR logic to the Command.Abort information of the External Lead, ensuring that if a service enters abort exception handling, the leader is notified and also switches to this state.
 
-## Application Variants
+## Artifact Application
+
 
 ### PEA-Integrated Variant
 
@@ -116,8 +129,8 @@ Similar to the PEA-integrated variant, but the External Lead serves as the only 
 
 Based on virtual services concepts, virtual leads can be introduced in the POL. The External Lead is not a functional component of the choreography but merely packages it in procedural encapsulation. The signals are not subject to critical latency requirements and can be executed in the POL as a virtual lead.
 
-## References
+## Artifact Pros/Cons
 
-- Content partially published in [SBM+22] and [BSF+22]
-- Based on MTP specification for automation services [VDI2658-4]
-- Virtual services concept from [GHI+19]
+
+
+

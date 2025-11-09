@@ -13,7 +13,14 @@
 
 ## Relevant Publications
 
-## Description
+
+Content partially published in [SBB+23] and based on OPC UA Specification 10000-8X [OPC10000-80].
+
+
+
+
+
+## Artifact Description
 
 The design pattern *Configurable Communication with OPC UA FX* defines the necessary components for applying OPC UA FX in Controller-to-Controller (C2C) execution. The uniqueness of this design pattern lies in the fact that OPC UA FX C2C is already specified for the use case pursued with the concrete design patterns of configurable communication.
 
@@ -21,13 +28,15 @@ The OPC UA FX specification describes how connections between two endpoints are 
 
 This design pattern enables Communication Pattern Variant 2, as currently only OPC UA Publish/Subscribe is specified for OPC UA FX. In the future, application for OPC UA Client/Server is also expected, which would also support variants 3 and 4.
 
-## Technological Framework Conditions
+## Artifact Technological Conditions
+
 
 Unlike OPC UA Publish/Subscribe and OPC UA Client/Server, OPC UA FX does not require explicit logic for communication in the user program. It is implemented as a firmware function in the controller. The *FunctionalEntityTypes* and the necessary *AutomationComponentType* for configuration are created via the information model provided by the OPC UA Server.
 
 Corresponding preparations are required for linking between the control program and information model, which are described in this design pattern. The components themselves create the data types that correspond to the FunctionalEntityTypes and make them available. The standardization of these constructs is crucial for the vendor neutrality of automation service choreographies and enables integration into the Connection Manager.
 
-## Pattern Components
+## Artifact Building Blocks
+
 
 ![Pattern Components and Data Types](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_Kommunikation_FieldExchange/Abbildung_Kommunikation_FX_Implementation.drawio.png)
 *Figure: Components and data types of the OPC UA Field Exchange specific design pattern for configurable communication*
@@ -67,13 +76,15 @@ A subtype of FunctionalEntityType that represents the functional element of an i
 
 A subtype of FunctionalEntityType that represents the functional element of an output element. It has a folder object with Organizes relations to variables of the FxOutput data type originating from the control program.
 
-## Design Decisions
+
+## Artifact Decisions
 
 ### Mirror Data Types for OPC UA FX Models
 
 The linking of OPC UA information models and controller application programs is implemented through mapping. To make this mapping as simple as possible, mirror data types are specified for the application program that correspond to the information models defined in OPC UA FX. This makes future mapping easier for both developers and tool-supported mapping.
 
-## Technical Details
+## Artifact Implementation Details
+
 
 The central aspect of the design pattern is the division of components in the control program and the definitions of the OPC UA FX information model. In the control program, the data types FxInputEntityType and FxOutputEntityType represent mirror definitions to the OPC UA FX definitions FxInputEntityData and FxOutputEntityData.
 
@@ -87,14 +98,14 @@ Regarding communication monitoring, the OPC Foundation specifies its own mechani
 
 For communication diagnostics and configuration, OPC UA FX also defines its own mechanisms, which are to be used according to the standard.
 
-## Application
+## Artifact Application
 
 ![Application Example](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_Kommunikation_FieldExchange/Abbildung_Kommunikation_FX_Anwendung.drawio.png)
 *Figure: Application of the OPC UA FX-specific design pattern for implementing incoming and outgoing information following the active choreography participant design pattern*
 
 The design pattern serves to connect incoming and outgoing information between active choreography participants based on OPC UA FX. When OPC UA FX functionality is integrated into the control system firmware, an active choreography participant can be equipped with OPC UA FX mechanisms using the extensions of basic models and mirror definitions described here.
 
-## Advantages and Disadvantages
+## Artifact Pros/Cons
 
 ### Advantages
 
@@ -110,6 +121,4 @@ The design pattern serves to connect incoming and outgoing information between a
 - Not suitable for integrating existing systems due to preparation requirements
 - Actual benefits can only be definitively evaluated with available commercial implementations
 
-## References
 
-Content partially published in [SBB+23] and based on OPC UA Specification 10000-8X [OPC10000-80].

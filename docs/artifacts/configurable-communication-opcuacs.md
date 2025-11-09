@@ -13,7 +13,10 @@
 
 ## Relevant Publications
 
-## Pattern Description
+
+
+
+## Artifact Description
 
 The *Configurable Communication with OPC UA CS* design pattern describes an implementation of dynamically configurable OPC UA Client/Server connections including read and write functions. The pattern considers applicability on resource-constrained embedded control solutions. Corresponding mechanisms are provided to enable more efficient resource usage of the device and safe operation of communication.
 
@@ -25,7 +28,8 @@ The pattern offers possibilities to:
 - Write information from the output list to other choreography participants  
 - Include passive choreography participants in the sense of decentralized orchestration when they only have an OPC UA Server
 
-## Technological Framework Conditions
+
+## Artifact Technological Conditions
 
 Industrial control systems are subject to constraints such as limited system resources, IEC 61131 programming language requirements, and pre-compiled control software. This limits the use of OPC UA Client/Server connections regarding the number of connections and information to be read or written.
 
@@ -33,7 +37,9 @@ Industrial controllers limit the number of connections, write and read operation
 
 The design pattern must use system resources efficiently and comply with limits. These constants must be defined by the developer during PEA engineering, considering the system resources available in the control system.
 
-## Pattern Components
+
+## Artifact Building Blocks
+
 
 The design pattern consists of 15 components in total, shown in four figures:
 
@@ -57,7 +63,6 @@ The design pattern consists of 15 components in total, shown in four figures:
 
 *Figure: Components and data types with focus on write operation processing*
 
-## Key Components
 
 ### OpcUaClientServerManager Component
 The central component that concretizes the core component of the abstract design pattern. Implements core functions for connection, reader, and writer management.
@@ -74,7 +79,8 @@ Describes all necessary variables and data structures for managing, executing, a
 ### UaWriter Component
 Describes all necessary variables and data structures for managing, executing, and monitoring a write operation of process value and quality code information to another choreography participant.
 
-## Design Decisions
+
+## Artifact Decisions
 
 ### Bus-like Function Block Structure and Scheduling
 To optimize resource usage, a bus-like structure is introduced where each reader and writer gets access to the connection handle list and is assigned to a connection via configuration. This enables more flexible use of available resources and requires scheduling to prevent system overload when maximum limits are exceeded.
@@ -82,7 +88,8 @@ To optimize resource usage, a bus-like structure is introduced where each reader
 ### Variable NodeCount for Reading and Writing
 Between choreography-enabled control systems, information is always exchanged as a combination of process value and status in UnionType format. For integration of legacy systems as passive choreography participants, a NodeCount setting determines whether process values are addressed with or without status information.
 
-## Technical Details
+## Artifact Implementation Details
+
 
 ### Bus-like Interaction Structure
 ![Bus Structure](./Abbildung_Kommunikation_ClientServer_BusLikeStructure.drawio.png)
@@ -100,6 +107,7 @@ Internal scheduling ensures that the maximum number of simultaneous read and wri
 
 ### Communication Workflow
 
+
 #### Connection Workflow
 ![Connection Workflow](./Abbildung_Kommunikation_ClientServer_Ablauf_Connection.drawio.png)
 
@@ -114,9 +122,8 @@ The connection starts in *Disconnected* state. With *Connect* activation, the se
 
 The process begins in *Uninitialized* state. After connection initialization, reader/writer transitions to *Initializing*, registers, and determines ID. After successful registration, *Idle* state is reached, waiting for *Connect* command.
 
-## Application Variants
+## Artifact Application
 
-### Pattern Application Overview
 ![Application Overview](./Abbildung_Kommunikation_ClientServer_Anwendung.drawio.png)
 
 *Figure: Application of the OPC UA Client/Server specific design pattern*
@@ -128,7 +135,6 @@ The pattern supports four application variants:
 3. **Active Reading and Writing**: Combination of both approaches
 4. **Decentralized Orchestration**: Special variant for integrating passive choreography participants
 
-## Communication Monitoring
 
 ### Pull Principle
 Read operations fail directly upon connection failure, allowing immediate integration into processing and prompt countermeasures.
@@ -136,7 +142,8 @@ Read operations fail directly upon connection failure, allowing immediate integr
 ### Push Principle
 The processing side must provide application-level communication monitoring mechanisms. The age of each information is cyclically checked to determine if the last transmission exceeded the allowable age limit.
 
-## Advantages and Disadvantages
+## Artifact Pros/Cons
+
 
 **Advantages:**
 - OPC UA Client/Server is the most common approach and widely used in industrial automation
@@ -151,6 +158,3 @@ The processing side must provide application-level communication monitoring mech
 - Limited system capacities require significant coordination effort
 - Runtime configuration may not be possible with proprietary, statically configured systems
 
-## Pattern Benefits
-
-The pattern enables active choreography participants to exchange information via OPC UA Client/Server mechanisms while supporting up to four different application variants. It provides mechanisms for both resource-efficient and flexible operation, extends the choreography principle to include legacy systems, and ensures manufacturer-neutral applicability when framework conditions allow.

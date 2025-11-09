@@ -13,8 +13,16 @@
 
 ## Relevant Publications
 
-## Components of the Artifact
 
+
+
+
+
+
+## Artifact Description
+
+
+## Artifact Building Blocks
 
 ![System Architecture Overview](./Systemarchitektur_Uebersicht.drawio.png)
 *Figure 1: System architecture of a modular plant with a modular unit composed by choreography*
@@ -62,7 +70,9 @@ When designing an automation service choreography, one service must act as *Lead
 
 A service can assume the role of *Internal Lead* if its state matches that of the choreographed function. The other services act as followers. In cases where no single service can represent the entire function – such as in sequential processes – an *External Lead* is required.
 
-## Design Decisions of the Artifact
+
+## Artifact Decisions
+
 
 ### Focus on Runtime Technical Aspects
 
@@ -76,7 +86,8 @@ While technically feasible, complete replacement of orchestration by plant-wide 
 
 Therefore, this work limits choreography to combining FEAs and COMPs. Coordination of composite PEAs continues through central orchestration in the POL.
 
-## Technical Details of the Artifact
+## Artifact Implementation Details
+
 
 The *composite PEA X* from Figure 1 can be implemented in various ways. Figure 2 shows a theoretical representation of all choreography patterns considered in this work, describing four patterns in total.
 
@@ -100,7 +111,9 @@ The resulting system architecture from the POL perspective is shown in Figure 3:
 ![Result Architecture](./Systemarchitektur_Resultat.drawio.png)
 *Figure 3: System architecture resulting from choreography usage and automation services available for orchestration*
 
-## Application of the Artifact
+
+## Artifact Application
+
 
 Using automation service choreographies within a modular plant leads to blurring system boundaries of modular units (PEAs, FEAs, and COMPs). The design pattern introduces an implicitly existing system level below the POL, serving to form composite functions through distributed behavioral rules and configurable communication.
 

@@ -14,11 +14,21 @@
 ## Relevant Publications
 
 
-## Overview
+
+
+
+
+
+## Artifact Description
 
 The *Configurable Logic* design pattern follows an execution principle similar to a programmable logic controller (PLC). It has an input side that bundles information from the native program or provided by configurable communication. This information, along with known data within the configurable logic, is processed in a logic list with configurable function elements. The output side provides necessary information for influencing the native control program or transmission to external participants, utilizing all known information within the configurable logic (input list) and processing results (logic list).
 
-## Artifact Components
+
+## Artifact Technological Conditions
+
+
+## Artifact Building Blocks
+
 
 ![Components of Configurable Logic](./Abbildung_Logik_Bestandteile.drawio.png)
 
@@ -72,7 +82,8 @@ The *OutputType* describes output information with multiple functions:
 
 The *ErrorCodes* enumeration defines checked error cases and corresponding error codes for configuration diagnosis and execution monitoring.
 
-## Design Decisions
+
+## Artifact Decisions
 
 ### Number of Arguments
 
@@ -86,7 +97,8 @@ To avoid issues with generic data types not uniformly supported by all control m
 
 Five data types are defined (REAL, DINT, DWORD, BOOL, STRING) based on use case analysis. Additional types can be added but increase memory requirements.
 
-## Technical Details
+## Artifact Implementation Details
+
 
 ### Integration into Control Program
 
@@ -130,7 +142,9 @@ Similar to *ArgumentType*, *OutputType* can use various information sources or c
 
 *OutputType* provides substitute values defined by developers as safe fallbacks during calculation or configuration errors, preventing unexpected behavior.
 
-## Application
+
+## Artifact Application
+
 
 The *Configurable Logic* artifact requires integration into industrial control application programs, preferably as a dedicated function block implementing the input-processing-output structure.
 
@@ -143,3 +157,8 @@ Before execution, all relevant information from the native program must be trans
 ---
 
 *Note: Detailed descriptions and tables for each component are available in the referenced appendices of the original document.*
+
+## Artifact Pros/Cons
+
+
+

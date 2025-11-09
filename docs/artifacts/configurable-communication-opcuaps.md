@@ -15,19 +15,29 @@
 
 This section introduces the design pattern for configurable communication based on OPC UA Publish/Subscribe. Parts of this section are published in [SKB+22].
 
-<!-- The design pattern *Configurable Communication with OPC UA PS* enables dynamic configuration of OPC UA PS transmissions. It defines publishers and subscribers that serialize information according to the OPC UA specification and transmit it via UDP. Both unicast and multicast addresses are supported. Processing occurs entirely within the user program, with serialized data packets transmitted/received via operating system-integrated UDP communication mechanisms.
+
+
+
+
+
+
+## Artifact Description
+
+The design pattern *Configurable Communication with OPC UA PS* enables dynamic configuration of OPC UA PS transmissions. It defines publishers and subscribers that serialize information according to the OPC UA specification and transmit it via UDP. Both unicast and multicast addresses are supported. Processing occurs entirely within the user program, with serialized data packets transmitted/received via operating system-integrated UDP communication mechanisms.
 
 Publishers send data from the output list. Subscribers receive data and transfer it to the input list. Connectionless communication requires additional mechanisms to check and mark outdated information as unsafe, making communication problems detectable.
 
-This design pattern enables Communication Pattern Variant 2 from the analysis in Section [artefakt_kommunikation_analyse]. -->
+This design pattern enables Communication Pattern Variant 2 from the analysis in Section [artefakt_kommunikation_analyse].
 
-## Technological Framework
+## Artifact Technological Conditions
 
 In this implementation variant, serialization and deserialization occur directly in the control program. Serialized information is transmitted as native UDP telegrams. A standard library specification for OPC UA PS, analogous to OPC UA Client functions, does not exist. However, some control vendors provide building block libraries for publishers and subscribers that implement standard serialization.
 
 The number of transferable union values must be defined during engineering, considering maximum UDP connections that vary by manufacturer and control type. As a framework condition for dynamically configurable direct information transfers, exactly one UnionType is processed per dataset. Each publisher and subscriber can only process one group with one reader or writer and one dataset. Therefore, a dedicated publisher and subscriber is required for each piece of information to be exchanged.
 
-## Artifact Components
+
+## Artifact Building Blocks
+
 
 The design pattern consists of 12 definitions distributed across three figures:
 
@@ -82,7 +92,8 @@ Bundles configuration information for the OPC UA Subscriber.
 
 Bundles configuration information for a UDP endpoint.
 
-## Design Decisions
+
+## Artifact Decisions
 
 ### Introduction of Execution Control Components
 
@@ -96,7 +107,9 @@ For maximum flexibility in transporting arbitrary information, point-to-point tr
 
 OPC UA PS supports transmission via both UDP and MQTT. UDP is chosen as a connectionless protocol preferred when speed is more important than reliability, requiring no additional infrastructure unlike MQTT brokers.
 
-## Technical Details
+
+## Artifact Implementation Details
+
 
 ### Processing Integration
 
@@ -114,14 +127,17 @@ The OpcUaPubSubManager serves as single point of access for configuration and mo
 
 Uses push-case monitoring where timestamps are checked for each piece of information. If timestamps exceed defined timeframes, communication is considered disrupted. Monitoring results are entered in the input list with corresponding behavioral rules.
 
-## Application
+
+## Artifact Application
 
 ![Application Integration](./Abbildung_Kommunikation_PubSub_Anwendung.drawio.png)
 *Figure: Application of the OPC UA Pub/Sub-specific design pattern for implementing incoming and outgoing information following the active choreography participant design pattern*
 
 The pattern connects incoming and outgoing information between active choreography participants using OPC UA Publish/Subscribe mechanisms. Each participant is extended with publishing and subscribing capabilities. The output list of configurable logic is transmitted by publishers to subscribers, which capture network telegrams and forward received data to the logic's input list.
 
-## Advantages and Disadvantages
+This design pattern is suitable for choreography implementation when the described limitations (passive participant integration, security constraints) are not exclusion criteria. For use cases where these boundaries have no consequences, the OPC UA PS pattern can achieve efficient solutions with very low latency times.
+
+## Artifact Pros/Cons
 
 ### Advantages
 
@@ -136,6 +152,3 @@ The pattern connects incoming and outgoing information between active choreograp
 - Bidirectional configuration required
 - Not suitable for integrating passive choreography participants
 
-### Suitability
-
-This design pattern is suitable for choreography implementation when the described limitations (passive participant integration, security constraints) are not exclusion criteria. For use cases where these boundaries have no consequences, the OPC UA PS pattern can achieve efficient solutions with very low latency times.

@@ -14,10 +14,20 @@
 ## Relevant Publications
 
 
-<!-- 
-The abstract design pattern *Configurable Communication* establishes the foundations for information transfer between choreography participants. It is abstract because it defines general principles and building blocks that must be implemented in technology-specific patterns. The scope also includes an analysis of various communication patterns from which framework conditions for protocol-specific implementations are derived. For automation service choreographies, the technology used is secondary; what matters is adherence to the fundamental principles and building blocks described below. -->
 
-## Pattern Components
+
+
+
+
+## Artifact Description
+
+The abstract design pattern *Configurable Communication* establishes the foundations for information transfer between choreography participants. It is abstract because it defines general principles and building blocks that must be implemented in technology-specific patterns. The scope also includes an analysis of various communication patterns from which framework conditions for protocol-specific implementations are derived. For automation service choreographies, the technology used is secondary; what matters is adherence to the fundamental principles and building blocks described below. 
+
+## Artifact Technological Conditions
+
+
+## Artifact Building Blocks
+
 
 Depending on the communication principle (Push/Pull), one of the abstract base components shown in Figure 1 must be selected for the active communication partner side.
 
@@ -35,7 +45,8 @@ The abstract component *Configurable Communication (Pull)* describes an active c
 
 The abstract component *Configurable Communication (Push/Pull)* combines the functions of an active communication partner that can both retrieve information from other partners (Pull) and forward it to them (Push). It thus combines the capabilities of pure Push and Pull variants.
 
-## Design Decisions
+
+## Artifact Decisions
 
 ### Abstract Description of Communication
 
@@ -43,7 +54,8 @@ During the work, the diversity of design possibilities that can be applied for i
 
 For this reason, the decision was made to introduce an abstract design pattern that defines universally valid foundations necessary for the concrete implementation of communication technologies.
 
-## Technical Details
+## Artifact Implementation Details
+
 
 As technical details of the abstract design pattern, universally valid specifications and the results of an investigation of typical communication patterns are described. Both form the basis for adapting concrete communication technologies.
 
@@ -69,7 +81,6 @@ The specifications described below serve future developers as orientation and gu
 
 When transmitting information in an automation service choreography, various constellations regarding the active and passive sides of communication as well as Push and Pull principles must be considered. The five communication patterns shown below emerge from these criteria, each with different advantages and disadvantages. Each pattern is evaluated based on the criteria described in the evaluation criteria table.
 
-## Communication Pattern Variants
 
 | Pattern | Description |
 |---------|-------------|
@@ -88,6 +99,7 @@ When transmitting information in an automation service choreography, various con
 | **Implementation Effort** | Evaluates what efforts the control program developer faces for implementing necessary components. Ideally, efforts should always be minimal. |
 | **Configuration Effort** | Evaluates what efforts arise regarding configuration of the communication pattern. Ideally, efforts should always be minimal and preferably necessary only on the processing side. |
 | **Theoretical Latency** | Evaluates what theoretical latency underlies the communication pattern. This is formed based on a sum of processing times along the path of information transmission using a reference system. Ideally, latency should be as low as possible. |
+
 
 ## Evaluation Results
 
@@ -109,9 +121,13 @@ Based on the analysis and considering ideal properties, the following prioritiza
 4. **Variant 1** - Publish-Subscribe with Broker
 5. **Variant 5** - Passive Request-Reply
 
-## Pattern Application
+
+## Artifact Application
+
 
 The abstract design pattern serves primarily as a development guideline for developing technology-specific implementations of configurable communication. Following the investigation of communication patterns, possible communication technologies were researched and initially evaluated.
+
+
 
 ### Overview of Possible Communication Technologies
 
@@ -142,3 +158,9 @@ Since no commercial products exist for OPC UA FX in control systems, the analysi
 ### Selection of Communication Technologies to Consider
 
 Based on the described investigation and evaluation of communication patterns as well as available applicable technologies, the decision was made to develop technology-specific design patterns for OPC UA Client/Server, OPC UA Publish/Subscribe, and OPC UA FX for the continuation of this work.
+
+## Artifact Pros/Cons
+
+
+
+

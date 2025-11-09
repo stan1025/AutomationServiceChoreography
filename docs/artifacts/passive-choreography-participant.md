@@ -15,11 +15,18 @@
 
 
 
-## Description
+
+
+
+## Artifact Description
+
 
 The *Passive Choreography Participant* design pattern describes the conceptual building blocks for integrating non-choreography-capable legacy equipment into a choreography. This capability is of great importance for manufacturing companies in terms of investment protection. The integration of the passive participant is performed by the active participant. The active choreography participant serves as a decentralized orchestrator for the non-choreography-capable equipment and can be integrated into a choreography on behalf of the non-choreography-capable equipment.
 
-## Pattern Components
+## Artifact Technological Conditions
+
+
+## Artifact Building Blocks
 
 The *Passive Choreography Participant* design pattern consists of the actual passive participant and its control system, as well as an assigned active choreography participant, as shown in the figure below.
 
@@ -41,7 +48,9 @@ The configurable communication (upper blue area) provides the components for inc
 
 The configurable logic (green area) represents the component for configurable information processing. The configurable logic uses information from itself, from other active choreography participants, and from the passive choreography participant.
 
-## Design Decisions
+
+## Artifact Decisions
+
 
 ### Assumptions Regarding Legacy Equipment Interfaces
 
@@ -61,7 +70,8 @@ Two fundamental approaches exist for integrating legacy equipment:
 
 Dynamic integration is preferred for legacy equipment integration. The combination of decentralized orchestration with active choreography participant capabilities and the *Configurable Logic* design pattern allows flexible interface linking and adaptation to different legacy systems.
 
-## Technical Details
+## Artifact Implementation Details
+
 
 For integrating a passive choreography participant into a choreography, an active choreography participant becomes its decentralized orchestrator, incorporating its functions into the circle of other active choreography participants.
 
@@ -71,7 +81,9 @@ The active choreography participant requires additional communication functions,
 
 Communication failure between the orchestrating active choreography participant and its passive choreography participant leads to loss of controllability of the passive participant, requiring case-specific evaluation for exception handling.
 
-## Application Variants
+
+## Artifact Application
+
 
 Three execution variants are available for applying this design pattern:
 
@@ -101,3 +113,8 @@ The *Type-Specific Variant* corresponds to the *Standalone Variant* but forgoes 
 
 **Advantages:** Extended selection of communication technologies that become usable despite static implementation
 **Disadvantages:** Fixed to concrete legacy equipment, though flexibility toward choreography is retained
+
+## Artifact Pros/Cons
+
+
+

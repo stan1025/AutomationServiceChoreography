@@ -15,7 +15,19 @@
 
 This section introduces the design pattern of the active choreography participant. Contents of this section are published in [SFB+21], [SBM+22], [StMa21], [StMa22], and [Stu23].
 
-## Artifact Components
+
+
+
+
+
+
+## Artifact Description
+
+<!-- TODO: Add Artifact Description for Active Choreography Participant -->
+
+
+
+## Artifact Building Blocks
 
 The *Active Choreography Participant* design pattern consists of a sub-pattern for *configurable communication* and a sub-pattern for *configurable logic*, as well as the *native program*. The pattern is designed as a facade around the *native program* and can therefore be retrofitted into any existing program.
 
@@ -33,7 +45,8 @@ The *Configurable Logic* sub-pattern (green area in the figure) forms the progra
 
 The *Configurable Communication* sub-pattern (blue area in the figure) represents the program part used for configurable information exchange between choreography participants. It is allowed and advantageous to equip a control program with multiple different communication technologies. It is important that two participants each use the same technology to be interoperable.
 
-## Design Decisions
+
+## Artifact Decisions
 
 Two specific design decisions were made in the course of this design pattern:
 
@@ -45,7 +58,7 @@ Both an integral design and a modular design for implementing an active choreogr
 
 The retrofitability of choreography-enabling components in the software of an active choreography participant's controller is essential. Following the idea of a facade pattern from software development, the implementation concept was designed analogously. It enables retrofitability with minimal impact on the native program. The clear separation between native program parts and added configurable program parts reduces effort in future requalification.
 
-## Technical Details
+## Artifact Implementation Details
 
 The program part based on the *Configurable Logic* design pattern serves to process available information. Information made accessible to configurable logic is bundled and provided in the input, consisting of information from the native program and incoming information from configurable communication of other choreography participants.
 
@@ -58,3 +71,4 @@ The program part based on the *Configurable Communication* design pattern serves
 For choreography enablement of an industrial controller, the two described design patterns *Configurable Logic* and *Configurable Communication* must be embedded into the user program according to their description. The interconnection of the native control program and the input and output lists thus connects the functional components of the base program with the introduced choreography enhancements.
 
 The information models for configuring both *Configurable Logic* and *Configurable Communication* are to be disclosed through a defined communication interface. For this purpose, an OPC UA server integrated into the controller is suitable. An OPC UA client can transmit the configuration to the corresponding OPC UA server via disclosed information models.
+
