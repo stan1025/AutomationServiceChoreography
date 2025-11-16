@@ -6,7 +6,7 @@ This page lists all source code files of the exemplary TwinCAT implementation of
 
     The source code provided here is intended solely for illustration and to improve the comprehensibility of the mechanisms, concepts, and approaches described in the dissertation. It is explicitly not designed as production-ready or usable software library and should not be used in productive environments or safety-critical applications.  
 
-    For further details, please refer to the license: <a href="../../license.md" target="_blank">Link to license</a>
+    For further details, please refer to the license: [Link to License](./../../license.md)
 
 
 ## Active Choreography Participant - Implementation
