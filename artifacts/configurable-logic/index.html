@@ -1,0 +1,1833 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../external-lead/">
+      
+      
+        <link rel="next" href="../configurable-communication/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Configurable Logic - PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#artifact-configurable-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-header__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configurable Logic
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-nav__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PhD Thesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/design-science-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/research-hypothesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Hypothesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../publications/publications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Artifacts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research Artifacts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation-service-choreography-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Service Choreography Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../choreography-enabled-system-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choreographed System Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../active-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../passive-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Passive Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-lead/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Lead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Logic
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Configurable Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Configurable Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component - Configurable Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-uniontype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - UnionType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - DataTypes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-functiontype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - FunctionType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-argumenttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - ArgumentType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-functiontypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - FunctionTypes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-sourcetypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - SourceTypes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-outputtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - OutputType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-errorcodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - ErrorCodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#number-of-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Number of Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniontype-as-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnionType as Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-types-in-uniontype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable Types in UnionType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-into-control-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration into Control Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-component-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Component Execution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Internal Component Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chained-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chained Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argument-source-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argument Source Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-source-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Source Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#substitute-value-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Substitute Value Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication Abstract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuacs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA CS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA PS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuafx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA FX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/tia-portal/tia-portal-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMATIC TIA Portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/twincat/twincat-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BECKHOFF TwinCat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Configurable Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Configurable Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component - Configurable Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-uniontype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - UnionType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-datatypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - DataTypes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-functiontype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - FunctionType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-argumenttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - ArgumentType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-functiontypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - FunctionTypes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-sourcetypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - SourceTypes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type-outputtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type - OutputType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-errorcodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration - ErrorCodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#number-of-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Number of Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniontype-as-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnionType as Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-types-in-uniontype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable Types in UnionType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-into-control-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration into Control Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-component-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Component Execution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Internal Component Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chained-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chained Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argument-source-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argument Source Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-source-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Source Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#substitute-value-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Substitute Value Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    PhD Thesis
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../overview/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Research Artifacts
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Configurable Logic</h1>
+
+<h2 id="artifact-configurable-logic">Artifact - Configurable Logic</h2>
+<h3 id="artifact-factsheet">Artifact Factsheet</h3>
+<div class="admonition highlight">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fact Sheet</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Name</strong></td>
+<td style="text-align: left;">Configurable Logic</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Artifact Type</strong></td>
+<td style="text-align: left;">Design Pattern</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Target Users</strong></td>
+<td style="text-align: left;">Software Architects, PLC Programmers</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Objective</strong></td>
+<td style="text-align: left;">This artifact defines the models and functional features of configurable logic, a central element of an active choreography participant. It enables the execution of configurable behavioral rules that determine a participant's role within the choreography. The software structures and their interactions are described in detail.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="relevant-publications">Relevant Publications</h3>
+<p>The contents of this section have been published in [SFB+21<em>], [SBM+22</em>], [SFB+23<em>], [StMa21</em>], [StMa22<em>], and [Stu23</em>].</p>
+<h3 id="artifact-description">Artifact Description</h3>
+<p>The <em>Configurable Logic</em> design pattern follows an execution principle similar to a programmable logic controller (PLC). It has an input side that bundles information from the native program or provided by configurable communication. This information, along with known data within the configurable logic, is processed in a logic list with configurable function elements. The output side provides necessary information for influencing the native control program or transmission to external participants, utilizing all known information within the configurable logic (input list) and processing results (logic list).</p>
+<h3 id="artifact-building-blocks">Artifact Building Blocks</h3>
+<p>The <em>Configuralbe Logic</em> represents an implementation related design pattern which specifies the core of information processing and enables influence on native control programs and configurable behavior based on internal and external information.</p>
+<p><img alt="Components of Configurable Logic" src="../Abbildung_Logik_Bestandteile.drawio.png" /></p>
+<p>The <em>Configurable Logic</em> design pattern consists of one component, four data types, and four enumerations:</p>
+<h4 id="component-configurable-logic">Component - Configurable Logic</h4>
+<p>The <em>Configurable Logic</em> component implements configurable input-processing-output functionality. It uses a list of <em>Inputs</em>, <em>Logics</em> and <em>Outputs</em> to implement the input-processing-output pattern in a configurable manner.  </p>
+<h4 id="data-type-uniontype">Data Type - UnionType</h4>
+<p>The <em>UnionType</em> data type represents information with different data types, as the type of information is not yet determined at control program compilation time. Variables are defined for data types REAL, DINT, DWORD, BOOL, and STRING with prefix <em>V</em><em>. The </em>VQC<em> variable contains the Quality Code, and </em>TypeSel* indicates the currently valid data type.</p>
+<h4 id="enumeration-datatypes">Enumeration - DataTypes</h4>
+<p>The <em>DataType</em> enumeration defines the data type of <em>UnionType</em> within configurable logic, processed as byte constants.</p>
+<h4 id="data-type-functiontype">Data Type - FunctionType</h4>
+<p>The <em>FunctionType</em> represents a configurable function with uniform function signature. It defines the function and its result, where <em>Args</em> provides four input arguments. Results are provided via <em>Out</em> variable, and <em>RET</em> shows processing errors.</p>
+<h4 id="data-type-argumenttype">Data Type - ArgumentType</h4>
+<p>The <em>ArgumentType</em> describes information for a function argument. Fields <em>SrcSel</em> and <em>Index</em> function as pointer information to retrieve arguments from input, processing, or output lists. Through references to the processing list, <em>FunctionType</em> elements can be chained for complex expressions. The <em>Const</em> variable allows configuring arguments as constants.</p>
+<h4 id="enumeration-functiontypes">Enumeration - FunctionTypes</h4>
+<p>The <em>FunctionTypes</em> enumeration defines the function to be applied by a <em>FunctionType</em> signature, determining how four arguments are processed and mapped to the output variable.</p>
+<h4 id="enumeration-sourcetypes">Enumeration - SourceTypes</h4>
+<p>The <em>SourceTypes</em> enumeration defines the source location of information used as arguments in function signatures. Options include the three configurable logic lists (<em>Input</em>, <em>Logic</em>, <em>Output</em>), constants (<em>Const</em>), or unused arguments (<em>None</em>).</p>
+<h4 id="data-type-outputtype">Data Type - OutputType</h4>
+<p>The <em>OutputType</em> data type describes output information and incorporates multiple functions. The <code>SrcSel</code> and <code>Index</code> fields function as pointer information to determine the source of the output from the input, processing, or output lists, while the <code>Const</code> field allows for setting constant values. The <code>Value</code> field stores the value after an update. To prevent unwanted activations during errors, the <code>Substitute</code> field defines a replacement value, and the <code>Ret</code> field is used to report any processing errors.</p>
+<h4 id="enumeration-errorcodes">Enumeration - ErrorCodes</h4>
+<p>The <em>ErrorCodes</em> enumeration defines checked error cases and corresponding error codes for configuration diagnosis and execution monitoring.</p>
+<h3 id="artifact-decisions">Artifact Decisions</h3>
+<h4 id="number-of-arguments">Number of Arguments</h4>
+<p>The <em>FunctionType</em> uses four arguments based on analysis of necessary functions. This represents a compromise between flexibility and memory consumption.</p>
+<h4 id="uniontype-as-structure">UnionType as Structure</h4>
+<p>To avoid issues with generic data types not uniformly supported by all control manufacturers, the <em>UnionType</em> is introduced as a quasi-generic data type enabling better diagnostics at the cost of memory usage.</p>
+<h4 id="variable-types-in-uniontype">Variable Types in UnionType</h4>
+<p>Five data types are defined (REAL, DINT, DWORD, BOOL, STRING) based on use case analysis. Additional types can be added but increase memory requirements.</p>
+<h3 id="artifact-implementation-details">Artifact Implementation Details</h3>
+<h4 id="integration-into-control-program">Integration into Control Program</h4>
+<p>Configurable logic integrates as a function block into the processing phase of cyclic control systems following the input-processing-output principle. Relevant information must be transferred to the input list before execution, and results are provided via the output list after execution.</p>
+<h4 id="internal-component-execution">Internal Component Execution</h4>
+<p>The component operates with two sequential loops:</p>
+<h5 id="processing-loop">Processing Loop</h5>
+<p>Each logic list element is processed sequentially. Configured functions process up to four arguments, storing results in the Out variable.</p>
+<p><img alt="Processing Loop Example" src="../Abbildung_Logik_Verarbeitungsschleife.drawio.png" /></p>
+<h5 id="chained-processing">Chained Processing</h5>
+<p>Elements are processed in list order, enabling information chaining for complex expressions.</p>
+<p><img alt="Chained Processing Example" src="../Abbildung_Logik_Verarbeitungsschleife_Verkettung.drawio.png" /></p>
+<h5 id="argument-source-variations">Argument Source Variations</h5>
+<p>Arguments can reference elements from input, logic, or output lists, or use constants.</p>
+<p><img alt="Argument Reference Possibilities" src="../Abbildung_Logik_Argument_Referenzmoeglichkeiten.drawio.png" /></p>
+<h5 id="output-loop">Output Loop</h5>
+<p>The second loop processes output elements using configurable pointer information (<em>SrcSel</em> and <em>Index</em>).</p>
+<p><img alt="Output Loop Example" src="../Abbildung_Logik_Ausgabeschleife.drawio.png" /></p>
+<h5 id="output-source-variations">Output Source Variations</h5>
+<p>Similar to <em>ArgumentType</em>, <em>OutputType</em> can use various information sources or constants.</p>
+<p><img alt="Output Reference Possibilities" src="../Abbildung_Logik_Output_Referenzmoeglichkeiten.drawio.png" /></p>
+<h5 id="substitute-value-function">Substitute Value Function</h5>
+<p><em>OutputType</em> provides substitute values defined by developers as safe fallbacks during calculation or configuration errors, preventing unexpected behavior.</p>
+<h3 id="artifact-application">Artifact Application</h3>
+<p>The <em>Configurable Logic</em> artifact requires integration into industrial control application programs, preferably as a dedicated function block implementing the input-processing-output structure.</p>
+<p>Integration follows a cross-connection pattern between the native program and configurable logic:</p>
+<p><img alt="Cross-Connection Pattern" src="../Abbildung_Logik_Kreuzschaltung.drawio.png" /></p>
+<p>Before execution, all relevant information from the native program must be transferred to the configurable logic input list. After execution, output information is transferred back to the native program from the configurable logic output list.</p>
+<hr />
+<p><em>Note: Detailed descriptions and tables for each component are available in the referenced appendices of the original document.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.path"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

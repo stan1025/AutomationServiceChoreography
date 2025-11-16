@@ -1,0 +1,1648 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../automation-service-choreography-framework/">
+      
+      
+        <link rel="next" href="../active-choreography-participant/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Choreographed System Architecture - PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#artifact-choreography-enabled-system-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-header__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Choreographed System Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-nav__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PhD Thesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/design-science-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/research-hypothesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Hypothesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../publications/publications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Artifacts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research Artifacts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation-service-choreography-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Service Choreography Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choreographed System Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choreographed System Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-choreography-enabled-system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Choreography-enabled System Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Choreography-enabled System Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modular-plant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modular Plant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modular-units-pea-a-pea-g-and-modular-pea-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modular Units - PEA A, PEA G and Modular PEA X
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controllers-and-the-concept-of-choreography-participants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controllers and the Concept of Choreography Participants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-orchestration-layer-pol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process Orchestration Layer (POL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process Orchestration Layer (POL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation &amp; Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choreography-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choreography Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leader
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#focus-on-runtime-technical-aspects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Focus on Runtime Technical Aspects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combination-of-orchestration-and-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combination of Orchestration and Choreography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#four-choreography-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four Choreography Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../active-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../passive-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Passive Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-lead/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Lead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication Abstract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuacs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA CS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA PS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuafx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA FX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/tia-portal/tia-portal-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMATIC TIA Portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/twincat/twincat-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BECKHOFF TwinCat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-choreography-enabled-system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Choreography-enabled System Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Choreography-enabled System Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modular-plant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modular Plant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modular-units-pea-a-pea-g-and-modular-pea-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modular Units - PEA A, PEA G and Modular PEA X
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controllers-and-the-concept-of-choreography-participants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controllers and the Concept of Choreography Participants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-orchestration-layer-pol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process Orchestration Layer (POL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process Orchestration Layer (POL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation &amp; Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choreography-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choreography Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leader
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#focus-on-runtime-technical-aspects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Focus on Runtime Technical Aspects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combination-of-orchestration-and-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combination of Orchestration and Choreography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#four-choreography-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four Choreography Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    PhD Thesis
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../overview/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Research Artifacts
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Choreographed System Architecture</h1>
+
+<h2 id="artifact-choreography-enabled-system-architecture">Artifact - Choreography-enabled System Architecture</h2>
+<h3 id="artifact-factsheet">Artifact Factsheet</h3>
+<div class="admonition highlight">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fact Sheet</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Name</strong></td>
+<td style="text-align: left;">Choreography-enabled System Architecture</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Artifact Type</strong></td>
+<td style="text-align: left;">Design Pattern</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Target Users</strong></td>
+<td style="text-align: left;">System Architects</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Objective</strong></td>
+<td style="text-align: left;">This architecture pattern describes the application of automation service choreographies in the context of a modular plant and central orchestration. It provides insights into changes and influences through the use of choreographies in combination with central orchestration. Rigid equipment-oriented structures and boundaries blur due to composed functions that are formed across equipment boundaries. The transformation from current to future system architectures is presented using three figures. Current architectures are based exclusively on central orchestration. Future architectures use both central orchestration and choreographies for system automation. The purpose of the architecture pattern is to clarify the changes to future system architects and introduce the next level of detail of the concept.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="relevant-publications">Relevant Publications</h3>
+<p>This architectural pattern will be initially published in the PhD thesis, which is not yet publicly available.</p>
+<h3 id="artifact-description">Artifact Description</h3>
+<p>The architectural pattern of <em>Choreography-enabled System Architecture</em> introduces the resulting system architecture and shows the impact of choreographed automation services on service-based automation systems and their central orchestration in the Process Orchestration Layer.</p>
+<p><img alt="System Architecture Overview" src="../Systemarchitektur_Uebersicht.drawio.png" />
+<em>Figure 1: System architecture of a modular plant with a modular unit composed by choreography</em></p>
+<h3 id="artifact-building-blocks">Artifact Building Blocks</h3>
+<h4 id="modular-plant">Modular Plant</h4>
+<p>The <em>Modular Plant</em> represents the physical and software-based system that should be capable of manufacturing a product. It consists of the Process Orchestration Layer as well as several atomic and modular PEAs.</p>
+<h4 id="modular-units-pea-a-pea-g-and-modular-pea-x">Modular Units - PEA A, PEA G and Modular PEA X</h4>
+<p>The modular units <em>PEA A</em> and <em>PEA G</em> each describe a self-contained system that can provide services with automation functions of different granularity. Each PEA has at least one control system connected to the Process Orchestration Layer. Current PEAs are passive communication participants regarding their role in communication with the Process Orchestration Layer, hence existing systems are also called passive choreography participants. The active role of communication lies solely with the Process Orchestration Layer. This will need to change in the future for modular units in the context of choreographies.</p>
+<p>For the <em>modular PEA X</em>, this will partially change in the future. Towards the Process Orchestration Layer, the <em>modular PEA X</em> remains a passive communication participant. As active choreography participants, the FEAs and COMPs within the modular PEA X gain the ability to act as active communication participants. This requires FEAs and COMPs to have their own control systems that meet these requirements while being adapted in performance to their specific needs.</p>
+<h4 id="controllers-and-the-concept-of-choreography-participants">Controllers and the Concept of Choreography Participants</h4>
+<p>The <em>Controller</em> represents the program-executing component within a <em>PEA</em>. Typically, <em>PEAs</em> have exactly one control system on which services are implemented and provided. However, it cannot be excluded that modular units also have two or more control systems.</p>
+<p>An <em>active choreography participant</em> refers to a control system that has implemented the design patterns developed in this work. A <em>passive choreography participant</em> refers to a control system that has not implemented these design patterns.</p>
+<h4 id="services">Services</h4>
+<p>A <em>Service</em> describes the encapsulation of an automation function through state-based abstraction and parameterization. Services also have input and output process values that can be linked together for closed-loop control functions or interlocks.</p>
+<h4 id="process-orchestration-layer-pol">Process Orchestration Layer (POL)</h4>
+<p>The Process Orchestration Layer bundles the system functions necessary for operating the <em>Modular Plant</em>. Essential components include central <em>Orchestration</em>, <em>Operation &amp; Monitoring</em>, and <em>Choreography Configuration</em>. The latter is added through the introduction of choreography mechanisms for modular PEAs.</p>
+<h5 id="orchestration">Orchestration</h5>
+<p>The <em>Orchestration</em> enables coordination of services provided by the PEAs. Orchestration does not distinguish whether they are services of atomic or modular PEAs.</p>
+<h5 id="operation-monitoring">Operation &amp; Monitoring</h5>
+<p><em>Operation &amp; Monitoring</em> provides a simple and clear way to look into the current process. Process diagrams enable plant operators to monitor the status and progress of production and intervene when necessary.</p>
+<h5 id="choreography-configuration">Choreography Configuration</h5>
+<p>The newly introduced <em>Choreography Configuration</em> describes a Process Orchestration Layer system function with which choreographies can be designed and activated. Activation includes transferring the configuration and initiating execution of configurable logic and configurable communication.</p>
+<h4 id="leader">Leader</h4>
+<p>When designing an automation service choreography, one service must act as <em>Leader</em>, representing the single point of access of the choreographed function to the Process Orchestration Layer and communicating with higher-level systems through its interface.</p>
+<p>A service can assume the role of <em>Internal Lead</em> if its state matches that of the choreographed function. The other services act as followers. In cases where no single service can represent the entire function – such as in sequential processes – an <em>External Lead</em> is required.</p>
+<h3 id="artifact-decisions">Artifact Decisions</h3>
+<h4 id="focus-on-runtime-technical-aspects">Focus on Runtime Technical Aspects</h4>
+<p>System architectural investigations showed that neither an implementation nor an engineering approach for automation service choreographies existed previously. A solid engineering methodology requires clear definition of what content is captured and how it can be transferred into technical implementation.</p>
+<h4 id="combination-of-orchestration-and-choreography">Combination of Orchestration and Choreography</h4>
+<p>System architectural considerations raised the question of whether choreography should completely replace or supplement central orchestration. Comparison of both approaches shows that system complexity increases significantly with the number of services in choreographed systems.</p>
+<p>While technically feasible, complete replacement of orchestration by plant-wide choreography has practical limitations due to information processing complexity and lack of clarity without supporting engineering methodology.</p>
+<p>Therefore, this work limits choreography to combining FEAs and COMPs. Coordination of composite PEAs continues through central orchestration in the POL.</p>
+<h3 id="artifact-implementation-details">Artifact Implementation Details</h3>
+<p>The <em>composite PEA X</em> from Figure 1 can be implemented in various ways. Figure 2 shows a theoretical representation of all choreography patterns considered in this work, describing four patterns in total.</p>
+<p><img alt="Choreography Structure" src="../Systemarchitektur_Choreografie.drawio.png" />
+<em>Figure 2: Theoretical structure of a choreography of a composite modular unit with different occurring choreography patterns</em></p>
+<p><em>Solid lines</em> describe connections between two active (choreography) participants. <em>Dashed lines</em> describe connections between active and passive (choreography) participants. Transparent services have no significance for choreography configuration and remain available to central orchestration.</p>
+<h4 id="four-choreography-patterns">Four Choreography Patterns</h4>
+<p><strong>Pattern 1:</strong> Modular unit (<em>FEA B and E</em>) with one active choreography participant. This unit has a single control system capable of participating in choreography.</p>
+<p><strong>Pattern 2:</strong> Modular unit with multiple controls (<em>FEA C</em>). Both controls are choreography-capable and participate as <em>active participants C1 and C2</em>.</p>
+<p><strong>Pattern 3:</strong> Represented by <em>FEA D</em>. The unit has two controls (D1 and D2). One is choreography-capable (<em>active participant D1</em>), the other is not (<em>passive participant D2</em>). The <em>active participant D1</em> serves as decentralized orchestrator for the <em>passive participant D2</em>.</p>
+<p><strong>Pattern 4:</strong> Variation of Pattern 3 with participants distributed across two modular units (<em>FEA E and F</em>). Both units form a participant pair consisting of <em>active participant E</em> and <em>passive participant F</em>.</p>
+<p>The resulting system architecture from the POL perspective is shown in Figure 3:</p>
+<p><img alt="Result Architecture" src="../Systemarchitektur_Resultat.drawio.png" />
+<em>Figure 3: System architecture resulting from choreography usage and automation services available for orchestration</em></p>
+<h3 id="artifact-application">Artifact Application</h3>
+<p>Using automation service choreographies within a modular plant leads to blurring system boundaries of modular units (PEAs, FEAs, and COMPs). The design pattern introduces an implicitly existing system level below the POL, serving to form composite functions through distributed behavioral rules and configurable communication.</p>
+<p>The blackbox of <em>composite PEA X</em> from Figure 1 is merged with various FEAs from Figure 2, resulting in the modular plant shown in Figure 3 with seven physical PEAs and one non-physically existing PEA formed through choreography.</p>
+<p><em>Services A1, A2, B1, B2, D11, E2, F1, G1, G2</em> are available to central <em>Orchestration</em>. Focus is on <em>Service B1</em>, which acts as <em>Leader Service</em> representing the choreography. <em>Follower Services C11, C12, C21, C22, D12, D21, D22, E1, and F2</em> are part of the choreography and not available to central <em>Orchestration</em>.</p>
+<p>This type of choreographed composite PEA formation can be performed multiple times. There are exactly as many <em>Leader Services</em> as there are configured choreographies in the system.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.path"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2018 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../tia-portal/tia-portal-overview/">
+      
+      
+        <link rel="next" href="../../../license/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>BECKHOFF TwinCat - PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#twincat-implementation-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-header__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BECKHOFF TwinCat
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-nav__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PhD Thesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodology/design-science-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodology/research-hypothesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Hypothesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../context/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/publications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Artifacts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research Artifacts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/automation-service-choreography-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Service Choreography Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/choreography-enabled-system-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choreographed System Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/active-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/passive-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Passive Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/external-lead/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Lead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication Abstract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication-opcuacs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA CS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication-opcuaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA PS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication-opcuafx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA FX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tia-portal/tia-portal-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMATIC TIA Portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BECKHOFF TwinCat
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BECKHOFF TwinCat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#twincat-implementation-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TwinCAT Implementation Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TwinCAT Implementation Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-choreography-participant-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Choreography Participant - Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Active Choreography Participant - Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurable-communication-opc-ua-clientserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Communication (OPC UA Client/Server)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Communication (OPC UA Client/Server)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-arithmetic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Arithmetic Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-logical-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Logical Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-comparison-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Comparison Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-control-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Control Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-data-types-and-enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Data Types and Enumerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-components-and-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base Components and Utilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#twincat-implementation-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TwinCAT Implementation Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TwinCAT Implementation Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-choreography-participant-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Choreography Participant - Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Active Choreography Participant - Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurable-communication-opc-ua-clientserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Communication (OPC UA Client/Server)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Communication (OPC UA Client/Server)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-arithmetic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Arithmetic Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-logical-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Logical Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-comparison-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Comparison Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-control-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Control Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-data-types-and-enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Data Types and Enumerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-components-and-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base Components and Utilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    PhD Thesis
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../tia-portal/tia-portal-overview/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Implementations
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>BECKHOFF TwinCat</h1>
+
+<h2 id="twincat-implementation-overview">TwinCAT Implementation Overview</h2>
+<p>This page lists all source code files of the exemplary TwinCAT implementation of the Automation Service Choreography Framework.</p>
+<div class="admonition danger">
+<p class="admonition-title">Disclaimer</p>
+<p>The source code provided here is intended solely for illustration and to improve the comprehensibility of the mechanisms, concepts, and approaches described in the dissertation. It is explicitly not designed as production-ready or usable software library and should not be used in productive environments or safety-critical applications.  </p>
+<p>For further details, please refer to the license: <a href="../../../license/">Link to License</a></p>
+</div>
+<h3 id="active-choreography-participant-implementation">Active Choreography Participant - Implementation</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_ParticipantManager</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/ASCF_ParticipantManager.TcPOU" target="_blank">View</a></td>
+<td>Core participant manager for choreography coordination</td>
+</tr>
+<tr>
+<td>MTPChoreographyParticipantManager</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/MTPChoreographyParticipantManager.TcDUT" target="_blank">View</a></td>
+<td>MTP-specific choreography participant data structure</td>
+</tr>
+</tbody>
+</table>
+<h4 id="configurable-communication-opc-ua-clientserver">Configurable Communication (OPC UA Client/Server)</h4>
+<h5 id="main-function-blocks">Main Function Blocks</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_OpcUaClientServerManager</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/ASCF_OpcUaClientServerManager.TcPOU" target="_blank">View</a></td>
+<td>OPC UA client-server communication manager</td>
+</tr>
+<tr>
+<td>MTPOpcUaClientServerManager</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/MTPOpcUaClientServerManager.TcDUT" target="_blank">View</a></td>
+<td>MTP OPC UA client-server data structure</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation">Internal Implementation</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionConfig</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionConfig.TcDUT" target="_blank">View</a></td>
+<td>OPC UA connection configuration</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionHandle</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionHandle.TcDUT" target="_blank">View</a></td>
+<td>OPC UA connection handle</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionInterface</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionInterface.TcDUT" target="_blank">View</a></td>
+<td>OPC UA connection interface</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Connections</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Connections.TcPOU" target="_blank">View</a></td>
+<td>OPC UA connections manager</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionStatus</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionStatus.TcDUT" target="_blank">View</a></td>
+<td>OPC UA connection status</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Constants</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Constants.TcDUT" target="_blank">View</a></td>
+<td>OPC UA constants</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_EnumConnectionHandleStates</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_EnumConnectionHandleStates.TcDUT" target="_blank">View</a></td>
+<td>Connection handle state enumeration</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_EnumErrors</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_EnumErrors.TcDUT" target="_blank">View</a></td>
+<td>OPC UA error enumeration</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_QuerySchedule</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_QuerySchedule.TcPOU" target="_blank">View</a></td>
+<td>Query schedule function</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader.TcPOU" target="_blank">View</a></td>
+<td>OPC UA reader function</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ReaderConfig</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderConfig.TcDUT" target="_blank">View</a></td>
+<td>Reader configuration</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ReaderStatus</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderStatus.TcDUT" target="_blank">View</a></td>
+<td>Reader status</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Interface</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Interface.TcDUT" target="_blank">View</a></td>
+<td>Reader interface</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Internals</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Internals.TcDUT" target="_blank">View</a></td>
+<td>Reader internal data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Temp</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp.TcDUT" target="_blank">View</a></td>
+<td>Reader temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Temp_Bool</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Bool.TcDUT" target="_blank">View</a></td>
+<td>Boolean reader temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Temp_Dint</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Dint.TcDUT" target="_blank">View</a></td>
+<td>Double integer reader temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Temp_Dword</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Dword.TcDUT" target="_blank">View</a></td>
+<td>Double word reader temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Temp_Real</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_Real.TcDUT" target="_blank">View</a></td>
+<td>Real reader temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader_Temp_String</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Reader_Temp_String.TcDUT" target="_blank">View</a></td>
+<td>String reader temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleAlgorithmType1</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType1.TcPOU" target="_blank">View</a></td>
+<td>Schedule algorithm type 1</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleAlgorithmType2</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleAlgorithmType2.TcPOU" target="_blank">View</a></td>
+<td>Schedule algorithm type 2</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleData</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleData.TcDUT" target="_blank">View</a></td>
+<td>Schedule data structure</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleDataType1</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType1.TcDUT" target="_blank">View</a></td>
+<td>Schedule data type 1</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleDataType2</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType2.TcDUT" target="_blank">View</a></td>
+<td>Schedule data type 2</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Scheduler</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Scheduler.TcPOU" target="_blank">View</a></td>
+<td>OPC UA scheduler</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer.TcPOU" target="_blank">View</a></td>
+<td>OPC UA writer function</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_WriterConfig</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_WriterConfig.TcDUT" target="_blank">View</a></td>
+<td>Writer configuration</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_WriterStatus</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_WriterStatus.TcDUT" target="_blank">View</a></td>
+<td>Writer status</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Interface</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Interface.TcDUT" target="_blank">View</a></td>
+<td>Writer interface</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Internals</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Internals.TcDUT" target="_blank">View</a></td>
+<td>Writer internal data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Temp</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp.TcDUT" target="_blank">View</a></td>
+<td>Writer temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Temp_Bool</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Bool.TcDUT" target="_blank">View</a></td>
+<td>Boolean writer temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Temp_Dint</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Dint.TcDUT" target="_blank">View</a></td>
+<td>Double integer writer temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Temp_Dword</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Dword.TcDUT" target="_blank">View</a></td>
+<td>Double word writer temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Temp_Real</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_Real.TcDUT" target="_blank">View</a></td>
+<td>Real writer temporary data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer_Temp_String</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Communication/ASCF_CC_OPCUACS_Writer_Temp_String.TcDUT" target="_blank">View</a></td>
+<td>String writer temporary data</td>
+</tr>
+</tbody>
+</table>
+<h4 id="configurable-logic">Configurable Logic</h4>
+<h5 id="main-function-blocks_1">Main Function Blocks</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_ConfigurableLogic</td>
+<td><a href="./https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_ConfigurableLogic.TcPOU" target="_blank">View</a></td>
+<td>Main configurable logic manager</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-arithmetic-operations">Internal Implementation - Arithmetic Operations</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_10_ADD</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_10_ADD.TcPOU" target="_blank">View</a></td>
+<td>Addition operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_11_SUB</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_11_SUB.TcPOU" target="_blank">View</a></td>
+<td>Subtraction operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_12_MUL</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_12_MUL.TcPOU" target="_blank">View</a></td>
+<td>Multiplication operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_13_DIV</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_13_DIV.TcPOU" target="_blank">View</a></td>
+<td>Division operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_14_MOD</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_14_MOD.TcPOU" target="_blank">View</a></td>
+<td>Modulo operation</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-logical-operations">Internal Implementation - Logical Operations</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_30_NOT</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_30_NOT.TcPOU" target="_blank">View</a></td>
+<td>Logical NOT operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_31_AND</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_31_AND.TcPOU" target="_blank">View</a></td>
+<td>Logical AND operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_32_OR</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_32_OR.TcPOU" target="_blank">View</a></td>
+<td>Logical OR operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_33_NAND</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_33_NAND.TcPOU" target="_blank">View</a></td>
+<td>Logical NAND operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_34_NOR</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_34_NOR.TcPOU" target="_blank">View</a></td>
+<td>Logical NOR operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_35_XOR</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_35_XOR.TcPOU" target="_blank">View</a></td>
+<td>Logical XOR operation</td>
+</tr>
+<tr>
+<td>ASCF_CL_36_XNOR</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_36_XNOR.TcPOU" target="_blank">View</a></td>
+<td>Logical XNOR operation</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-comparison-operations">Internal Implementation - Comparison Operations</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_37_FE</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_37_FE.TcPOU" target="_blank">View</a></td>
+<td>Falling edge detection</td>
+</tr>
+<tr>
+<td>ASCF_CL_38_RE</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_38_RE.TcPOU" target="_blank">View</a></td>
+<td>Rising edge detection</td>
+</tr>
+<tr>
+<td>ASCF_CL_50_EE</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_50_EE.TcPOU" target="_blank">View</a></td>
+<td>Equal comparison</td>
+</tr>
+<tr>
+<td>ASCF_CL_51_NE</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_51_NE.TcPOU" target="_blank">View</a></td>
+<td>Not equal comparison</td>
+</tr>
+<tr>
+<td>ASCF_CL_52_GT</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_52_GT.TcPOU" target="_blank">View</a></td>
+<td>Greater than comparison</td>
+</tr>
+<tr>
+<td>ASCF_CL_53_GTE</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_53_GTE.TcPOU" target="_blank">View</a></td>
+<td>Greater than or equal comparison</td>
+</tr>
+<tr>
+<td>ASCF_CL_54_LT</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_54_LT.TcPOU" target="_blank">View</a></td>
+<td>Less than comparison</td>
+</tr>
+<tr>
+<td>ASCF_CL_55_LTE</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_55_LTE.TcPOU" target="_blank">View</a></td>
+<td>Less than or equal comparison</td>
+</tr>
+<tr>
+<td>ASCF_CL_56_EE_BIT</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_56_EE_BIT.TcPOU" target="_blank">View</a></td>
+<td>Bitwise equal comparison</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-control-structures">Internal Implementation - Control Structures</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_100_IF1</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_100_IF1.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF1</td>
+</tr>
+<tr>
+<td>ASCF_CL_101_IF2</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_101_IF2.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF2</td>
+</tr>
+<tr>
+<td>ASCF_CL_102_IF3</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_102_IF3.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF3</td>
+</tr>
+<tr>
+<td>ASCF_CL_103_IF4</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_103_IF4.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF4</td>
+</tr>
+<tr>
+<td>ASCF_CL_104_IF5</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_104_IF5.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF5</td>
+</tr>
+<tr>
+<td>ASCF_CL_105_IF6</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_105_IF6.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF6</td>
+</tr>
+<tr>
+<td>ASCF_CL_106_IF7</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_106_IF7.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF7</td>
+</tr>
+<tr>
+<td>ASCF_CL_107_IF8</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_107_IF8.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF8</td>
+</tr>
+<tr>
+<td>ASCF_CL_108_IF9</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_108_IF9.TcPOU" target="_blank">View</a></td>
+<td>Conditional logic function IF9</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-data-types-and-enumerations">Internal Implementation - Data Types and Enumerations</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_ArgumentType</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_ArgumentType.TcDUT" target="_blank">View</a></td>
+<td>Argument type definition</td>
+</tr>
+<tr>
+<td>ASCF_CL_EnumErrors</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_EnumErrors.TcDUT" target="_blank">View</a></td>
+<td>Configurable logic error enumeration</td>
+</tr>
+<tr>
+<td>ASCF_CL_EnumFunctionTypes</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_EnumFunctionTypes.TcDUT" target="_blank">View</a></td>
+<td>Function type enumeration</td>
+</tr>
+<tr>
+<td>ASCF_CL_EnumSourceTypes</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_EnumSourceTypes.TcDUT" target="_blank">View</a></td>
+<td>Source type enumeration</td>
+</tr>
+<tr>
+<td>ASCF_CL_FunctionType</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_FunctionType.TcDUT" target="_blank">View</a></td>
+<td>Function type definition</td>
+</tr>
+<tr>
+<td>ASCF_CL_FunctionTypeConfig</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_FunctionTypeConfig.TcDUT" target="_blank">View</a></td>
+<td>Function type configuration</td>
+</tr>
+<tr>
+<td>ASCF_CL_OutputType</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_OutputType.TcDUT" target="_blank">View</a></td>
+<td>Output type definition</td>
+</tr>
+<tr>
+<td>ASCF_CL_OutputTypeConfig</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Configurable%20Logic/ASCF_CL_OutputTypeConfig.TcDUT" target="_blank">View</a></td>
+<td>Output type configuration</td>
+</tr>
+</tbody>
+</table>
+<h4 id="base-components-and-utilities">Base Components and Utilities</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CalcWQC</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_CalcWQC.TcPOU" target="_blank">View</a></td>
+<td>Quality code calculation function</td>
+</tr>
+<tr>
+<td>ASCF_EnumErrors</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_EnumErrors.TcDUT" target="_blank">View</a></td>
+<td>Error code enumeration</td>
+</tr>
+<tr>
+<td>ASCF_EnumUnionTypes</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_EnumUnionTypes.TcDUT" target="_blank">View</a></td>
+<td>Union type enumeration</td>
+</tr>
+<tr>
+<td>ASCF_GetValueOutputList</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_GetValueOutputList.TcPOU" target="_blank">View</a></td>
+<td>Generic value output list retrieval</td>
+</tr>
+<tr>
+<td>ASCF_GetVBoolOutputList</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_GetVBoolOutputList.TcPOU" target="_blank">View</a></td>
+<td>Boolean value output list retrieval</td>
+</tr>
+<tr>
+<td>ASCF_GetVDIntOutputList</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_GetVDIntOutputList.TcPOU" target="_blank">View</a></td>
+<td>Double integer value output list retrieval</td>
+</tr>
+<tr>
+<td>ASCF_GetVDWordOutputList</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_GetVDWordOutputList.TcPOU" target="_blank">View</a></td>
+<td>Double word value output list retrieval</td>
+</tr>
+<tr>
+<td>ASCF_GetVRealOutputList</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_GetVRealOutputList.TcPOU" target="_blank">View</a></td>
+<td>Real value output list retrieval</td>
+</tr>
+<tr>
+<td>ASCF_GetVStringOutputList</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_GetVStringOutputList.TcPOU" target="_blank">View</a></td>
+<td>String value output list retrieval</td>
+</tr>
+<tr>
+<td>ASCF_QualityCodes</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_QualityCodes.TcDUT" target="_blank">View</a></td>
+<td>Quality code definitions</td>
+</tr>
+<tr>
+<td>ASCF_State_Internals</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_State_Internals.TcDUT" target="_blank">View</a></td>
+<td>Internal state data structure</td>
+</tr>
+<tr>
+<td>ASCF_UnionType</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_UnionType.TcDUT" target="_blank">View</a></td>
+<td>Union type data structure</td>
+</tr>
+<tr>
+<td>ASCF_WriteValue</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Base/ASCF_WriteValue.TcPOU" target="_blank">View</a></td>
+<td>Value writing function</td>
+</tr>
+<tr>
+<td>CreateDTL</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Utils/CreateDTL.TcPOU" target="_blank">View</a></td>
+<td>Date and time creation utility</td>
+</tr>
+<tr>
+<td>DeltaDTL</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Utils/DeltaDTL.TcPOU" target="_blank">View</a></td>
+<td>Date and time delta calculation</td>
+</tr>
+<tr>
+<td>DTL</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Utils/DTL.TcDUT" target="_blank">View</a></td>
+<td>Date and time data structure</td>
+</tr>
+<tr>
+<td>DTL_to_TIME</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Utils/DTL_to_TIME.TcPOU" target="_blank">View</a></td>
+<td>Date-time to time conversion</td>
+</tr>
+<tr>
+<td>SYS_TIME_Store_DTL</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TwinCAT/Utils/SYS_TIME_Store_DTL.TcPOU" target="_blank">View</a></td>
+<td>System time storage utility</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.path"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

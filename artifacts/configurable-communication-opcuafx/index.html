@@ -1,0 +1,1581 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../configurable-communication-opcuaps/">
+      
+      
+        <link rel="next" href="../../implementations/tia-portal/tia-portal-overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Configurable Communication OPC UA FX - PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#artifact-configurable-communication-with-opc-ua-fx" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-header__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configurable Communication OPC UA FX
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-nav__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PhD Thesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/design-science-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/research-hypothesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Hypothesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../publications/publications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Artifacts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research Artifacts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation-service-choreography-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Service Choreography Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../choreography-enabled-system-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choreographed System Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../active-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../passive-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Passive Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-lead/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Lead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication Abstract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuacs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA CS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA PS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA FX
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA FX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-configurable-communication-with-opc-ua-fx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Configurable Communication with OPC UA FX
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Configurable Communication with OPC UA FX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-technological-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Technological Conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcuafxmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpcUaFxManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fxinputentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FxInputEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fxoutputentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FxOutputEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#participantcomponenttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParticipantComponentType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#participantfunctionalentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParticipantFunctionalEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unioninputfunctionalentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnionInputFunctionalEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unionoutputfunctionalentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnionOutputFunctionalEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirror-data-types-for-opc-ua-fx-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mirror Data Types for OPC UA FX Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-proscons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Pros/Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/tia-portal/tia-portal-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMATIC TIA Portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/twincat/twincat-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BECKHOFF TwinCat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-configurable-communication-with-opc-ua-fx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Configurable Communication with OPC UA FX
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Configurable Communication with OPC UA FX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-technological-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Technological Conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcuafxmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpcUaFxManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fxinputentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FxInputEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fxoutputentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FxOutputEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#participantcomponenttype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParticipantComponentType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#participantfunctionalentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParticipantFunctionalEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unioninputfunctionalentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnionInputFunctionalEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unionoutputfunctionalentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnionOutputFunctionalEntityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirror-data-types-for-opc-ua-fx-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mirror Data Types for OPC UA FX Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-proscons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Pros/Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    PhD Thesis
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../overview/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Research Artifacts
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Configurable Communication OPC UA FX</h1>
+
+<h2 id="artifact-configurable-communication-with-opc-ua-fx">Artifact - Configurable Communication with OPC UA FX</h2>
+<h3 id="artifact-factsheet">Artifact Factsheet</h3>
+<div class="admonition highlight">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fact Sheet</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Name</strong></td>
+<td style="text-align: left;">Configurable Communication with OPC UA Field eXchange (FX)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Artifact Type</strong></td>
+<td style="text-align: left;">Design Pattern</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Target Users</strong></td>
+<td style="text-align: left;">Software Architects, PLC Programmers</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Objective</strong></td>
+<td style="text-align: left;">This design pattern defines, in accordance with the OPC UA FX specification, the necessary information models and corresponding mirror data types for integration into control programs. OPC UA FX already describes a standard mechanism for direct information exchange between controllers. The pattern defines necessary components and describes their application.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="relevant-publications">Relevant Publications</h3>
+<p>Content partially published in [SBB+23] and based on OPC UA Specification 10000-8X [OPC10000-80].</p>
+<h3 id="artifact-description">Artifact Description</h3>
+<p>The design pattern <em>Configurable Communication with OPC UA FX</em> defines the necessary components for applying OPC UA FX in Controller-to-Controller (C2C) execution. The uniqueness of this design pattern lies in the fact that OPC UA FX C2C is already specified for the use case pursued with the concrete design patterns of configurable communication.</p>
+<p>The OPC UA FX specification describes how connections between two endpoints are to be configured. The information must be described in a defined form, requiring data types for the control program and associated OPC UA models to be defined.</p>
+<p>This design pattern enables Communication Pattern Variant 2, as currently only OPC UA Publish/Subscribe is specified for OPC UA FX. In the future, application for OPC UA Client/Server is also expected, which would also support variants 3 and 4.</p>
+<h3 id="artifact-technological-conditions">Artifact Technological Conditions</h3>
+<p>Unlike OPC UA Publish/Subscribe and OPC UA Client/Server, OPC UA FX does not require explicit logic for communication in the user program. It is implemented as a firmware function in the controller. The <em>FunctionalEntityTypes</em> and the necessary <em>AutomationComponentType</em> for configuration are created via the information model provided by the OPC UA Server.</p>
+<p>Corresponding preparations are required for linking between the control program and information model, which are described in this design pattern. The components themselves create the data types that correspond to the FunctionalEntityTypes and make them available. The standardization of these constructs is crucial for the vendor neutrality of automation service choreographies and enables integration into the Connection Manager.</p>
+<h3 id="artifact-building-blocks">Artifact Building Blocks</h3>
+<p>The design pattern comprises nine definitions that enable equipping an active choreography participant with communication functions according to the OPC UA FX standard.</p>
+<p><img alt="Pattern Components and Data Types" src="../Abbildung_Kommunikation_FX_Implementation.drawio.png" />
+<em>Figure: Components and data types of the OPC UA Field Exchange specific design pattern for configurable communication</em></p>
+<p><img alt="Information Models" src="../Abbildung_Kommunikation_FX_ChoreographyTypes.drawio.png" />
+<em>Figure: Pattern-specific information models for using OPC UA FX in automation service choreographies</em></p>
+<h4 id="opcuafxmanager">OpcUaFxManager</h4>
+<p>The core component that links the proxy data types for FunctionalEntityTypes with the input elements of the configurable logic.</p>
+<h4 id="fxinputentitytype">FxInputEntityType</h4>
+<p>Contains the associated information element for incoming OPC UA FX information on the control program side. The <em>Index</em> specifies which input element the associated FxInput element is transferred to.</p>
+<h4 id="fxoutputentitytype">FxOutputEntityType</h4>
+<p>Contains the associated information element for outgoing OPC UA FX information on the control program side. The <em>Index</em> specifies from which output element the value for the associated FxOutput element should be taken.</p>
+<h4 id="participantcomponenttype">ParticipantComponentType</h4>
+<p>A subtype of AutomationComponentType that represents the root element of a choreography participant relevant in an OPC UA FX relation.</p>
+<h4 id="participantfunctionalentitytype">ParticipantFunctionalEntityType</h4>
+<p>A subtype of FunctionalEntityType that represents the top functional element of a choreography participant.</p>
+<h4 id="unioninputfunctionalentitytype">UnionInputFunctionalEntityType</h4>
+<p>A subtype of FunctionalEntityType that represents the functional element of an input element. It has a folder object with Organizes relations to variables of the FxInput data type originating from the control program.</p>
+<h4 id="unionoutputfunctionalentitytype">UnionOutputFunctionalEntityType</h4>
+<p>A subtype of FunctionalEntityType that represents the functional element of an output element. It has a folder object with Organizes relations to variables of the FxOutput data type originating from the control program.</p>
+<h3 id="artifact-decisions">Artifact Decisions</h3>
+<h4 id="mirror-data-types-for-opc-ua-fx-models">Mirror Data Types for OPC UA FX Models</h4>
+<p>The linking of OPC UA information models and controller application programs is implemented through mapping. To make this mapping as simple as possible, mirror data types are specified for the application program that correspond to the information models defined in OPC UA FX. This makes future mapping easier for both developers and tool-supported mapping.</p>
+<h3 id="artifact-implementation-details">Artifact Implementation Details</h3>
+<p>The central aspect of the design pattern is the division of components in the control program and the definitions of the OPC UA FX information model. In the control program, the data types FxInputEntityType and FxOutputEntityType represent mirror definitions to the OPC UA FX definitions FxInputEntityData and FxOutputEntityData.</p>
+<p>Communication execution occurs via the system functions of the OPC UA FX firmware. Each FxInputEntityType and FxOutputEntityType has index information that addresses the corresponding element of the input or output list.</p>
+<h3 id="artifact-application">Artifact Application</h3>
+<p><img alt="Application Example" src="../Abbildung_Kommunikation_FX_Anwendung.drawio.png" />
+<em>Figure: Application of the OPC UA FX-specific design pattern for implementing incoming and outgoing information following the active choreography participant design pattern</em></p>
+<p>The design pattern serves to connect incoming and outgoing information between active choreography participants based on OPC UA FX. When OPC UA FX functionality is integrated into the control system firmware, an active choreography participant can be equipped with OPC UA FX mechanisms using the extensions of basic models and mirror definitions described here.</p>
+<h3 id="artifact-proscons">Artifact Pros/Cons</h3>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Enables extensive integration of C2C communication in industrial control systems</li>
+<li>Significantly reduces effort in the application program</li>
+<li>Standardized mechanism for direct controller-to-controller communication</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li><strong>Novelty risks</strong>: No commercial applications currently exist, and the specification is relatively new</li>
+<li>Specification changes and limitations in productive use are likely</li>
+<li>Connection preparation is necessary for OPC UA FX connections</li>
+<li>Not suitable for integrating existing systems due to preparation requirements</li>
+<li>Actual benefits can only be definitively evaluated with available commercial implementations</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.path"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1831 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../configurable-logic/">
+      
+      
+        <link rel="next" href="../configurable-communication-opcuacs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Configurable Communication Abstract - PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#artifact-configurable-communication" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-header__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configurable Communication Abstract
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-nav__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PhD Thesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/design-science-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methodology/research-hypothesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Hypothesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../publications/publications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Artifacts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research Artifacts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation-service-choreography-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Service Choreography Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../choreography-enabled-system-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choreographed System Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../active-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../passive-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Passive Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-lead/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Lead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication Abstract
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication Abstract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-configurable-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Configurable Communication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Configurable Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstract-component-configurable-communication-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Component - Configurable Communication (Push)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstract-component-configurable-communication-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Component - Configurable Communication (Pull)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstract-component-configurable-communication-pushpull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Component - Configurable Communication (Push/Pull)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstract-description-of-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Description of Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#specifications-for-configurable-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specifications for Configurable Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investigation-of-typical-communication-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Investigation of Typical Communication Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-prioritization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern Prioritization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-possible-communication-technologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview of Possible Communication Technologies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opc-ua-clientserver-cs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Client/Server (CS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opc-ua-publishsubscribe-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Publish/Subscribe (PS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opc-ua-field-exchange-fx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Field Exchange (FX)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-of-communication-technologies-to-consider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection of Communication Technologies to Consider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuacs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA CS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA PS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurable-communication-opcuafx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA FX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/tia-portal/tia-portal-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMATIC TIA Portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementations/twincat/twincat-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BECKHOFF TwinCat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-configurable-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact - Configurable Communication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact - Configurable Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifact-factsheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Factsheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relevant-publications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Publications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstract-component-configurable-communication-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Component - Configurable Communication (Push)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstract-component-configurable-communication-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Component - Configurable Communication (Pull)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstract-component-configurable-communication-pushpull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Component - Configurable Communication (Push/Pull)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstract-description-of-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Description of Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#specifications-for-configurable-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specifications for Configurable Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investigation-of-typical-communication-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Investigation of Typical Communication Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-prioritization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern Prioritization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Application
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-possible-communication-technologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview of Possible Communication Technologies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opc-ua-clientserver-cs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Client/Server (CS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opc-ua-publishsubscribe-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Publish/Subscribe (PS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opc-ua-field-exchange-fx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Field Exchange (FX)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-of-communication-technologies-to-consider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection of Communication Technologies to Consider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    PhD Thesis
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../overview/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Research Artifacts
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Configurable Communication Abstract</h1>
+
+<h2 id="artifact-configurable-communication">Artifact - Configurable Communication</h2>
+<h3 id="artifact-factsheet">Artifact Factsheet</h3>
+<div class="admonition highlight">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fact Sheet</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Name</strong></td>
+<td style="text-align: left;">Configurable Communication</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Artifact Type</strong></td>
+<td style="text-align: left;">Abstract Design Pattern</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Target Users</strong></td>
+<td style="text-align: left;">Software Architects, PLC Programmers</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Objective</strong></td>
+<td style="text-align: left;">This design pattern defines fundamental properties and requirements for concrete communication technologies to be implemented. Automation service choreographies with multiple participants require information exchange that is dynamically configurable. The underlying technology is secondary; therefore, this pattern describes requirements and basic considerations for configurable communication.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="relevant-publications">Relevant Publications</h3>
+<p>Content of the abstract design pattern is partially already published within [SKB+22*].</p>
+<h3 id="artifact-description">Artifact Description</h3>
+<p>The abstract design pattern <em>Configurable Communication</em> establishes the foundations for information transfer between choreography participants. It is abstract because it defines general principles and building blocks that must be implemented in technology-specific patterns. The scope also includes an analysis of various communication patterns from which framework conditions for protocol-specific implementations are derived. For automation service choreographies, the technology used is secondary; what matters is adherence to the fundamental principles and building blocks described below. </p>
+<h3 id="artifact-building-blocks">Artifact Building Blocks</h3>
+<p>Depending on the communication principle (Push/Pull), one of the abstract base components shown in Figure 1 must be selected for the active communication partner side.</p>
+<p><img alt="Figure 1: Abstract Base Components depending on Communication Pattern - Push (left), Pull (center), Push/Pull (right)" src="../Abbildung_Kommunikation_AbstraktesMuster.drawio.png" /></p>
+<h4 id="abstract-component-configurable-communication-push">Abstract Component - Configurable Communication (Push)</h4>
+<p>The abstract component <em>Configurable Communication (Push)</em> describes an active communication partner that transmits information from the output list to a defined communication partner. Following this principle, communication partners actively send data from their information inventory. The output list and the associated union value of configurable communication are used. Therefore, the component consists exclusively of a list of output types.</p>
+<h4 id="abstract-component-configurable-communication-pull">Abstract Component - Configurable Communication (Pull)</h4>
+<p>The abstract component <em>Configurable Communication (Pull)</em> describes an active communication partner that specifically retrieves information from another partner (Pull) and transfers it to the input list as a union value according to the specified index. The active communication partner has access to all information from the input list of the other partner, provided it has been configured accordingly. Therefore, this component comprises exclusively a list of input types.</p>
+<h4 id="abstract-component-configurable-communication-pushpull">Abstract Component - Configurable Communication (Push/Pull)</h4>
+<p>The abstract component <em>Configurable Communication (Push/Pull)</em> combines the functions of an active communication partner that can both retrieve information from other partners (Pull) and forward it to them (Push). It thus combines the capabilities of pure Push and Pull variants.</p>
+<h3 id="artifact-decisions">Artifact Decisions</h3>
+<h4 id="abstract-description-of-communication">Abstract Description of Communication</h4>
+<p>During the work, the diversity of design possibilities that can be applied for implementing controller-to-controller communication becomes apparent. Describing every possibility is not conducive for a scientific work on transferring choreography principles to industrial automation. This step corresponds more to a developmental rather than a scientific question. Nevertheless, a developer needs certain framework conditions and guidelines for transferring a concrete communication technology to be able to use the communication technology in the context of automation service choreographies.</p>
+<p>For this reason, the decision was made to introduce an abstract design pattern that defines universally valid foundations necessary for the concrete implementation of communication technologies.</p>
+<h3 id="artifact-implementation-details">Artifact Implementation Details</h3>
+<p>As technical details of the abstract design pattern, universally valid specifications and the results of an investigation of typical communication patterns are described. Both form the basis for adapting concrete communication technologies.</p>
+<h4 id="specifications-for-configurable-communication">Specifications for Configurable Communication</h4>
+<p>The specifications described below serve future developers as orientation and guidelines for implementing concrete communication technologies. They emerged during a retrospective of three technology-specific design patterns and form an initial set of experience characteristics that can be used for future technology-specific implementations. At the same time, this means that this list does not claim to be complete - it is an initial collection of experiences from developing three technology-specific design patterns.</p>
+<p><strong>Specification 1</strong>: Requires that at least one communication technology is provided for an active choreography participant. The possibilities of the control platform and the suitability of the technology must be considered. It is also possible to integrate multiple communication technologies within one participant.</p>
+<p><strong>Specification 2</strong>: Demands the exchange of information between active choreography participants. Depending on the communication technology, this exchange occurs either in Push or Pull mode, with one partner taking the active role and the other the passive role. With the Pull principle, values are entered in the input list, while with the Push principle, information comes from the output list.</p>
+<p><strong>Specification 3</strong>: Considers the limitations of IEC 61131-based control systems and requires that the developer of a choreography-capable control program already determines the number of transferable union values during engineering. The required connection and transmission resources must be prepared at the time of compiling and loading the program.</p>
+<p><strong>Specification 4</strong>: Requires indexing of internal and external information in the input and output lists. Each entry must be identifiable by a unique index. Every union value exchanged via a protocol-specific implementation must be assigned to a defined element of the input or output list.</p>
+<p><strong>Specification 5</strong>: Requires that the transmission of each union value is configurable according to protocol specifications. This configurability ensures that active choreography participants can be linked together after compiling and loading the control program.</p>
+<p><strong>Specification 6</strong>: Requires provision of diagnostic information for each value to be exchanged. Additionally, it is recommended to provide collective error information at a central component.</p>
+<p><strong>Specification 7</strong>: Requires provision of statistical information with the number of union values available for exchange and the number of currently active transmissions of union values. Additional protocol-specific statistical information can be provided as needed.</p>
+<h4 id="investigation-of-typical-communication-patterns">Investigation of Typical Communication Patterns</h4>
+<p>When transmitting information in an automation service choreography, various constellations regarding the active and passive sides of communication as well as Push and Pull principles must be considered. The five communication patterns shown below emerge from these criteria, each with different advantages and disadvantages. Each pattern is evaluated based on the criteria described in the evaluation criteria table.</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Variant 1" src="../Abbildung_Kommunikation_Analyse_1.drawio.png" /></td>
+<td><strong>Variant 1: Publish-Subscribe with Broker</strong> - Describes communication between participants using a Publish-Subscribe pattern, where telegrams are routed through a central broker.</td>
+</tr>
+<tr>
+<td><img alt="Variant 2" src="../Abbildung_Kommunikation_Analyse_2.drawio.png" /></td>
+<td><strong>Variant 2: Publish-Subscribe without Broker</strong> - Describes direct communication between participants using a Publish-Subscribe pattern.</td>
+</tr>
+<tr>
+<td><img alt="Variant 3" src="../Abbildung_Kommunikation_Analyse_3.drawio.png" /></td>
+<td><strong>Variant 3: Request-Reply as Active Writing (Push)</strong> - Describes communication between choreography participants through exclusively writing activities.</td>
+</tr>
+<tr>
+<td><img alt="Variant 4" src="../Abbildung_Kommunikation_Analyse_4.drawio.png" /></td>
+<td><strong>Variant 4: Request-Reply as Active Reading (Pull)</strong> - Describes communication between choreography participants through exclusively reading activities.</td>
+</tr>
+<tr>
+<td><img alt="Variant 5" src="../Abbildung_Kommunikation_Analyse_5.drawio.png" /></td>
+<td><strong>Variant 5: Passive Request-Reply</strong> - Describes communication through the application of a third entity that can actively read and write, with participants being passive communication partners.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evaluation-criteria">Evaluation Criteria</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Criterion</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Active Role</strong></td>
+<td>Evaluates whether the active role of transmission lies on the information processing side. This is particularly advantageous for monitoring when the information-processing side also provides the active side of communication.</td>
+</tr>
+<tr>
+<td><strong>Monitorability</strong></td>
+<td>Evaluates what monitoring possibilities are available on which side of the transmission. Ideally, monitoring mechanisms exist on the side processing the transmitted information.</td>
+</tr>
+<tr>
+<td><strong>Implementation Effort</strong></td>
+<td>Evaluates what efforts the control program developer faces for implementing necessary components. Ideally, efforts should always be minimal.</td>
+</tr>
+<tr>
+<td><strong>Configuration Effort</strong></td>
+<td>Evaluates what efforts arise regarding configuration of the communication pattern. Ideally, efforts should always be minimal and preferably necessary only on the processing side.</td>
+</tr>
+<tr>
+<td><strong>Theoretical Latency</strong></td>
+<td>Evaluates what theoretical latency underlies the communication pattern. This is formed based on a sum of processing times along the path of information transmission using a reference system. Ideally, latency should be as low as possible.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evaluation-results">Evaluation Results</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Criterion</strong></th>
+<th><strong>Preferred Pattern</strong></th>
+<th><strong>Justification</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Active Role</strong></td>
+<td>Variant 4</td>
+<td>Variant 4 with active reading represents the only variant where the active role of transmission lies on the information processing side.</td>
+</tr>
+<tr>
+<td><strong>Monitorability</strong></td>
+<td>Variant 4</td>
+<td>Variant 4 has a direct possibility to monitor transmission and react directly to errors in information processing due to the active role on the processing side and Request-Reply interaction.</td>
+</tr>
+<tr>
+<td><strong>Implementation Effort</strong></td>
+<td>None</td>
+<td>Fully integrated operating system solutions are expected to cause the least effort. Partially integrated solutions combining operating system and user program integration require less effort than fully user-programmed solutions, which cause the greatest development effort.</td>
+</tr>
+<tr>
+<td><strong>Configuration Effort</strong></td>
+<td>None</td>
+<td>It is recommended to choose a technology that only needs to be configured on the active communication partner side.</td>
+</tr>
+<tr>
+<td><strong>Theoretical Latency</strong></td>
+<td>Variant 2</td>
+<td>Variant 2 has the smallest expected latency.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pattern-prioritization">Pattern Prioritization</h4>
+<p>Based on the analysis and considering ideal properties, the following prioritization of variants emerges (from most suitable to least suitable):</p>
+<ol>
+<li><strong>Variant 4</strong> - Request-Reply with Active Reading</li>
+<li><strong>Variant 3</strong> - Request-Reply with Active Writing</li>
+<li><strong>Variant 2</strong> - Publish-Subscribe without Broker</li>
+<li><strong>Variant 1</strong> - Publish-Subscribe with Broker</li>
+<li><strong>Variant 5</strong> - Passive Request-Reply</li>
+</ol>
+<h3 id="artifact-application">Artifact Application</h3>
+<p>The abstract design pattern serves primarily as a development guideline for developing technology-specific implementations of configurable communication. Following the investigation of communication patterns, possible communication technologies were researched and initially evaluated.</p>
+<h4 id="overview-of-possible-communication-technologies">Overview of Possible Communication Technologies</h4>
+<p>The following technologies were identified as potential candidates for the five possible communication patterns:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Communication Pattern</strong></th>
+<th><strong>Technologies</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Publish-Subscribe with Broker</strong></td>
+<td>MQTT, OPC UA Pub/Sub with MQTT, OPC UA FX (with Pub/Sub)</td>
+</tr>
+<tr>
+<td><strong>Publish-Subscribe without Broker</strong></td>
+<td>DDS, OPC UA Pub/Sub with UDP, OPC UA FX (with Pub/Sub)</td>
+</tr>
+<tr>
+<td><strong>Request-Reply as Active Writing (Push)</strong></td>
+<td>REST, OPC UA Client/Server, OPC UA FX (with Client/Server)</td>
+</tr>
+<tr>
+<td><strong>Request-Reply as Active Reading (Pull)</strong></td>
+<td>REST, OPC UA Client/Server, OPC UA FX (with Client/Server)</td>
+</tr>
+<tr>
+<td><strong>Passive Request-Reply</strong></td>
+<td>REST, OPC UA Client/Server</td>
+</tr>
+</tbody>
+</table>
+<p>Due to the widespread use of OPC UA mechanisms in industrial controls, the technology-specific criteria for the three variants OPC UA Client/Server, OPC UA Publish/Subscribe, and OPC UA FX are evaluated below.</p>
+<h4 id="opc-ua-clientserver-cs">OPC UA Client/Server (CS)</h4>
+<p>Configuration effort is minimal with OPC UA Client/Server since only the OPC UA Client needs to be configured. However, when using security mechanisms, bilateral efforts arise through certificate exchange. Implementation effort for developers is also low since no efforts arise on the OPC UA Server side, and the OPC UA Client is usually simplified through building block libraries such as the PLC Open OPC UA Client specification.</p>
+<h4 id="opc-ua-publishsubscribe-ps">OPC UA Publish/Subscribe (PS)</h4>
+<p>With OPC UA Publish/Subscribe, configurations are required on both Publisher and Subscriber sides since UDP addresses and OPC UA-specific settings are necessary. Implementation-wise, efforts arise on both sides since UDP is usually only operating system-integrated and communication is implemented in function blocks in the user program.</p>
+<h4 id="opc-ua-field-exchange-fx">OPC UA Field Exchange (FX)</h4>
+<p>Since no commercial products exist for OPC UA FX in control systems, the analysis is based on prototypical developments. At the time of this work, only the application for OPC UA Publish/Subscribe was specified. Configuration effort is required on both sides, but the OPC UA FX Orchestrator handles the configuration. Implementation effort is currently difficult to quantify since prototypes do not allow representative evaluation.</p>
+<h4 id="selection-of-communication-technologies-to-consider">Selection of Communication Technologies to Consider</h4>
+<p>Based on the described investigation and evaluation of communication patterns as well as available applicable technologies, the decision was made to develop technology-specific design patterns for OPC UA Client/Server, OPC UA Publish/Subscribe, and OPC UA FX for the continuation of this work.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.path"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

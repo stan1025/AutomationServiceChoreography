@@ -1,0 +1,1942 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../artifacts/configurable-communication-opcuafx/">
+      
+      
+        <link rel="next" href="../../twincat/twincat-overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>SIMATIC TIA Portal - PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tia-portal-implementation-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-header__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SIMATIC TIA Portal
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" class="md-nav__button md-logo" aria-label="PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z"/></svg>
+
+    </a>
+    PhD Thesis - Exploration and Application of Choreography Principles in Industrial Automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PhD Thesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodology/design-science-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodology/research-hypothesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Hypothesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../context/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/publications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research Artifacts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research Artifacts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/automation-service-choreography-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Service Choreography Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/choreography-enabled-system-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choreographed System Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/active-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/passive-choreography-participant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Passive Choreography Participant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/external-lead/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External Lead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication Abstract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication-opcuacs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA CS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication-opcuaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA PS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../artifacts/configurable-communication-opcuafx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable Communication OPC UA FX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMATIC TIA Portal
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMATIC TIA Portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tia-portal-implementation-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TIA Portal Implementation Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TIA Portal Implementation Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-code-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source Code Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Source Code Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurable-communication-opc-ua-clientserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Communication (OPC UA Client/Server)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Communication (OPC UA Client/Server)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-arithmetic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Arithmetic Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-logical-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Logical Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-comparison-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Comparison Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-control-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Control Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-data-types-and-enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Data Types and Enumerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-leader-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Leader Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-components-and-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base Components and Utilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../twincat/twincat-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BECKHOFF TwinCat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tia-portal-implementation-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TIA Portal Implementation Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TIA Portal Implementation Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-code-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source Code Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Source Code Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurable-communication-opc-ua-clientserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Communication (OPC UA Client/Server)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Communication (OPC UA Client/Server)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurable Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-function-blocks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Function Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-arithmetic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Arithmetic Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-logical-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Logical Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-comparison-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Comparison Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-control-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Control Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-implementation-data-types-and-enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Implementation - Data Types and Enumerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-leader-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Leader Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-components-and-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base Components and Utilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    PhD Thesis
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Implementations
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>SIMATIC TIA Portal</h1>
+
+<h2 id="tia-portal-implementation-overview">TIA Portal Implementation Overview</h2>
+<p>This page lists all source code files of the exemplary TIA Portal implementation of the Automation Service Choreography Framework.</p>
+<div class="admonition danger">
+<p class="admonition-title">Disclaimer</p>
+<p>The source code provided here is intended solely for illustration and to improve the comprehensibility of the mechanisms, concepts, and approaches described in the dissertation. It is explicitly not designed as production-ready or usable software library and should not be used in productive environments or safety-critical applications.  </p>
+<p>For further details, please refer to the license: <a href="../../../license/">Link to License</a></p>
+</div>
+<h3 id="source-code-files">Source Code Files</h3>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_ParticipantManager.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_ParticipantManager.scl" target="_blank">View</a></td>
+<td>Base manager for choreography participants</td>
+</tr>
+<tr>
+<td>MTPChoreographyParticipantManager.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/MTPChoreographyParticipantManager.scl" target="_blank">View</a></td>
+<td>MTP-based choreography participant manager</td>
+</tr>
+</tbody>
+</table>
+<h4 id="configurable-communication-opc-ua-clientserver">Configurable Communication (OPC UA Client/Server)</h4>
+<h5 id="main-function-blocks">Main Function Blocks</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_OpcUaClientServerManager.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/ASCF_OpcUaClientServerManager.scl" target="_blank">View</a></td>
+<td>OPC UA Client/Server communication manager</td>
+</tr>
+<tr>
+<td>MTPOpcUaClientServerManager.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/MTPOpcUaClientServerManager.scl" target="_blank">View</a></td>
+<td>MTP OPC UA communication manager</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation">Internal Implementation</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_ASCF_CC_OPCUACS_EnumConnectionHandleStates.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/_ASCF_CC_OPCUACS_EnumConnectionHandleStates.scl" target="_blank">View</a></td>
+<td>Enumeration for connection handle states</td>
+</tr>
+<tr>
+<td>_ASCF_CC_OPCUACS_ScheduleAlgorithmType1.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/_ASCF_CC_OPCUACS_ScheduleAlgorithmType1.scl" target="_blank">View</a></td>
+<td>Scheduling algorithm type 1</td>
+</tr>
+<tr>
+<td>_ASCF_CC_OPCUACS_ScheduleAlgorithmType2.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/_ASCF_CC_OPCUACS_ScheduleAlgorithmType2.scl" target="_blank">View</a></td>
+<td>Scheduling algorithm type 2</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionConfig.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionConfig.scl" target="_blank">View</a></td>
+<td>Connection configuration for OPC UA</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionHandle.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionHandle.scl" target="_blank">View</a></td>
+<td>Connection handle for OPC UA</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionInterface.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionInterface.scl" target="_blank">View</a></td>
+<td>Connection interface</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Connections.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_Connections.scl" target="_blank">View</a></td>
+<td>Connection management</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Connections_clean.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_Connections_clean.scl" target="_blank">View</a></td>
+<td>Clean connection implementation</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ConnectionStatus.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ConnectionStatus.scl" target="_blank">View</a></td>
+<td>Connection status</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Constants.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_Constants.scl" target="_blank">View</a></td>
+<td>Constants for OPC UA communication</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_EnumErrors.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_EnumErrors.scl" target="_blank">View</a></td>
+<td>Error codes for OPC UA</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_QuerySchedule.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_QuerySchedule.scl" target="_blank">View</a></td>
+<td>Schedule query functionality</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Reader.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_Reader.scl" target="_blank">View</a></td>
+<td>OPC UA reader functionality</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ReaderConfig.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderConfig.scl" target="_blank">View</a></td>
+<td>Reader configuration</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ReaderStatus.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ReaderStatus.scl" target="_blank">View</a></td>
+<td>Reader status</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleData.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleData.scl" target="_blank">View</a></td>
+<td>Schedule data</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleDataType1.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType1.scl" target="_blank">View</a></td>
+<td>Schedule data type 1</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_ScheduleDataType2.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_ScheduleDataType2.scl" target="_blank">View</a></td>
+<td>Schedule data type 2</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Scheduler.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_Scheduler.scl" target="_blank">View</a></td>
+<td>Communication scheduler</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_Writer.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_Writer.scl" target="_blank">View</a></td>
+<td>OPC UA writer functionality</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_WriterConfig.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_WriterConfig.scl" target="_blank">View</a></td>
+<td>Writer configuration</td>
+</tr>
+<tr>
+<td>ASCF_CC_OPCUACS_WriterStatus.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Communication/ASCF_CC_OPCUACS_WriterStatus.scl" target="_blank">View</a></td>
+<td>Writer status</td>
+</tr>
+</tbody>
+</table>
+<h4 id="configurable-logic">Configurable Logic</h4>
+<h5 id="main-function-blocks_1">Main Function Blocks</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_ConfigurableLogic.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/ASCF_ConfigurableLogic.scl" target="_blank">View</a></td>
+<td>Main function block for configurable logic functions</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-arithmetic-operations">Internal Implementation - Arithmetic Operations</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_10_ADD.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_10_ADD.scl" target="_blank">View</a></td>
+<td>Addition</td>
+</tr>
+<tr>
+<td>ASCF_CL_11_SUB.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_11_SUB.scl" target="_blank">View</a></td>
+<td>Subtraction</td>
+</tr>
+<tr>
+<td>ASCF_CL_12_MUL.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_12_MUL.scl" target="_blank">View</a></td>
+<td>Multiplication</td>
+</tr>
+<tr>
+<td>ASCF_CL_13_DIV.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_13_DIV.scl" target="_blank">View</a></td>
+<td>Division</td>
+</tr>
+<tr>
+<td>ASCF_CL_14_MOD.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_14_MOD.scl" target="_blank">View</a></td>
+<td>Modulo</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-logical-operations">Internal Implementation - Logical Operations</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_30_NOT.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_30_NOT.scl" target="_blank">View</a></td>
+<td>Logical NOT</td>
+</tr>
+<tr>
+<td>ASCF_CL_31_AND.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_31_AND.scl" target="_blank">View</a></td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>ASCF_CL_32_OR.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_32_OR.scl" target="_blank">View</a></td>
+<td>Logical OR</td>
+</tr>
+<tr>
+<td>ASCF_CL_33_NAND.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_33_NAND.scl" target="_blank">View</a></td>
+<td>Logical NAND</td>
+</tr>
+<tr>
+<td>ASCF_CL_34_NOR.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_34_NOR.scl" target="_blank">View</a></td>
+<td>Logical NOR</td>
+</tr>
+<tr>
+<td>ASCF_CL_35_XOR.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_35_XOR.scl" target="_blank">View</a></td>
+<td>Logical XOR</td>
+</tr>
+<tr>
+<td>ASCF_CL_36_XNOR.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_36_XNOR.scl" target="_blank">View</a></td>
+<td>Logical XNOR</td>
+</tr>
+<tr>
+<td>ASCF_CL_37_FE.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_37_FE.scl" target="_blank">View</a></td>
+<td>Falling edge</td>
+</tr>
+<tr>
+<td>ASCF_CL_38_RE.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_38_RE.scl" target="_blank">View</a></td>
+<td>Rising edge</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-comparison-operations">Internal Implementation - Comparison Operations</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_50_EE.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_50_EE.scl" target="_blank">View</a></td>
+<td>Equality</td>
+</tr>
+<tr>
+<td>ASCF_CL_51_NE.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_51_NE.scl" target="_blank">View</a></td>
+<td>Not equal</td>
+</tr>
+<tr>
+<td>ASCF_CL_52_GT.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_52_GT.scl" target="_blank">View</a></td>
+<td>Greater than</td>
+</tr>
+<tr>
+<td>ASCF_CL_53_GTE.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_53_GTE.scl" target="_blank">View</a></td>
+<td>Greater than or equal</td>
+</tr>
+<tr>
+<td>ASCF_CL_54_LT.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_54_LT.scl" target="_blank">View</a></td>
+<td>Less than</td>
+</tr>
+<tr>
+<td>ASCF_CL_55_LTE.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_55_LTE.scl" target="_blank">View</a></td>
+<td>Less than or equal</td>
+</tr>
+<tr>
+<td>ASCF_CL_56_EE_BIT.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_56_EE_BIT.scl" target="_blank">View</a></td>
+<td>Bit equality</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-control-structures">Internal Implementation - Control Structures</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_100_IF1.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_100_IF1.scl" target="_blank">View</a></td>
+<td>IF condition type 1</td>
+</tr>
+<tr>
+<td>ASCF_CL_101_IF2.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_101_IF2.scl" target="_blank">View</a></td>
+<td>IF condition type 2</td>
+</tr>
+<tr>
+<td>ASCF_CL_102_IF3.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_102_IF3.scl" target="_blank">View</a></td>
+<td>IF condition type 3</td>
+</tr>
+<tr>
+<td>ASCF_CL_103_IF4.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_103_IF4.scl" target="_blank">View</a></td>
+<td>IF condition type 4</td>
+</tr>
+<tr>
+<td>ASCF_CL_104_IF5.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_104_IF5.scl" target="_blank">View</a></td>
+<td>IF condition type 5</td>
+</tr>
+<tr>
+<td>ASCF_CL_105_IF6.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_105_IF6.scl" target="_blank">View</a></td>
+<td>IF condition type 6</td>
+</tr>
+<tr>
+<td>ASCF_CL_106_IF7.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_106_IF7.scl" target="_blank">View</a></td>
+<td>IF condition type 7</td>
+</tr>
+<tr>
+<td>ASCF_CL_107_IF8.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_107_IF8.scl" target="_blank">View</a></td>
+<td>IF condition type 8</td>
+</tr>
+<tr>
+<td>ASCF_CL_108_IF9.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_108_IF9.scl" target="_blank">View</a></td>
+<td>IF condition type 9</td>
+</tr>
+</tbody>
+</table>
+<h5 id="internal-implementation-data-types-and-enumerations">Internal Implementation - Data Types and Enumerations</h5>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CL_ArgumentType.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_ArgumentType.scl" target="_blank">View</a></td>
+<td>Argument type definition</td>
+</tr>
+<tr>
+<td>ASCF_CL_EnumErrors.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_EnumErrors.scl" target="_blank">View</a></td>
+<td>Error codes for configurable logic</td>
+</tr>
+<tr>
+<td>ASCF_CL_EnumFunctionTypes.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_EnumFunctionTypes.scl" target="_blank">View</a></td>
+<td>Function type enumeration</td>
+</tr>
+<tr>
+<td>ASCF_CL_EnumSourceTypes.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_EnumSourceTypes.scl" target="_blank">View</a></td>
+<td>Source type enumeration</td>
+</tr>
+<tr>
+<td>ASCF_CL_FunctionType.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_FunctionType.scl" target="_blank">View</a></td>
+<td>Function type definition</td>
+</tr>
+<tr>
+<td>ASCF_CL_FunctionTypeConfig.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_FunctionTypeConfig.scl" target="_blank">View</a></td>
+<td>Function type configuration</td>
+</tr>
+<tr>
+<td>ASCF_CL_OutputType.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Configurable%20Logic/ASCF_CL_OutputType.scl" target="_blank">View</a></td>
+<td>Output type definition</td>
+</tr>
+</tbody>
+</table>
+<h4 id="external-leader-implementation">External Leader Implementation</h4>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_ExternalLeader.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/ASCF_ExternalLeader.scl" target="_blank">View</a></td>
+<td>External leadership logic for choreography participants</td>
+</tr>
+</tbody>
+</table>
+<h4 id="base-components-and-utilities">Base Components and Utilities</h4>
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCF_CalcWQC.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_CalcWQC.scl" target="_blank">View</a></td>
+<td>Calculation of value quality codes</td>
+</tr>
+<tr>
+<td>ASCF_EnumUnionTypes.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_EnumUnionTypes.scl" target="_blank">View</a></td>
+<td>Enumeration types for union data structures</td>
+</tr>
+<tr>
+<td>ASCF_GetValueOutputList.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_GetValueOutputList.scl" target="_blank">View</a></td>
+<td>Helper function for value output lists</td>
+</tr>
+<tr>
+<td>ASCF_GetVBoolOutputList.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_GetVBoolOutputList.scl" target="_blank">View</a></td>
+<td>Extract boolean values from output lists</td>
+</tr>
+<tr>
+<td>ASCF_GetVDIntOutputList.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_GetVDIntOutputList.scl" target="_blank">View</a></td>
+<td>Extract DInt values from output lists</td>
+</tr>
+<tr>
+<td>ASCF_GetVDWordOutputList.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_GetVDWordOutputList.scl" target="_blank">View</a></td>
+<td>Extract DWord values from output lists</td>
+</tr>
+<tr>
+<td>ASCF_GetVRealOutputList.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_GetVRealOutputList.scl" target="_blank">View</a></td>
+<td>Extract Real values from output lists</td>
+</tr>
+<tr>
+<td>ASCF_GetVStringOutputList.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_GetVStringOutputList.scl" target="_blank">View</a></td>
+<td>Extract String values from output lists</td>
+</tr>
+<tr>
+<td>ASCF_QualityCodes.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_QualityCodes.scl" target="_blank">View</a></td>
+<td>Quality code definitions</td>
+</tr>
+<tr>
+<td>ASCF_UnionType.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_UnionType.scl" target="_blank">View</a></td>
+<td>Union data type for various value types</td>
+</tr>
+<tr>
+<td>ASCF_WriteValue.scl</td>
+<td><a href="https://github.com/stan1025/AutomationServiceChoreography/tree/master/TIA-Portal/Base/ASCF_WriteValue.scl" target="_blank">View</a></td>
+<td>Helper function for writing values</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.path"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
