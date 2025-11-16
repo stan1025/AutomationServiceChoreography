@@ -1,6 +1,6 @@
 # Artifact - Configurable Communication with OPC UA FX
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -13,12 +13,7 @@
 
 ## Relevant Publications
 
-
 Content partially published in [SBB+23] and based on OPC UA Specification 10000-8X [OPC10000-80].
-
-
-
-
 
 ## Artifact Description
 
@@ -30,49 +25,47 @@ This design pattern enables Communication Pattern Variant 2, as currently only O
 
 ## Artifact Technological Conditions
 
-
 Unlike OPC UA Publish/Subscribe and OPC UA Client/Server, OPC UA FX does not require explicit logic for communication in the user program. It is implemented as a firmware function in the controller. The *FunctionalEntityTypes* and the necessary *AutomationComponentType* for configuration are created via the information model provided by the OPC UA Server.
 
 Corresponding preparations are required for linking between the control program and information model, which are described in this design pattern. The components themselves create the data types that correspond to the FunctionalEntityTypes and make them available. The standardization of these constructs is crucial for the vendor neutrality of automation service choreographies and enables integration into the Connection Manager.
 
 ## Artifact Building Blocks
 
-
-![Pattern Components and Data Types](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_Kommunikation_FieldExchange/Abbildung_Kommunikation_FX_Implementation.drawio.png)
-*Figure: Components and data types of the OPC UA Field Exchange specific design pattern for configurable communication*
-
-![Information Models](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_Kommunikation_FieldExchange/Abbildung_Kommunikation_FX_ChoreographyTypes.drawio.png)
-*Figure: Pattern-specific information models for using OPC UA FX in automation service choreographies*
-
 The design pattern comprises nine definitions that enable equipping an active choreography participant with communication functions according to the OPC UA FX standard.
 
-### Key Components
 
-#### Component - OpcUaFxManager
+![Pattern Components and Data Types](./Abbildung_Kommunikation_FX_Implementation.drawio.png)
+*Figure: Components and data types of the OPC UA Field Exchange specific design pattern for configurable communication*
+
+![Information Models](./Abbildung_Kommunikation_FX_ChoreographyTypes.drawio.png)
+*Figure: Pattern-specific information models for using OPC UA FX in automation service choreographies*
+
+
+### OpcUaFxManager
 
 The core component that links the proxy data types for FunctionalEntityTypes with the input elements of the configurable logic.
 
-#### Data Type - FxInputEntityType
+### FxInputEntityType
 
 Contains the associated information element for incoming OPC UA FX information on the control program side. The *Index* specifies which input element the associated FxInput element is transferred to.
 
-#### Data Type - FxOutputEntityType
+### FxOutputEntityType
 
 Contains the associated information element for outgoing OPC UA FX information on the control program side. The *Index* specifies from which output element the value for the associated FxOutput element should be taken.
 
-#### Subtype Definition - ParticipantComponentType
+### ParticipantComponentType
 
 A subtype of AutomationComponentType that represents the root element of a choreography participant relevant in an OPC UA FX relation.
 
-#### Subtype Definition - ParticipantFunctionalEntityType
+### ParticipantFunctionalEntityType
 
 A subtype of FunctionalEntityType that represents the top functional element of a choreography participant.
 
-#### Subtype Definition - UnionInputFunctionalEntityType
+### UnionInputFunctionalEntityType
 
 A subtype of FunctionalEntityType that represents the functional element of an input element. It has a folder object with Organizes relations to variables of the FxInput data type originating from the control program.
 
-#### Subtype Definition - UnionOutputFunctionalEntityType
+### UnionOutputFunctionalEntityType
 
 A subtype of FunctionalEntityType that represents the functional element of an output element. It has a folder object with Organizes relations to variables of the FxOutput data type originating from the control program.
 
@@ -85,18 +78,9 @@ The linking of OPC UA information models and controller application programs is 
 
 ## Artifact Implementation Details
 
-
 The central aspect of the design pattern is the division of components in the control program and the definitions of the OPC UA FX information model. In the control program, the data types FxInputEntityType and FxOutputEntityType represent mirror definitions to the OPC UA FX definitions FxInputEntityData and FxOutputEntityData.
 
 Communication execution occurs via the system functions of the OPC UA FX firmware. Each FxInputEntityType and FxOutputEntityType has index information that addresses the corresponding element of the input or output list.
-
-### Communication Monitoring
-
-Regarding communication monitoring, the OPC Foundation specifies its own mechanisms for OPC UA FX, which are to be used according to the standard.
-
-### Communication and Configuration Diagnostics
-
-For communication diagnostics and configuration, OPC UA FX also defines its own mechanisms, which are to be used according to the standard.
 
 ## Artifact Application
 
@@ -107,18 +91,16 @@ The design pattern serves to connect incoming and outgoing information between a
 
 ## Artifact Pros/Cons
 
-### Advantages
+**Advantages:**
 
 - Enables extensive integration of C2C communication in industrial control systems
 - Significantly reduces effort in the application program
 - Standardized mechanism for direct controller-to-controller communication
 
-### Disadvantages
+**Disadvantages:**
 
 - **Novelty risks**: No commercial applications currently exist, and the specification is relatively new
 - Specification changes and limitations in productive use are likely
 - Connection preparation is necessary for OPC UA FX connections
 - Not suitable for integrating existing systems due to preparation requirements
 - Actual benefits can only be definitively evaluated with available commercial implementations
-
-

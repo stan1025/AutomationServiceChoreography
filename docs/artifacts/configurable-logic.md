@@ -1,6 +1,6 @@
 # Artifact - Configurable Logic
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -13,22 +13,15 @@
 
 ## Relevant Publications
 
-
-
-
-
-
+The contents of this section have been published in [SFB+21*], [SBM+22*], [SFB+23*], [StMa21*], [StMa22*], and [Stu23*].
 
 ## Artifact Description
 
 The *Configurable Logic* design pattern follows an execution principle similar to a programmable logic controller (PLC). It has an input side that bundles information from the native program or provided by configurable communication. This information, along with known data within the configurable logic, is processed in a logic list with configurable function elements. The output side provides necessary information for influencing the native control program or transmission to external participants, utilizing all known information within the configurable logic (input list) and processing results (logic list).
 
-
-## Artifact Technological Conditions
-
-
 ## Artifact Building Blocks
 
+The *Configuralbe Logic* represents an implementation related design pattern which specifies the core of information processing and enables influence on native control programs and configurable behavior based on internal and external information.
 
 ![Components of Configurable Logic](./Abbildung_Logik_Bestandteile.drawio.png)
 
@@ -36,13 +29,7 @@ The *Configurable Logic* design pattern consists of one component, four data typ
 
 ### Component - Configurable Logic
 
-The *Configurable Logic* component implements configurable input-processing-output functionality. It includes:
-
-- **Inputs**: Information from native program or other participants
-- **Logics**: Configurable functions with four arguments
-- **Outputs**: Results for transfer to native program or other participants
-- **Execute**: Variable to execute the configuration
-- **ErrorAct** and **ErrorNum**: Report configuration and execution errors
+The *Configurable Logic* component implements configurable input-processing-output functionality. It uses a list of *Inputs*, *Logics* and *Outputs* to implement the input-processing-output pattern in a configurable manner.  
 
 ### Data Type - UnionType
 
@@ -70,13 +57,7 @@ The *SourceTypes* enumeration defines the source location of information used as
 
 ### Data Type - OutputType
 
-The *OutputType* describes output information with multiple functions:
-
-- *SrcSel* and *Index*: Determine output source from input, processing, or output lists
-- *Const*: Set constant values
-- *Value*: Store values after updates
-- *Substitute*: Define replacement values to prevent unwanted activations during errors
-- *Ret*: Report errors
+The *OutputType* data type describes output information and incorporates multiple functions. The `SrcSel` and `Index` fields function as pointer information to determine the source of the output from the input, processing, or output lists, while the `Const` field allows for setting constant values. The `Value` field stores the value after an update. To prevent unwanted activations during errors, the `Substitute` field defines a replacement value, and the `Ret` field is used to report any processing errors.
 
 ### Enumeration - ErrorCodes
 
@@ -98,7 +79,6 @@ To avoid issues with generic data types not uniformly supported by all control m
 Five data types are defined (REAL, DINT, DWORD, BOOL, STRING) based on use case analysis. Additional types can be added but increase memory requirements.
 
 ## Artifact Implementation Details
-
 
 ### Integration into Control Program
 
@@ -157,8 +137,6 @@ Before execution, all relevant information from the native program must be trans
 ---
 
 *Note: Detailed descriptions and tables for each component are available in the referenced appendices of the original document.*
-
-## Artifact Pros/Cons
 
 
 

@@ -1,6 +1,6 @@
 # Artifact - Configurable Communication
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -13,21 +13,13 @@
 
 ## Relevant Publications
 
-
-
-
-
-
+Content of the abstract design pattern is partially already published within [SKB+22*].
 
 ## Artifact Description
 
 The abstract design pattern *Configurable Communication* establishes the foundations for information transfer between choreography participants. It is abstract because it defines general principles and building blocks that must be implemented in technology-specific patterns. The scope also includes an analysis of various communication patterns from which framework conditions for protocol-specific implementations are derived. For automation service choreographies, the technology used is secondary; what matters is adherence to the fundamental principles and building blocks described below. 
 
-## Artifact Technological Conditions
-
-
 ## Artifact Building Blocks
-
 
 Depending on the communication principle (Push/Pull), one of the abstract base components shown in Figure 1 must be selected for the active communication partner side.
 
@@ -124,10 +116,7 @@ Based on the analysis and considering ideal properties, the following prioritiza
 
 ## Artifact Application
 
-
 The abstract design pattern serves primarily as a development guideline for developing technology-specific implementations of configurable communication. Following the investigation of communication patterns, possible communication technologies were researched and initially evaluated.
-
-
 
 ### Overview of Possible Communication Technologies
 
@@ -158,9 +147,4 @@ Since no commercial products exist for OPC UA FX in control systems, the analysi
 ### Selection of Communication Technologies to Consider
 
 Based on the described investigation and evaluation of communication patterns as well as available applicable technologies, the decision was made to develop technology-specific design patterns for OPC UA Client/Server, OPC UA Publish/Subscribe, and OPC UA FX for the continuation of this work.
-
-## Artifact Pros/Cons
-
-
-
 

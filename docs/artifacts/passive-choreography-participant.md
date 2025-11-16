@@ -1,6 +1,6 @@
 # Artifact - Passive Choreography Participant
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -13,18 +13,11 @@
 
 ## Relevant Publications
 
-
-
-
-
+Content from this section has been published in [SFB+23*] and [Stu23*].
 
 ## Artifact Description
 
-
 The *Passive Choreography Participant* design pattern describes the conceptual building blocks for integrating non-choreography-capable legacy equipment into a choreography. This capability is of great importance for manufacturing companies in terms of investment protection. The integration of the passive participant is performed by the active participant. The active choreography participant serves as a decentralized orchestrator for the non-choreography-capable equipment and can be integrated into a choreography on behalf of the non-choreography-capable equipment.
-
-## Artifact Technological Conditions
-
 
 ## Artifact Building Blocks
 
@@ -51,7 +44,6 @@ The configurable logic (green area) represents the component for configurable in
 
 ## Artifact Decisions
 
-
 ### Assumptions Regarding Legacy Equipment Interfaces
 
 Evaluation at Merck revealed a conceptual gap regarding the integration of legacy equipment. A temperature control FEA could not be integrated because it had an unchangeable embedded controller and could not be made choreography-capable.
@@ -72,7 +64,6 @@ Dynamic integration is preferred for legacy equipment integration. The combinati
 
 ## Artifact Implementation Details
 
-
 For integrating a passive choreography participant into a choreography, an active choreography participant becomes its decentralized orchestrator, incorporating its functions into the circle of other active choreography participants.
 
 The configurable logic and communication of an active choreography participant enable the integration of a passive participant. Data is transferred via pull communication to the active participant's input list, where behavioral rules for the passive participant are configured via the logic list. Results are then sent back via push communication through the output list.
@@ -84,7 +75,6 @@ Communication failure between the orchestrating active choreography participant 
 
 ## Artifact Application
 
-
 Three execution variants are available for applying this design pattern:
 
 ### Variant 1 - Integrated Variant
@@ -93,7 +83,7 @@ Three execution variants are available for applying this design pattern:
 
 The *Integrated Variant* extends existing PEAs, FEAs, or COMPs with decentralized orchestrator functions for passive choreography participants. An active choreography participant can become a decentralized orchestrator for legacy equipment.
 
-**Advantages:** Utilizes existing control systems
+**Advantages:** Utilizes existing control systems  
 **Disadvantages:** Additional load on limited resources for communication and logic; communication technology must be considered during engineering
 
 ### Variant 2 - Standalone Variant
@@ -102,7 +92,7 @@ The *Integrated Variant* extends existing PEAs, FEAs, or COMPs with decentralize
 
 The *Standalone Variant* uses a separately developed active choreography participant (proxy PEA) that contains the communication technology required for integrating legacy equipment alongside basic functions. This must be configurable for reuse with specific technologies.
 
-**Advantages:** Relieves other choreography participants; easy retrofitting without interventions in existing equipment
+**Advantages:** Relieves other choreography participants; easy retrofitting without interventions in existing equipment  
 **Disadvantages:** Additional system resource requirements and associated operating costs
 
 ### Variant 3 - Type-Specific Variant
@@ -111,10 +101,8 @@ The *Standalone Variant* uses a separately developed active choreography partici
 
 The *Type-Specific Variant* corresponds to the *Standalone Variant* but forgoes a configurable communication interface for the legacy equipment to be integrated. It is used when certain communication technologies or their implementation in control systems do not allow configurability. The communication technology is statically implemented for a specific type of legacy equipment.
 
-**Advantages:** Extended selection of communication technologies that become usable despite static implementation
+**Advantages:** Extended selection of communication technologies that become usable despite static implementation  
 **Disadvantages:** Fixed to concrete legacy equipment, though flexibility toward choreography is retained
-
-## Artifact Pros/Cons
 
 
 

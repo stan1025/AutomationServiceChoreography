@@ -1,6 +1,6 @@
 # Artifact - External Lead
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -13,12 +13,7 @@
 
 ## Relevant Publications
 
-
-- Content partially published in [SBM+22] and [BSF+22]
-- Based on MTP specification for automation services [VDI2658-4]
-- Virtual services concept from [GHI+19]
-
-
+The content of this artifact has been partially published in [SBM+22] and [BSF+22]. It is based on the MTP specification for automation services [VDI2658-4] and utilizes the virtual services concept from [GHI+19].
 
 ## Artifact Description
 
@@ -28,26 +23,14 @@ The External Lead can trigger behavioral changes in follower services via Do-Req
 
 This design pattern is described based on MTP interface components but is not limited to their use. The External Lead principle can also be applied to other standardized or proprietary interface concepts.
 
-## Artifact Technological Conditions
-
-
-
 ## Artifact Building Blocks
-
 
 ![External Lead Components](./Abbildung_ExternalLead_Bestandteile.drawio.png)
 *Figure: Design pattern for External Lead with ServiceControl interface and four variables for the Do-Done interaction pattern*
 
 ### Component - External Lead
 
-The External Lead component consists of five structured variables:
-
-- **ServiceControl**: Variable for external service control
-- **DoRequest** & **DoneReply**: Structured variables for interaction with other choreography participants, each containing a binary variable per state machine state
-- **CommandEn**: Structured variable for enabling state transitions through control engineering connections
-- **Command**: Structured variable for state transitions triggered from within the choreography
-
-The DoRequest and DoneReply variables are based on the `ServiceStateStruct` data type, while Command and CommandEn are based on the `ServiceCommandStruct` data type.
+The External Lead component consists of five structured variables. The `ServiceControl` variable is used for external service control. For interaction with other choreography participants, the `DoRequest` and `DoneReply` variables are used, each containing a binary variable per state machine state and based on the `ServiceStateStruct` data type. The `CommandEn` variable enables state transitions through control engineering connections, while the `Command` variable is for state transitions triggered from within the choreography. Both `CommandEn` and `Command` are based on the `ServiceCommandStruct` data type.
 
 ### Data Type - ServiceControl
 
@@ -55,18 +38,11 @@ The ServiceControl data type corresponds to the MTP standard interface for an Au
 
 ### Data Type - ServiceStateStruct
 
-The ServiceStateStruct data type contains binary information for each state of the MTP state machine of an automation service. The state machine consists of 16 states total:
-
-- 8 transient states
-- 7 static states  
-- 1 configurable state (transient for self-terminating procedures, static for continuous procedures)
+The `ServiceStateStruct` data type contains binary information for each of the 16 states of the MTP state machine of an automation service. This state machine is composed of 8 transient states, 7 static states, and 1 configurable state, which can be transient for self-terminating procedures or static for continuous procedures.
 
 ### Data Type - ServiceCommandStruct
 
-The ServiceCommandStruct data type contains binary information for each state transition of the MTP state machine. The state machine consists of 22 state transitions:
-
-- 10 self-activating transitions
-- 12 trigger-activated transitions with 10 triggers
+The `ServiceCommandStruct` data type contains binary information for each of the 22 state transitions of the MTP state machine. These transitions consist of 10 self-activating transitions and 12 trigger-activated transitions that are initiated by 10 different triggers.
 
 ## Artifact Decisions
 
@@ -75,7 +51,6 @@ The ServiceCommandStruct data type contains binary information for each state tr
 The Do-Done interaction pattern enables the consolidation of two automation services that represent the beginning and end in a sequence. While the initial service is activated by the Do-Request, the end service is returned via the Done-Reply. Additional automation services can be chained in between. A Do and Done pair for each state enables configuration of procedural relationships and exception handling sequences.
 
 ## Artifact Implementation Details
-
 
 ### State Machine
 
@@ -107,7 +82,6 @@ Internal state transitions can be triggered from available information. Aborting
 
 ## Artifact Application
 
-
 ### PEA-Integrated Variant
 
 ![PEA Integration](./Abbildung_ExternalLead_Einbindung_Integrated.drawio.png)
@@ -128,9 +102,4 @@ Similar to the PEA-integrated variant, but the External Lead serves as the only 
 *Figure: Application as virtual services within the POL*
 
 Based on virtual services concepts, virtual leads can be introduced in the POL. The External Lead is not a functional component of the choreography but merely packages it in procedural encapsulation. The signals are not subject to critical latency requirements and can be executed in the POL as a virtual lead.
-
-## Artifact Pros/Cons
-
-
-
 

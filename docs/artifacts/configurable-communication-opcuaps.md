@@ -1,6 +1,6 @@
 # Artifact - Configurable Communication with OPC UA PS
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -15,19 +15,11 @@
 
 This section introduces the design pattern for configurable communication based on OPC UA Publish/Subscribe. Parts of this section are published in [SKB+22].
 
-
-
-
-
-
-
 ## Artifact Description
 
 The design pattern *Configurable Communication with OPC UA PS* enables dynamic configuration of OPC UA PS transmissions. It defines publishers and subscribers that serialize information according to the OPC UA specification and transmit it via UDP. Both unicast and multicast addresses are supported. Processing occurs entirely within the user program, with serialized data packets transmitted/received via operating system-integrated UDP communication mechanisms.
 
 Publishers send data from the output list. Subscribers receive data and transfer it to the input list. Connectionless communication requires additional mechanisms to check and mark outdated information as unsafe, making communication problems detectable.
-
-This design pattern enables Communication Pattern Variant 2 from the analysis in Section [artefakt_kommunikation_analyse].
 
 ## Artifact Technological Conditions
 
@@ -38,59 +30,38 @@ The number of transferable union values must be defined during engineering, cons
 
 ## Artifact Building Blocks
 
+The design pattern consists of 5 components and several data types shown in the following sub-sections and three figures:
 
-The design pattern consists of 12 definitions distributed across three figures:
+### OpcUaPubSubManager
 
-### Core Structure
+Central component representing the core of the design pattern. Provides access to publisher and subscriber lists for configuration and monitoring of information transmission.
 
 ![Core Components and Data Types](./Abbildung_Kommunikation_PubSub_Model_0.drawio.png)
 *Figure: Components and data types of the OPC UA Publish/Subscribe specific design pattern for configurable communication*
 
-### Publisher Configuration
+### UaPublisher
+
+Sending component that transmits output information to other choreography participants and their subscribers.
 
 ![Publisher Components](./Abbildung_Kommunikation_PubSub_Model_1.drawio.png)
 *Figure: Component and data types of the OPC UA Publisher*
 
-### Subscriber Configuration
+### OpcUaPubProcessor
+
+Execution control software component for OPC UA Publishers. Executes configured publishers and establishes connection to the output list.
+
+### UaSubscriber
+
+Receiving component that receives information from other choreography participants and transfers it to the corresponding input list element.
 
 ![Subscriber Components](./Abbildung_Kommunikation_PubSub_Model_2.drawio.png)
 *Figure: Component and data types of the OPC UA Subscriber*
 
-### Components
-
-#### OpcUaPubSubManager
-
-Central component representing the core of the design pattern. Provides access to publisher and subscriber lists for configuration and monitoring of information transmission.
-
-#### OpcUaPubProcessor
-
-Execution control software component for OPC UA Publishers. Executes configured publishers and establishes connection to the output list.
-
-#### OpcUaSubProcessor
+### OpcUaSubProcessor
 
 Execution control software component for OPC UA Subscribers. Executes configured subscribers and establishes connection to the input list.
 
-#### UaPublisher
 
-Sending component that transmits output information to other choreography participants and their subscribers.
-
-#### UaSubscriber
-
-Receiving component that receives information from other choreography participants and transfers it to the corresponding input list element.
-
-### Data Types
-
-#### UaPublisherConfig
-
-Bundles configuration information for the OPC UA Publisher.
-
-#### UaSubscriberConfig
-
-Bundles configuration information for the OPC UA Subscriber.
-
-#### UdpConnectionConfig
-
-Bundles configuration information for a UDP endpoint.
 
 
 ## Artifact Decisions
@@ -110,14 +81,12 @@ OPC UA PS supports transmission via both UDP and MQTT. UDP is chosen as a connec
 
 ## Artifact Implementation Details
 
-
 ### Processing Integration
 
 ![Processing Flow](./Abbildung_Kommunikation_PubSub_Ablauf.drawio.png)
 *Figure: Integration into different execution contexts for this design pattern*
 
-- **Subscribers**: Integrated at the beginning of the application program in fast execution context (e.g., OB1 in SIMATIC S7) to minimize latency
-- **Publishers**: Executed at the end of the application program in cyclical context (e.g., every 100ms)
+To minimize latency, subscribers are integrated at the beginning of the application program in a fast execution context (e.g., OB1 in SIMATIC S7). Publishers, on the other hand, are executed at the end of the application program in a cyclical context, for instance, every 100ms.
 
 ### Component Interaction
 
@@ -126,7 +95,6 @@ The OpcUaPubSubManager serves as single point of access for configuration and mo
 ### Communication Monitoring
 
 Uses push-case monitoring where timestamps are checked for each piece of information. If timestamps exceed defined timeframes, communication is considered disrupted. Monitoring results are entered in the input list with corresponding behavioral rules.
-
 
 ## Artifact Application
 
@@ -139,13 +107,13 @@ This design pattern is suitable for choreography implementation when the describ
 
 ## Artifact Pros/Cons
 
-### Advantages
+**Advantages:**
 
 - Extremely low latency times for information transmission
 - Integrated application approach simplifies usage
 - Efficient solution for specific use cases
 
-### Disadvantages
+**Disadvantages:**
 
 - Limited to one UnionType information per publisher/subscriber
 - Security risks due to inability to implement OPC UA Security mechanisms in real-time control programs

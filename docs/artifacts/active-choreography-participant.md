@@ -1,6 +1,6 @@
 # Artifact - Active Choreography Participant
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -15,40 +15,28 @@
 
 This section introduces the design pattern of the active choreography participant. Contents of this section are published in [SFB+21], [SBM+22], [StMa21], [StMa22], and [Stu23].
 
-
-
-
-
-
-
 ## Artifact Description
-
-<!-- TODO: Add Artifact Description for Active Choreography Participant -->
-
-
-
-## Artifact Building Blocks
 
 The *Active Choreography Participant* design pattern consists of a sub-pattern for *configurable communication* and a sub-pattern for *configurable logic*, as well as the *native program*. The pattern is designed as a facade around the *native program* and can therefore be retrofitted into any existing program.
 
 ![Software Architecture for Controller Program Extension for Active Choreography Participants](./Abbildung_AktiverTeilnehmer_Schema.drawio.png)
 
+## Artifact Building Blocks
+
 ### Native Program
 
-The native program (orange area in the figure) forms the component of a control system that implements the automated functions of the modular unit. Both proprietary and standardized approaches can be used for implementation. The use of standardized approaches is preferred as it reduces error susceptibility and increases the reusability of control solutions.
+The *native program* (orange area in the figure) forms the component of a control system that implements the automated functions of the modular unit. Both proprietary and standardized approaches can be used for implementation. The use of standardized approaches is preferred as it reduces error susceptibility and increases the reusability of control solutions.
 
 ### Configurable Logic
 
-The *Configurable Logic* sub-pattern (green area in the figure) forms the program part responsible for configurable processing of available information.
+The *Configurable Logic* design pattern (green area in the figure) forms the program part responsible for configurable processing of available information. It represents the behavior-manipulating building block which is used to implement an active choreography participant.
 
 ### Configurable Communication
 
-The *Configurable Communication* sub-pattern (blue area in the figure) represents the program part used for configurable information exchange between choreography participants. It is allowed and advantageous to equip a control program with multiple different communication technologies. It is important that two participants each use the same technology to be interoperable.
+The *Configurable Communication* design pattern (blue area in the figure) represents the program part used for configurable information exchange between choreography participants. It is allowed and advantageous to equip a control program with multiple different communication technologies. It is important that two participants each use the same technology to be interoperable.
 
 
 ## Artifact Decisions
-
-Two specific design decisions were made in the course of this design pattern:
 
 ### Separation of Responsibilities
 

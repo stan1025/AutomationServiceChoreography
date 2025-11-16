@@ -1,6 +1,6 @@
 # Artifact - Choreography-enabled System Architecture
 
-## Artifact Description
+## Artifact Factsheet
 
 !!! highlight ""
 
@@ -13,48 +13,45 @@
 
 ## Relevant Publications
 
-
-
-
-
-
+This architectural pattern will be initially published in the PhD thesis, which is not yet publicly available.
 
 ## Artifact Description
 
-
-## Artifact Building Blocks
+The architectural pattern of *Choreography-enabled System Architecture* introduces the resulting system architecture and shows the impact of choreographed automation services on service-based automation systems and their central orchestration in the Process Orchestration Layer.
 
 ![System Architecture Overview](./Systemarchitektur_Uebersicht.drawio.png)
 *Figure 1: System architecture of a modular plant with a modular unit composed by choreography*
 
 
+## Artifact Building Blocks
+
 ### Modular Plant
 
-The *Modular Plant* represents the physical and software-based system that should be capable of manufacturing a product. It consists of the POL as well as several atomic and composite PEAs.
+The *Modular Plant* represents the physical and software-based system that should be capable of manufacturing a product. It consists of the Process Orchestration Layer as well as several atomic and modular PEAs.
 
-### Modular Units - PEA A, PEA G and Composite PEA X
+### Modular Units - PEA A, PEA G and Modular PEA X
 
-The modular units *PEA A* and *PEA G* each describe a self-contained system that can provide services with automation functions of different granularity. Each PEA has at least one control system connected to the POL. Current PEAs are passive communication participants regarding their role in communication with the POL, hence existing systems are also called passive choreography participants. The active role of communication lies solely with the POL. This will need to change in the future for modular units in the context of choreographies.
+The modular units *PEA A* and *PEA G* each describe a self-contained system that can provide services with automation functions of different granularity. Each PEA has at least one control system connected to the Process Orchestration Layer. Current PEAs are passive communication participants regarding their role in communication with the Process Orchestration Layer, hence existing systems are also called passive choreography participants. The active role of communication lies solely with the Process Orchestration Layer. This will need to change in the future for modular units in the context of choreographies.
 
-For the *composite PEA X*, this will partially change in the future. Towards the POL, the *composite PEA X* remains a passive communication participant. As active choreography participants, the FEAs and COMPs within the composite PEA X gain the ability to act as active communication participants. This requires FEAs and COMPs to have their own control systems that meet these requirements while being adapted in performance to their specific needs.
+For the *modular PEA X*, this will partially change in the future. Towards the Process Orchestration Layer, the *modular PEA X* remains a passive communication participant. As active choreography participants, the FEAs and COMPs within the modular PEA X gain the ability to act as active communication participants. This requires FEAs and COMPs to have their own control systems that meet these requirements while being adapted in performance to their specific needs.
 
-### Control and the Concept of Choreography Participant
+### Controllers and the Concept of Choreography Participants
 
-The *Control* describes the program-executing component within a *PEA*. Typically, *PEAs* have exactly one control system on which services are implemented and provided. However, it cannot be excluded that modular units also have two or more control systems.
+The *Controller* represents the program-executing component within a *PEA*. Typically, *PEAs* have exactly one control system on which services are implemented and provided. However, it cannot be excluded that modular units also have two or more control systems.
 
 An *active choreography participant* refers to a control system that has implemented the design patterns developed in this work. A *passive choreography participant* refers to a control system that has not implemented these design patterns.
 
 ### Services
 
-A *Service* describes the encapsulation of an automation function through state-based abstraction and parameterization. Services also have input and output process values that can be linked together for control functions or interlocks.
+A *Service* describes the encapsulation of an automation function through state-based abstraction and parameterization. Services also have input and output process values that can be linked together for closed-loop control functions or interlocks.
 
 ### Process Orchestration Layer (POL)
 
-The POL bundles the system functions necessary for operating the *Modular Plant*. Essential components include central *Orchestration*, *Operation & Monitoring*, and *Choreography Configuration*. The latter is added through the introduction of choreography mechanisms for composite PEAs.
+The Process Orchestration Layer bundles the system functions necessary for operating the *Modular Plant*. Essential components include central *Orchestration*, *Operation & Monitoring*, and *Choreography Configuration*. The latter is added through the introduction of choreography mechanisms for modular PEAs.
 
 #### Orchestration
 
-The *Orchestration* enables coordination of services provided by the PEAs. Orchestration does not distinguish whether they are services of atomic or composite PEAs.
+The *Orchestration* enables coordination of services provided by the PEAs. Orchestration does not distinguish whether they are services of atomic or modular PEAs.
 
 #### Operation & Monitoring
 
@@ -62,17 +59,16 @@ The *Orchestration* enables coordination of services provided by the PEAs. Orche
 
 #### Choreography Configuration
 
-The newly introduced *Choreography Configuration* describes a POL system function with which choreographies can be designed and activated. Activation includes transferring the configuration and initiating execution of configurable logic and configurable communication.
+The newly introduced *Choreography Configuration* describes a Process Orchestration Layer system function with which choreographies can be designed and activated. Activation includes transferring the configuration and initiating execution of configurable logic and configurable communication.
 
 ### Leader
 
-When designing an automation service choreography, one service must act as *Leader*, representing the choreographed function to the POL and communicating with higher-level systems through its interface.
+When designing an automation service choreography, one service must act as *Leader*, representing the single point of access of the choreographed function to the Process Orchestration Layer and communicating with higher-level systems through its interface.
 
 A service can assume the role of *Internal Lead* if its state matches that of the choreographed function. The other services act as followers. In cases where no single service can represent the entire function – such as in sequential processes – an *External Lead* is required.
 
 
 ## Artifact Decisions
-
 
 ### Focus on Runtime Technical Aspects
 
@@ -113,7 +109,6 @@ The resulting system architecture from the POL perspective is shown in Figure 3:
 
 
 ## Artifact Application
-
 
 Using automation service choreographies within a modular plant leads to blurring system boundaries of modular units (PEAs, FEAs, and COMPs). The design pattern introduces an implicitly existing system level below the POL, serving to form composite functions through distributed behavioral rules and configurable communication.
 
