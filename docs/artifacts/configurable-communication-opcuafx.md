@@ -84,7 +84,7 @@ Communication execution occurs via the system functions of the OPC UA FX firmwar
 
 ## Artifact Application
 
-![Application Example](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_Kommunikation_FieldExchange/Abbildung_Kommunikation_FX_Anwendung.drawio.png)
+![Application Example](./Abbildung_Kommunikation_FX_Anwendung.drawio.png)
 *Figure: Application of the OPC UA FX-specific design pattern for implementing incoming and outgoing information following the active choreography participant design pattern*
 
 The design pattern serves to connect incoming and outgoing information between active choreography participants based on OPC UA FX. When OPC UA FX functionality is integrated into the control system firmware, an active choreography participant can be equipped with OPC UA FX mechanisms using the extensions of basic models and mirror definitions described here.

@@ -23,7 +23,7 @@ The *Passive Choreography Participant* design pattern describes the conceptual b
 
 The *Passive Choreography Participant* design pattern consists of the actual passive participant and its control system, as well as an assigned active choreography participant, as shown in the figure below.
 
-![Software architecture of an active choreography participant for integrating a passive choreography participant](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_PassiverTeilnehmer/Abbildung_PassiverTeilnehmer_Schema.drawio.png)
+![Software architecture of an active choreography participant for integrating a passive choreography participant](./Abbildung_PassiverTeilnehmer_Schema.drawio.png)
 
 ### Passive Choreography Participant - Native Program
 
@@ -79,7 +79,7 @@ Three execution variants are available for applying this design pattern:
 
 ### Variant 1 - Integrated Variant
 
-![Integrated decentralized orchestration in a "normal" PEA](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_PassiverTeilnehmer/Abbildung_PassiverTeilnehmer_Integriert.drawio.png)
+![Integrated decentralized orchestration in a "normal" PEA](./Abbildung_PassiverTeilnehmer_Integriert.drawio.png)
 
 The *Integrated Variant* extends existing PEAs, FEAs, or COMPs with decentralized orchestrator functions for passive choreography participants. An active choreography participant can become a decentralized orchestrator for legacy equipment.
 
@@ -88,7 +88,7 @@ The *Integrated Variant* extends existing PEAs, FEAs, or COMPs with decentralize
 
 ### Variant 2 - Standalone Variant
 
-![Standalone decentralized orchestration in a proxy PEA](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_PassiverTeilnehmer/Abbildung_PassiverTeilnehmer_standalone.drawio.png)
+![Standalone decentralized orchestration in a proxy PEA](./Abbildung_PassiverTeilnehmer_standalone.drawio.png)
 
 The *Standalone Variant* uses a separately developed active choreography participant (proxy PEA) that contains the communication technology required for integrating legacy equipment alongside basic functions. This must be configurable for reuse with specific technologies.
 
@@ -97,7 +97,7 @@ The *Standalone Variant* uses a separately developed active choreography partici
 
 ### Variant 3 - Type-Specific Variant
 
-![Type-specific decentralized orchestration in a proxy PEA](./Inhalt/07_Vorstellung_der_Artefakte/Entwurfsmuster_PassiverTeilnehmer/Abbildung_PassiverTeilnehmer_specific.drawio.png)
+![Type-specific decentralized orchestration in a proxy PEA](./Abbildung_PassiverTeilnehmer_specific.drawio.png)
 
 The *Type-Specific Variant* corresponds to the *Standalone Variant* but forgoes a configurable communication interface for the legacy equipment to be integrated. It is used when certain communication technologies or their implementation in control systems do not allow configurability. The communication technology is statically implemented for a specific type of legacy equipment.
 
