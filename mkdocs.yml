@@ -28,14 +28,14 @@ nav:
     - Artifact Overview: artifacts/overview.md 
     - Automation Service Choreography Framework: artifacts/automation-service-choreography-framework.md
     - Choreographed System Architecture: artifacts/choreography-enabled-system-architecture.md
-    - Active Participant: artifacts/active-choreography-participant.md
-    - Passive Participant: artifacts/passive-choreography-participant.md
+    - Active Choreography Participant: artifacts/active-choreography-participant.md
+    - Passive Choreography Participant: artifacts/passive-choreography-participant.md
     - External Lead: artifacts/external-lead.md
     - Configurable Logic: artifacts/configurable-logic.md
     - Configurable Communication Abstract: artifacts/configurable-communication.md
-    - Configuralbe Communication OPC UA CS: artifacts/configurable-communication-opcuacs.md
-    - Configuralbe Communication OPC UA PS: artifacts/configurable-communication-opcuaps.md
-    - Configuralbe Communication OPC UA FX: artifacts/configurable-communication-opcuafx.md
+    - Configurable Communication OPC UA CS: artifacts/configurable-communication-opcuacs.md
+    - Configurable Communication OPC UA PS: artifacts/configurable-communication-opcuaps.md
+    - Configurable Communication OPC UA FX: artifacts/configurable-communication-opcuafx.md
   - Implementations: 
     - SIMATIC TIA Portal: implementations/tia-portal/tia-portal-overview.md
     - BECKHOFF TwinCat: implementations/twincat/twincat-overview.md 
