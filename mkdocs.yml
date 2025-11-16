@@ -20,9 +20,10 @@ theme:
     - navigation.path
 nav:
   - PhD Thesis: index.md
-  - Research Methodology: methodology/design-science-research.md
+  - Research Methodology: methodology\design-science-research.md
   - Research Hypothesis: methodology\research-hypothesis.md
-  - Publications: publications/publications.md
+  - Application Context: context\context.md
+  - Publications: publications\publications.md
   - Research Artifacts:
     - Artifact Overview: artifacts\overview.md 
     - Automation Service Choreography Framework: artifacts\automation-service-choreography-framework.md
@@ -39,6 +40,7 @@ nav:
     - SIMATIC TIA Portal: implementations\tia-portal\tia-portal-overview.md
     - BECKHOFF TwinCat: implementations\twincat\twincat-overview.md 
   - License: license.md
+  - References: references.md
 
 plugins:
 
